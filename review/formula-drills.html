@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="빅데이터분석기사 필기시험의 전처리, 확률, 통계, 평가와 군집 공식을 계산기 없이 연습하는 15문제">
+  <title>계산기 없이 푸는 공식훈련 15문제</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
+      <p class="eyebrow">집중훈련 · 공식과 계산</p>
+      <h1>계산기 없이 식의 구조부터 읽어요</h1>
+      <p class="lede">숫자를 넣기 전에 분모와 기준값을 말해 보세요. 시험장에서 손으로 정리할 수 있는 계산만 15개로 묶었습니다.</p>
+      <ul class="tags" aria-label="자료 정보"><li>공식 압축표</li><li>15문제</li><li>계산기 없음</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#rules">풀이 규칙</a><a href="#sheet">공식표</a><a href="#quiz">15문제</a><a href="#sources">출처</a></div></nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="rules" class="panel objectives" aria-labelledby="rules-title">
+      <p class="eyebrow">시험장 루틴</p><h2 id="rules-title">공식 이름 → 분모 → 단위 순으로 확인해요</h2>
+      <ol class="steps">
+        <li><strong>기호</strong><span>문제가 준 값이 TP인지 FP인지, 평균인지 표준편차인지 표시해요.</span></li>
+        <li><strong>분모</strong><span>“예측 양성 중”, “실제 양성 중”처럼 기준 집단을 말로 써요.</span></li>
+        <li><strong>약분</strong><span>소수로 바꾸기 전에 분수를 줄여 계산을 짧게 해요.</span></li>
+        <li><strong>검산</strong><span>확률·비율이 0~1 범위를 벗어나지 않는지, 단위가 맞는지 봐요.</span></li>
+      </ol>
+      <aside class="warning"><h3>계산기 반입은 허용되지 않아요</h3><p>DATAQ 수험자 유의사항 기준으로 계산기를 사용할 수 없습니다. 복잡한 소수 계산보다 공식 선택, 약분과 크기 비교를 먼저 익혀 두세요.</p></aside>
+    </section>
+
+    <section id="sheet" aria-labelledby="sheet-title">
+      <p class="eyebrow">공식 압축표</p><h2 id="sheet-title">분모가 뜻하는 집단을 함께 외워요</h2>
+      <article class="concept">
+        <h3>전처리·확률·표본</h3>
+        <div class="equation-grid">
+          <div><span>표준점수</span><strong>z=(x−x̄)/s</strong></div>
+          <div><span>최소-최대</span><strong>(x−min)/(max−min)</strong></div>
+          <div><span>사분위범위</span><strong>IQR=Q3−Q1</strong></div>
+          <div><span>조건부확률</span><strong>P(A|B)=P(A∩B)/P(B)</strong></div>
+          <div><span>이항확률</span><strong>C(n,k)p<sup>k</sup>(1−p)<sup>n−k</sup></strong></div>
+          <div><span>평균의 표준오차</span><strong>SE=s/√n</strong></div>
+        </div>
+        <p>IQR 이상값 경계의 대표 규칙은 Q1−1.5IQR, Q3+1.5IQR이다. 경계 밖이라는 이유만으로 자동 삭제하지 않는다. 표준오차는 표본 수가 네 배가 되면 절반이 된다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>분류·회귀·연관·군집</h3>
+        <div class="table-wrap" tabindex="0" aria-label="평가 공식표">
+          <table>
+            <thead><tr><th scope="col">지표</th><th scope="col">공식</th><th scope="col">말로 읽기</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">정밀도</th><td>TP/(TP+FP)</td><td>양성 예측 중 실제 양성</td></tr>
+              <tr><th scope="row">재현율</th><td>TP/(TP+FN)</td><td>실제 양성 중 찾아낸 양성</td></tr>
+              <tr><th scope="row">특이도</th><td>TN/(TN+FP)</td><td>실제 음성 중 찾아낸 음성</td></tr>
+              <tr><th scope="row">F1</th><td>2PR/(P+R)</td><td>정밀도와 재현율의 조화평균</td></tr>
+              <tr><th scope="row">MAE</th><td>Σ|y−ŷ|/n</td><td>절대오차 평균</td></tr>
+              <tr><th scope="row">RMSE</th><td>√(Σ(y−ŷ)²/n)</td><td>큰 오차에 더 민감, 목표와 같은 단위</td></tr>
+              <tr><th scope="row">향상도</th><td>P(B|A)/P(B)</td><td>A가 있을 때 B 확률이 기준보다 몇 배인가</td></tr>
+              <tr><th scope="row">지니</th><td>1−Σp<sub>k</sub>²</td><td>클래스가 섞인 정도</td></tr>
+              <tr><th scope="row">실루엣</th><td>(b−a)/max(a,b)</td><td>내 군집 거리 a와 이웃 군집 거리 b 비교</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">손계산 15문제</p><h2 id="quiz-title">답을 고른 뒤 한 줄 계산을 확인하세요</h2>
+      <ol class="quiz-list">
+        <li><p>평균 70, 표준편차 5인 점수에서 80의 z 점수는?</p><ol class="choices" type="A"><li>1</li><li>2</li><li>5</li><li>10</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (80−70)/5=10/5=2다. 평균보다 표준편차 두 배만큼 높다.</p></details></li>
+        <li><p>최솟값 20, 최댓값 60일 때 40의 최소-최대 변환값은?</p><ol class="choices" type="A"><li>0.25</li><li>0.5</li><li>0.67</li><li>2</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (40−20)/(60−20)=20/40=0.5다.</p></details></li>
+        <li><p>Q1=12, Q3=20일 때 1.5IQR 규칙의 아래·위 경계는?</p><ol class="choices" type="A"><li>0과 32</li><li>4와 28</li><li>8과 24</li><li>12와 20</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> IQR=8, 1.5IQR=12이므로 12−12=0, 20+12=32다.</p></details></li>
+        <li><p>A가 40건이고 A와 B가 함께인 경우가 30건이다. P(B|A)는?</p><ol class="choices" type="A"><li>0.3</li><li>0.4</li><li>0.75</li><li>1.33</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> P(A∩B)/P(A)=30/40=3/4=0.75다.</p></details></li>
+        <li><p>성공확률 1/2인 독립 시행을 3번 했을 때 정확히 2번 성공할 확률은?</p><ol class="choices" type="A"><li>1/8</li><li>1/4</li><li>3/8</li><li>1/2</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> C(3,2)(1/2)²(1/2)=3/8이다.</p></details></li>
+        <li><p>표준편차가 같을 때 표본 수를 100에서 400으로 늘리면 평균의 표준오차는?</p><ol class="choices" type="A"><li>4배</li><li>2배</li><li>그대로</li><li>절반</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>D.</strong> SE=s/√n이므로 n이 네 배면 분모가 두 배, SE는 절반이다.</p></details></li>
+        <li><p>95% 신뢰구간의 올바른 해석은?</p><ol class="choices" type="A"><li>계산된 한 구간에 모수가 있을 확률이 언제나 95%다.</li><li>같은 절차를 반복하면 약 95%의 구간이 참 모수를 포함한다.</li><li>표본의 95%가 구간 안에 있다.</li><li>귀무가설이 참일 확률이 95%다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 고정된 모수에 대한 구간 구성 절차의 장기적 포함률이다. A·D는 빈도주의 해석과 다르다.</p></details></li>
+        <li><p>TP=30, FP=10일 때 정밀도는?</p><ol class="choices" type="A"><li>0.5</li><li>0.6</li><li>0.75</li><li>0.9</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 양성 예측 40건 중 실제 양성 30건이므로 30/40=0.75다.</p></details></li>
+        <li><p>TP=30, FN=20일 때 재현율은?</p><ol class="choices" type="A"><li>0.4</li><li>0.6</li><li>0.75</li><li>1.5</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 실제 양성 50건 중 30건을 찾았으므로 30/50=0.6이다.</p></details></li>
+        <li><p>정밀도 0.75, 재현율 0.6일 때 F1은 약 얼마인가?</p><ol class="choices" type="A"><li>0.45</li><li>0.60</li><li>0.67</li><li>0.75</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 2×0.75×0.6/(0.75+0.6)=0.9/1.35=2/3≈0.67이다.</p></details></li>
+        <li><p>TN=80, FP=20일 때 특이도와 거짓 양성률(FPR)은?</p><ol class="choices" type="A"><li>0.8과 0.2</li><li>0.2와 0.8</li><li>0.8과 0.8</li><li>1과 0</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 특이도=80/100=0.8, FPR=1−특이도=0.2다.</p></details></li>
+        <li><p>오차가 2, −2, 4, −4일 때 MAE와 RMSE의 관계로 옳은 것은?</p><ol class="choices" type="A"><li>MAE=3이고 RMSE=√10으로 RMSE가 더 크다.</li><li>MAE=0이고 RMSE=0이다.</li><li>MAE=√10이고 RMSE=3이다.</li><li>둘 다 12다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> MAE=(2+2+4+4)/4=3, RMSE=√((4+4+16+16)/4)=√10≈3.16이다.</p></details></li>
+        <li><p>100건 중 A 40건, B 50건, 동시 30건일 때 A→B의 향상도는?</p><ol class="choices" type="A"><li>0.6</li><li>0.75</li><li>1</li><li>1.5</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>D.</strong> 신뢰도 30/40=0.75를 B의 기준확률 0.5로 나누면 1.5다.</p></details></li>
+        <li><p>한 노드의 클래스 비율이 3/4와 1/4일 때 지니 불순도는?</p><ol class="choices" type="A"><li>0.25</li><li>0.375</li><li>0.5</li><li>0.625</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 1−(3/4)²−(1/4)²=1−9/16−1/16=6/16=0.375다.</p></details></li>
+        <li><p>한 점의 군집 내 평균거리 a=2, 가장 가까운 다른 군집 평균거리 b=6일 때 실루엣은?</p><ol class="choices" type="A"><li>−2/3</li><li>1/3</li><li>2/3</li><li>3</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (6−2)/max(2,6)=4/6=2/3이다. 1에 가까울수록 해당 점이 자기 군집에 더 잘 모였다고 본다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식 자료</h2>
+      <ul class="sources">
+        <li><a href="https://www.dataq.or.kr/www/accept/warning.do">DATAQ · 수험자 유의사항</a> — 계산기 사용 제한.</li>
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">DATAQ · 빅데이터분석기사 출제범위</a> — 공식·평가 관련 범위.</li>
+        <li><a href="https://scikit-learn.org/stable/modules/model_evaluation.html">scikit-learn · Model evaluation</a> — 분류·회귀·군집 지표 정의.</li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav" aria-label="교재 이동"><a href="modeling-challenge.html">← 모델링 집중훈련</a><a href="misconception-lab.html">다음: 오개념 교정실 →</a></nav>
+  </main>
+  <footer><div class="page narrow"><p>빅데이터분석기사 · 계산기 없는 공식훈련</p></div></footer>
+  <script src="../study.js" defer></script>
+</body>
+</html>

@@ -19,7 +19,7 @@
       <h1>결측·이상값에서 변환·축소까지</h1>
       <p class="lede">전처리는 값을 무작정 지우는 일이 아니에요. 데이터의 의미와 올바른 평가 경계를 지키는 판단에 가깝습니다.</p>
       <ul class="tags" aria-label="단원 정보">
-        <li>약 50분</li><li>회상 12개</li><li>문제 12개</li><li>Python 연결</li>
+        <li>약 60분</li><li>회상 14개</li><li>문제 14개</li><li>Python 연결</li>
       </ul>
     </div>
   </header>
@@ -42,6 +42,7 @@
         <li>결측 원인과 분석 목적을 보고 삭제·대체·표시 전략을 고른다.</li>
         <li>통계적 이상값과 업무적으로 불가능한 오류를 구분한다.</li>
         <li>표준화·정규화·범주형 인코딩의 목적과 함정을 비교한다.</li>
+        <li>기준시점을 지키며 날짜·비율·집계·상호작용 파생변수를 만든다.</li>
         <li>전처리 기준을 학습 데이터에서만 추정해야 하는 이유를 말한다.</li>
       </ul>
     </section>
@@ -197,7 +198,24 @@
       </article>
 
       <article class="concept">
-        <h3>3. 축소는 표본·변수·표현의 세 경로가 있다</h3>
+        <h3>3. 파생변수는 원자료를 문제에 맞는 신호로 바꾼다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="파생변수 유형과 주의점">
+          <table>
+            <thead><tr><th scope="col">유형</th><th scope="col">예</th><th scope="col">점검</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">날짜·시간</th><td>요일, 월, 가입 후 경과일</td><td>예측 기준시점과 시간대</td></tr>
+              <tr><th scope="row">비율·차이</th><td>부채/소득, 현재−이전 값</td><td>분모 0, 단위, 극단값</td></tr>
+              <tr><th scope="row">집계</th><td>최근 30일 구매 횟수·평균액</td><td>집계 창과 미래 정보 포함 여부</td></tr>
+              <tr><th scope="row">상호작용</th><td>가격×수량, 연령대×채널</td><td>해석·차원 증가와 과대적합</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>좋은 파생변수는 업무 가설을 계산 가능한 규칙으로 표현한다. 예를 들어 4월 1일 이탈을 예측한다면 “최근 30일 구매 횟수”는 4월 1일 이전 기록만 써야 한다. 이탈 뒤의 환불·해지 처리값을 넣으면 목표를 미리 알려주는 누수가 된다.</p>
+        <p>학습 과정에서 평균·분위수·범주 빈도처럼 데이터 전체에서 추정하는 규칙은 학습 폴드 안에서만 정한다. 반면 날짜에서 요일을 뽑는 고정 행 단위 변환은 미래 관측값을 보지 않는 한 분할 전후 결과가 같다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>4. 축소는 표본·변수·표현의 세 경로가 있다</h3>
         <div class="table-wrap" tabindex="0" aria-label="데이터 축소 방법 비교">
           <table>
             <thead><tr><th scope="col">경로</th><th scope="col">방법 예</th><th scope="col">보존하려는 것</th></tr></thead>
@@ -213,7 +231,7 @@
       </article>
 
       <article class="concept">
-        <h3>4. 클래스 불균형은 정확도보다 평가 설계부터 바꾼다</h3>
+        <h3>5. 클래스 불균형은 정확도보다 평가 설계부터 바꾼다</h3>
         <p>양성 1% 자료에서 모두 음성이라 답하면 정확도는 99%지만 양성을 하나도 찾지 못한다. 층화 분할로 평가 집합의 비율을 관리하고 혼동행렬·정밀도·재현율 같은 지표를 본 뒤, 필요하면 클래스 가중치나 학습 집합의 과소·과대표집을 검토한다.</p>
         <aside class="warning">
           <h3>시험과 실기의 혼동 지점</h3>
@@ -243,12 +261,14 @@
         <details><summary>10. 명목형 범주를 단순 정수화할 때의 위험은?</summary><p>실제로 없는 순서와 거리 관계를 모형에 부여할 수 있다.</p></details>
         <details><summary>11. 필터·래퍼·임베디드 변수 선택의 차이는?</summary><p>각각 모형 밖 통계 기준, 변수 조합의 반복 성능, 모형 학습 과정 안에서 선택한다.</p></details>
         <details><summary>12. 전처리 누수를 막는 기본 규칙은?</summary><p>먼저 데이터를 분할하고 학습 데이터로만 변환 기준을 fit한 뒤 검증·시험 데이터에는 transform만 한다.</p></details>
+        <details><summary>13. 파생변수에서 기준시점을 명시해야 하는 이유는?</summary><p>예측할 당시 알 수 없던 미래 기록이 집계나 상태값에 섞여 목표 누수가 생기는 일을 막기 위해서다.</p></details>
+        <details><summary>14. 비율 파생변수에서 먼저 확인할 두 가지는?</summary><p>분모가 0 또는 매우 작은 경우와 분자·분모의 단위·의미가 맞는지다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">12분 · 자체 제작 문제</p>
-      <h2 id="quiz-title">12문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">14분 · 자체 제작 문제</p>
+      <h2 id="quiz-title">14문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>필수 고객 ID가 비어 있는 문제와 가장 직접적으로 관련된 품질 축은?</p><ol class="choices" type="A"><li>완전성</li><li>적시성</li><li>유일성</li><li>정밀도</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 필요한 값의 존재 여부는 완전성이다. 적시성은 갱신 시점, 유일성은 중복, 정밀도는 측정 세밀도와 관련한다.</p></details></li>
         <li><p>결측값 처리에 대한 설명으로 가장 타당한 것은?</p><ol class="choices" type="A"><li>모든 결측은 행 삭제가 최선이다.</li><li>평균 대체는 원래 분산을 항상 보존한다.</li><li>원인과 비율, 변수 역할을 보고 방법을 정한다.</li><li>MNAR는 관측된 다른 변수만으로 완전히 설명된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 목적과 결측 메커니즘을 함께 본다. A는 편향·표본손실, B는 분산 축소 위험, D는 MAR에 가까운 설명이다.</p></details></li>
@@ -262,6 +282,8 @@
         <li><p>원-핫 인코딩에 가장 잘 맞는 변수는?</p><ol class="choices" type="A"><li>순서 없는 결제수단</li><li>섭씨 온도</li><li>연속형 매출</li><li>시간순 일자</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 결제수단은 명목형 범주다. 나머지는 수치·시간 의미를 보존하는 표현을 먼저 검토한다.</p></details></li>
         <li><p>전체 데이터의 평균으로 결측 대체 후 시험 데이터를 분리한 경우는?</p><ol class="choices" type="A"><li>시험 분포가 대체 기준에 들어간 누수다.</li><li>올바른 독립 평가다.</li><li>클래스 불균형 해결이다.</li><li>차원 축소다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 시험 정보가 학습 과정에 반영됐다. 먼저 분할하고 학습 평균만 써야 한다.</p></details></li>
         <li><p>양성 1% 분류에서 정확도만으로 모형을 고를 때의 핵심 위험은?</p><ol class="choices" type="A"><li>모두 음성으로 예측해도 99%가 될 수 있다.</li><li>정확도는 항상 0이 된다.</li><li>양성이 자동 증식한다.</li><li>변수 표준편차가 1이 된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 다수 클래스만 맞혀 높은 정확도를 얻을 수 있다. 혼동행렬과 정밀도·재현율 등 목적에 맞는 지표가 필요하다.</p></details></li>
+        <li><p>6월 1일 연체를 예측할 때 누수가 있는 파생변수는?</p><ol class="choices" type="A"><li>5월 31일까지의 최근 30일 결제 횟수</li><li>6월 1일 당시 고객 등급</li><li>6월 10일 확정된 추심 결과</li><li>가입일부터 6월 1일까지의 경과일</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 예측 기준시점 뒤에 확정되는 정보는 당시 사용할 수 없어 목표를 미리 알려주는 누수가 된다.</p></details></li>
+        <li><p>부채/소득 비율 파생변수를 만들 때 가장 먼저 확인할 사항은?</p><ol class="choices" type="A"><li>분모가 0 또는 매우 작은지와 단위가 맞는지</li><li>모든 값을 정수로 반올림할지</li><li>목표값으로 결측을 채울지</li><li>시험 자료의 평균을 미리 넣을지</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 불안정한 분모와 단위 불일치는 매우 큰 값이나 의미 없는 비율을 만든다.</p></details></li>
       </ol>
     </section>
 
@@ -290,6 +312,7 @@ z_scores = [(x - mean(filled)) / stdev(filled) for x in filled]</code></pre>
         <li><a href="https://pandas.pydata.org/docs/user_guide/merging.html">pandas 병합 안내</a> — 조인과 키 유일성 검증</li>
         <li><a href="https://scikit-learn.org/stable/modules/impute.html">scikit-learn 결측값 대체</a> — 단순 대체와 결측 표시</li>
         <li><a href="https://scikit-learn.org/stable/modules/preprocessing.html">scikit-learn 전처리 안내</a> — 스케일과 범주형 인코딩</li>
+        <li><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.assign.html">pandas DataFrame.assign</a> — 기존 열에서 새 파생 열 만들기</li>
         <li><a href="https://scikit-learn.org/stable/modules/feature_selection.html">scikit-learn 변수 선택</a> — 필터·재귀·모형 기반 선택</li>
         <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h.htm">NIST 이상값 탐지</a> — 이상값의 원인·z 점수·강건한 대안과 처리 원칙</li>
       </ul>

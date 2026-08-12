@@ -16,14 +16,14 @@
       <p class="eyebrow">01-01 · 빅데이터의 이해</p>
       <h1>빅데이터는 크기만으로 정해지지 않아요</h1>
       <p class="lede">데이터의 크기만 외우기보다 특성, 처리 방식, 얻을 수 있는 가치와 위험을 함께 살펴봐요.</p>
-      <ul class="tags" aria-label="단원 정보"><li>약 55분</li><li>회상 12개</li><li>문제 12개</li></ul>
+      <ul class="tags" aria-label="단원 정보"><li>약 65분</li><li>회상 16개</li><li>문제 16개</li></ul>
     </div>
   </header>
 
   <nav class="chapter-nav" aria-label="단원 차례">
     <div class="page narrow nav-links">
       <a href="#scope">범위·목표</a><a href="#meaning">정의·특성</a><a href="#value">가치·분석</a>
-      <a href="#architecture">아키텍처</a><a href="#risk">위험</a><a href="#recall">회상</a>
+      <a href="#organization-ai">조직·AI</a><a href="#architecture">아키텍처</a><a href="#risk">위험</a><a href="#recall">회상</a>
       <a href="#quiz">문제</a><a href="#sources">출처</a>
     </div>
   </nav>
@@ -38,6 +38,7 @@
         <li>빅데이터를 단순히 “용량이 큰 데이터”라고만 정의하면 부족한 이유를 설명한다.</li>
         <li>3V·4V·5V가 고정된 국제 표준 목록이 아니라 설명 목적에 따른 틀임을 안다.</li>
         <li>DIKW와 기술·진단·예측·처방 분석을 구분한다.</li>
+        <li>분석조직의 대표 운영 형태와 AI·머신러닝·딥러닝의 관계를 설명한다.</li>
         <li>참조 아키텍처의 역할과 데이터 생애주기를 연결한다.</li>
         <li>가치가 데이터 크기가 아니라 의사결정과 실행에서 발생함을 설명한다.</li>
       </ul>
@@ -149,8 +150,33 @@
       </article>
     </section>
 
+    <section id="organization-ai" aria-labelledby="organization-ai-title">
+      <p class="eyebrow">핵심 3 · 조직과 인공지능</p><h2 id="organization-ai-title">분석 역량은 기술만으로 운영되지 않는다</h2>
+      <article class="concept">
+        <h3>1. 분석조직은 통제와 현장 이해 사이에서 균형을 잡는다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="분석조직 운영 형태 비교">
+          <table>
+            <thead><tr><th scope="col">운영 형태</th><th scope="col">강점</th><th scope="col">주의할 점</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">집중형</th><td>전문가·도구·표준을 한곳에 모으기 쉽다.</td><td>현업 맥락과 우선순위에서 멀어질 수 있다.</td></tr>
+              <tr><th scope="row">분산형</th><td>현업 부서 안에서 빠르게 문제를 풀 수 있다.</td><td>기술과 지표가 중복되고 품질이 달라질 수 있다.</td></tr>
+              <tr><th scope="row">연합형</th><td>중앙의 표준과 현업의 실행력을 함께 쓴다.</td><td>의사결정권과 책임 경계를 분명히 해야 한다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>이 구분은 조직을 이해하기 위한 대표 패턴이지 법적으로 고정된 명칭이 아니다. 실제 조직은 중앙 조직이 공통 플랫폼과 거버넌스를 맡고 현업 분석가가 과제를 수행하는 식으로 섞어 운영하는 경우가 많다. 어느 형태든 데이터 소유자, 분석가, 업무 전문가, 보안·법무 담당자의 책임과 성과 기준을 함께 정해야 한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 빅데이터와 AI는 겹치지만 같은 말은 아니다</h3>
+        <p><strong>인공지능(AI)</strong>은 지각·추론·학습처럼 지능적 작업을 수행하는 시스템을 넓게 가리킨다. <strong>머신러닝(ML)</strong>은 데이터에서 규칙을 학습하는 AI의 한 접근이고, <strong>딥러닝(DL)</strong>은 여러 층의 신경망을 사용하는 머신러닝의 한 갈래다. 관계는 보통 <strong>AI ⊃ ML ⊃ DL</strong>로 기억하면 된다.</p>
+        <p>빅데이터 플랫폼은 수집·저장·처리·품질·접근을 다루는 데이터 생애주기 체계다. 이 데이터로 AI를 학습할 수 있지만, 모든 빅데이터 분석이 AI인 것은 아니며 모든 AI가 대규모 데이터만 요구하는 것도 아니다. 데이터가 많아도 목표와 대표성, 라벨 품질이 나쁘면 학습 결과도 나빠진다.</p>
+        <div class="callout"><h4>문제에서 이렇게 가려내요</h4><p>“대규모 데이터를 저장했다”는 사실만으로 AI를 구축했다고 할 수 없다. 반대로 규칙 기반 추론도 넓은 의미의 AI에 포함될 수 있으므로 AI와 머신러닝을 완전히 같은 말로 보지 않는다.</p></div>
+      </article>
+    </section>
+
     <section id="architecture" aria-labelledby="architecture-title">
-      <p class="eyebrow">핵심 3 · 기술과 역할</p><h2 id="architecture-title">제품 이름보다 흐름과 책임을 본다</h2>
+      <p class="eyebrow">핵심 4 · 기술과 역할</p><h2 id="architecture-title">제품 이름보다 흐름과 책임을 본다</h2>
       <p>NIST 빅데이터 참조 아키텍처는 특정 제품 조합이 아니라 상호작용하는 역할로 시스템을 설명한다. 하나의 조직이나 제품이 여러 역할을 맡을 수 있다.</p>
       <div class="table-wrap" tabindex="0" aria-label="NIST 빅데이터 참조 아키텍처 역할">
         <table>
@@ -179,7 +205,7 @@
     </section>
 
     <section id="risk" aria-labelledby="risk-title">
-      <p class="eyebrow">핵심 4 · 기회와 위험</p><h2 id="risk-title">분석 가능하다는 것과 사용해도 된다는 것은 다르다</h2>
+      <p class="eyebrow">핵심 5 · 기회와 위험</p><h2 id="risk-title">분석 가능하다는 것과 사용해도 된다는 것은 다르다</h2>
       <div class="two-columns">
         <article class="panel"><h3>대표 기회</h3><ul><li>이상 징후의 조기 탐지</li><li>개인화와 자원 배분</li><li>운영 병목과 낭비 발견</li><li>새로운 서비스·연구 가능성</li></ul></article>
         <article class="panel"><h3>대표 위험</h3><ul><li>개인정보 침해와 목적 외 이용</li><li>대표성 부족·역사적 편향의 확대</li><li>잘못된 상관관계와 자동화 과신</li><li>보안·독점·디지털 격차</li></ul></article>
@@ -212,11 +238,15 @@
         <details><summary>10. 관리와 보안·개인정보보호는 어느 단계에 적용되는가?</summary><p>특정 마지막 단계가 아니라 역할과 생애주기 전체를 가로지른다.</p></details>
         <details><summary>11. 데이터가 많아도 대표성이 보장되지 않는 이유는?</summary><p>수집 대상과 방식에 체계적 편향이 있으면 관측 수가 늘어도 편향은 남기 때문이다.</p></details>
         <details><summary>12. 데이터 가치의 최종 기준은?</summary><p>보유량 자체가 아니라 비용·위험을 고려해 더 나은 의사결정과 행동을 만드는 효용이다.</p></details>
+        <details><summary>13. 집중형 분석조직의 대표 장점과 위험은?</summary><p>전문성과 표준을 모으기 쉽지만 현업 맥락과 우선순위에서 멀어질 수 있다.</p></details>
+        <details><summary>14. 연합형 분석조직이 결합하려는 두 장점은?</summary><p>중앙 조직의 공통 표준·플랫폼과 현업 조직의 업무 이해·실행력이다.</p></details>
+        <details><summary>15. AI·머신러닝·딥러닝의 포함 관계는?</summary><p>일반적으로 AI가 머신러닝을 포함하고, 머신러닝이 딥러닝을 포함한다.</p></details>
+        <details><summary>16. 빅데이터 플랫폼과 AI를 같은 말로 볼 수 없는 이유는?</summary><p>플랫폼은 데이터 생애주기와 처리 기반을 다루며, 그 데이터가 AI 외의 통계·보고·운영에도 쓰일 수 있기 때문이다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">12분 · 자체 제작 문제</p><h2 id="quiz-title">12문제로 과장된 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">16분 · 자체 제작 문제</p><h2 id="quiz-title">16문제로 과장된 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>빅데이터에 대한 설명으로 가장 적절한 것은?</p><ol type="A"><li>정해진 용량 기준을 넘는 모든 파일이다.</li><li>비정형 데이터만을 뜻한다.</li><li>데이터 특성 때문에 확장 가능한 저장·처리·분석 구조가 필요한 경우다.</li><li>분산 저장된 데이터는 크기와 관계없이 모두 빅데이터다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 절대 크기나 형식 하나가 아니라 규모·다양성·속도·변동성 등의 특성과 필요한 처리 구조를 함께 본다.</p></details></li>
         <li><p>다음 중 속도(Velocity)의 문제에 가장 가까운 것은?</p><ol type="A"><li>영상과 표를 함께 저장한다.</li><li>결제 이상을 수 초 안에 탐지해야 한다.</li><li>누적 로그가 수 PB에 이르렀다.</li><li>측정값에 오류가 많다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 생성·유입·처리와 응답의 시간 요구다. A는 다양성, C는 규모, D는 신뢰성에 가깝다.</p></details></li>
@@ -230,6 +260,10 @@
         <li><p>진단 분석에서 발견한 강한 연관을 원인으로 단정할 수 없는 이유는?</p><ol type="A"><li>데이터가 정형이기 때문이다.</li><li>교란과 역인과 같은 대안 설명이 남기 때문이다.</li><li>기술 분석보다 항상 자료가 적기 때문이다.</li><li>분산 처리를 사용하기 때문이다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 인과 주장은 대안 설명을 통제하는 별도 설계가 필요하다.</p></details></li>
         <li><p>보안과 개인정보보호를 적용하는 시점으로 가장 적절한 것은?</p><ol type="A"><li>분석 결과를 공개하기 직전에만</li><li>데이터를 삭제할 때만</li><li>수집부터 이용·보관·파기까지 생애주기 전체에</li><li>모형 정확도가 낮을 때만</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 위험 관리는 하나의 후처리 단계가 아니라 모든 역할과 단계에 걸친다.</p></details></li>
         <li><p>데이터 가치 평가로 가장 적절한 것은?</p><ol type="A"><li>저장한 바이트 수만 센다.</li><li>수집 가능한 데이터는 모두 무기한 보관한다.</li><li>의사결정 편익에서 수집·운영·위험 비용을 함께 고려한다.</li><li>예측 정확도만 높으면 가치는 확정된다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 모형 점수는 중간 지표이며 실제 행동의 편익·비용·위험이 최종 가치 판단에 들어간다.</p></details></li>
+        <li><p>집중형 분석조직에 관한 설명으로 가장 적절한 것은?</p><ol type="A"><li>현업 부서마다 서로 다른 표준을 쓰기 쉽다.</li><li>전문가와 공통 도구를 모으기 좋지만 현업과 거리가 생길 수 있다.</li><li>책임 구분이 필요하지 않다.</li><li>모든 조직에 항상 가장 우수하다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 전문성과 표준화가 강점이지만 업무 맥락과 실행 속도를 보완해야 한다.</p></details></li>
+        <li><p>중앙 조직이 공통 플랫폼을 관리하고 현업 분석가가 부서 과제를 수행한다. 가장 가까운 형태는?</p><ol type="A"><li>연합형</li><li>완전 집중형</li><li>외부 위탁형만 가능</li><li>분석조직이 없는 형태</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 중앙의 표준화와 현업의 문제 해결을 결합하는 연합형 사례다.</p></details></li>
+        <li><p>AI·머신러닝·딥러닝의 관계로 옳은 것은?</p><ol type="A"><li>세 용어는 언제나 같은 뜻이다.</li><li>딥러닝이 AI 전체를 포함한다.</li><li>머신러닝은 AI의 한 접근이고 딥러닝은 머신러닝의 한 갈래다.</li><li>규칙 기반 시스템만 머신러닝이다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 일반적인 포함 관계는 AI ⊃ 머신러닝 ⊃ 딥러닝이다.</p></details></li>
+        <li><p>빅데이터와 AI에 관한 판단으로 옳은 것은?</p><ol type="A"><li>대용량 저장소를 만들면 곧바로 AI가 완성된다.</li><li>모든 빅데이터 분석은 딥러닝이다.</li><li>AI는 항상 대규모 학습 데이터가 있어야만 가능하다.</li><li>빅데이터 기반은 AI에 쓰일 수 있지만 둘은 같은 개념이 아니다.</li></ol><details><summary>정답과 해설</summary><p><strong>D.</strong> 빅데이터는 데이터 생애주기와 처리 기반, AI는 지능적 작업을 수행하는 방법과 시스템에 초점이 있다.</p></details></li>
       </ol>
     </section>
 
@@ -239,6 +273,7 @@
         <li><a href="https://csrc.nist.gov/Topics/Technologies/big-data">NIST CSRC · Big Data 정의</a> — 규모·다양성·속도·변동성과 확장 가능한 아키텍처.</li>
         <li><a href="https://www.nist.gov/itl/big-data-nist/documents/nbdif-version-20-final">NIST Big Data Interoperability Framework Version 2.0</a> — 개념, 용어와 전체 프레임워크.</li>
         <li><a href="https://www.nist.gov/publications/nist-big-data-interoperability-framework-volume-6-reference-architecture">NIST SP 1500-6r2 · Reference Architecture</a> — 역할, 인터페이스와 생애주기 관점.</li>
+        <li><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST · AI Risk Management Framework</a> — AI 시스템의 특성과 위험 관리 관점.</li>
         <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">한국데이터산업진흥원 · 빅데이터분석기사 출제범위</a> — 단원 범위의 기준.</li>
       </ul>
       <p class="source-note">설명은 위 자료를 토대로 새로 작성했다. V의 개수처럼 문헌별 표현이 다른 내용은 하나의 절대 목록으로 단정하지 않았다.</p>

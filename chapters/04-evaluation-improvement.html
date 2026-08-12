@@ -16,14 +16,14 @@
       <p class="eyebrow">04-01 · 분석모형 평가 및 개선</p>
       <h1>좋은 평가는 높은 점수 하나로 끝나지 않아요</h1>
       <p class="lede">오류 비용과 검증 구조, 학습·검증 성능의 차이를 함께 보고 모형을 개선해 봐요.</p>
-      <ul class="tags" aria-label="단원 정보"><li>약 70분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
+      <ul class="tags" aria-label="단원 정보"><li>약 85분</li><li>회상 18개</li><li>문제 18개</li><li>Python 연결</li></ul>
     </div>
   </header>
 
   <nav class="chapter-nav" aria-label="단원 차례">
     <div class="page narrow nav-links">
       <a href="#scope">범위·목표</a><a href="#design">평가 설계</a><a href="#classification">분류</a>
-      <a href="#other-metrics">회귀·군집</a><a href="#validation">검증·개선</a><a href="#recall">회상</a>
+      <a href="#other-metrics">회귀·군집</a><a href="#validation">검증·개선</a><a href="#inference-fusion">검정·융합</a><a href="#recall">회상</a>
       <a href="#quiz">문제</a><a href="#practice">Python</a><a href="#sources">출처</a>
     </div>
   </nav>
@@ -39,6 +39,7 @@
         <li>ROC-AUC, PR 곡선, 확률 보정과 임계값 선택의 역할을 구분한다.</li>
         <li>MAE·MSE·RMSE·R²와 군집 내부지표를 목적에 맞게 고른다.</li>
         <li>교차검증과 최종 시험 데이터의 역할을 분리한다.</li>
+        <li>모수 유의성·적합도 검정과 예측성능 평가를 구분하고 모형융합의 누수를 막는다.</li>
         <li>학습·검증 곡선으로 과소·과대적합의 개선 방향을 제안한다.</li>
       </ul>
     </section>
@@ -232,6 +233,36 @@
       </article>
     </section>
 
+    <section id="inference-fusion" aria-labelledby="inference-fusion-title">
+      <p class="eyebrow">핵심 5 · 유의성·적합도·모형융합</p><h2 id="inference-fusion-title">설명 검정과 예측 비교는 답하는 질문이 다르다</h2>
+      <article class="concept">
+        <h3>1. 계수 유의성은 모형 가정 아래의 불확실성을 묻는다</h3>
+        <p>회귀계수의 t 검정이나 Wald 검정은 보통 “다른 조건이 같을 때 해당 모수가 0이다”라는 귀무가설을 검토한다. 전체 설명변수 묶음은 F 검정이나 우도비 검정으로 비교할 수 있다. p값은 귀무가설과 모형 가정 아래에서 현재보다 극단적인 자료가 나올 확률이지, 귀무가설이 참일 확률이나 효과의 크기가 아니다.</p>
+        <p>표본이 크면 작은 효과도 유의할 수 있고, 다중공선성·이분산·독립성 위반은 표준오차와 검정 해석을 흔든다. 계수, 신뢰구간, 효과 크기, 잔차 진단과 업무 의미를 함께 본다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 적합도와 일반화 성능을 같은 말로 쓰지 않는다</h3>
+        <p>적합도 검정은 관측 빈도와 특정 이론 분포의 기대 빈도가 맞는지처럼 <strong>자료가 가정한 모형과 양립하는지</strong>를 묻는다. 회귀에서는 잔차·가정 진단과 R² 같은 적합 요약을 볼 수 있지만, R² 자체는 모든 의미의 “적합도 검정”이 아니다. 반면 교차검증·시험 MAE나 AUC는 새 자료에서의 <strong>예측 일반화</strong>를 본다.</p>
+        <div class="callout"><h4>둘 다 필요할 수 있어요</h4><p>설명·추론이 목표면 계수 불확실성과 가정이 중요하고, 예측이 목표면 독립 자료의 성능이 우선이에요. 학습 자료에 잘 맞는다는 사실만으로 어느 쪽도 자동 충족되지 않습니다.</p></div>
+      </article>
+
+      <article class="concept">
+        <h3>3. 모형융합은 서로 다른 오류를 결합할 때 힘을 낸다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="모형융합 방법 비교">
+          <table>
+            <thead><tr><th scope="col">방법</th><th scope="col">결합 방식</th><th scope="col">주의</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">하드 보팅</th><td>예측 클래스의 다수결</td><td>모형별 확신과 보정 정보를 버림</td></tr>
+              <tr><th scope="row">소프트 보팅</th><td>예측확률을 평균·가중 평균</td><td>클래스 순서와 확률 보정을 확인</td></tr>
+              <tr><th scope="row">스태킹</th><td>기본모형 출력을 메타모형이 학습</td><td>학습행의 out-of-fold 예측을 써야 함</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>같은 편향을 가진 모형을 많이 더한다고 자동으로 좋아지지 않는다. 서로 다른 가정·특징·오류를 가진 후보가 있을 때 이점이 커질 수 있다. 스태킹에서 기본모형이 자기 학습행을 예측한 값으로 메타모형을 학습하면 과도하게 낙관적인 신호가 들어가므로, 각 행은 그 행을 보지 않은 폴드 모형의 예측을 받아야 한다.</p>
+      </article>
+    </section>
+
     <section id="recall" aria-labelledby="recall-title">
       <p class="eyebrow">9분 · 답을 보지 않고 떠올리기</p><h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
@@ -250,11 +281,14 @@
         <details><summary>13. 중첩 교차검증의 안쪽과 바깥쪽 역할은?</summary><p>안쪽은 후보·하이퍼파라미터 선택, 바깥쪽은 그 선택 절차의 일반화 성능 추정이다.</p></details>
         <details><summary>14. 학습·검증 모두 낮을 때와 격차가 클 때의 진단은?</summary><p>둘 다 낮으면 과소적합, 학습만 높고 검증이 낮으면 과대적합을 의심한다.</p></details>
         <details><summary>15. 최종 시험 집합은 언제 쓰는가?</summary><p>전처리·변수·모형·하이퍼파라미터·임계값 선택을 모두 끝낸 뒤 제한적으로 쓴다.</p></details>
+        <details><summary>16. 계수의 p값이 직접 말하지 않는 두 가지는?</summary><p>귀무가설이 참일 확률과 효과의 실질적 크기를 직접 말하지 않는다.</p></details>
+        <details><summary>17. 적합도 검정과 시험 예측성능의 질문 차이는?</summary><p>전자는 자료와 가정한 모형의 양립 가능성, 후자는 보지 않은 자료에 대한 일반화 성능을 묻는다.</p></details>
+        <details><summary>18. 스태킹 메타모형의 학습 입력은 어떻게 만드는가?</summary><p>각 학습행을 보지 않은 기본모형의 out-of-fold 예측으로 만든다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">18분 · 자체 제작 문제</p><h2 id="quiz-title">18문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>TP=40, TN=50, FP=10, FN=20일 때 정확도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.75</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (40+50)/120=0.75다.</p></details></li>
         <li><p>같은 혼동행렬에서 정밀도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.80</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> TP/(TP+FP)=40/50=0.80이다.</p></details></li>
@@ -271,6 +305,9 @@
         <li><p>학습 점수는 매우 높고 검증 점수는 낮은 패턴은?</p><ol class="choices" type="A"><li>과대적합</li><li>과소적합만</li><li>완벽한 일반화</li><li>항상 데이터 누수 없음</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 학습 자료에 민감하게 맞아 새로운 자료로 일반화하지 못하는 높은 분산 패턴이다.</p></details></li>
         <li><p>검증 점수로 100개 설정을 비교해 최고를 골랐다. 그 점수를 최종 성능이라 쓰면?</p><ol class="choices" type="A"><li>선택에 사용돼 낙관 편향이 있을 수 있다.</li><li>항상 보수적이다.</li><li>시험 집합이 필요 없다.</li><li>자동으로 중첩 CV가 된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 많은 설정 중 검증 우연까지 좋은 것을 골랐을 수 있어 별도 시험 또는 바깥 CV가 필요하다.</p></details></li>
         <li><p>학습·검증 점수가 모두 낮고 서로 비슷할 때 먼저 검토할 개선은?</p><ol class="choices" type="A"><li>표현력·특징을 늘리거나 규제를 완화한다.</li><li>모형을 더 단순하게만 한다.</li><li>시험 데이터로 튜닝한다.</li><li>학습 표본을 삭제한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 과소적합의 높은 편향을 줄이는 방향이다. 실제로는 데이터·지표 오류도 함께 확인한다.</p></details></li>
+        <li><p>회귀계수의 p값이 0.01이라는 설명으로 가장 타당한 것은?</p><ol class="choices" type="A"><li>귀무가설이 참일 확률이 1%다.</li><li>효과가 업무적으로 매우 크다는 뜻이다.</li><li>귀무가설과 모형 가정 아래 현재보다 극단적인 자료가 나올 확률이 1% 수준이다.</li><li>새 자료 예측이 99% 정확하다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> p값은 가정 아래 자료의 극단성이지 가설의 사후확률·효과 크기·예측 정확도가 아니다.</p></details></li>
+        <li><p>학습 R²는 높지만 독립 시험 RMSE가 매우 크다. 가장 적절한 해석은?</p><ol class="choices" type="A"><li>학습 적합만으로 일반화 성능이 보장되지 않는다.</li><li>R²가 높으므로 시험 오차는 무시한다.</li><li>적합도와 예측성능은 언제나 같다.</li><li>계수는 모두 인과효과다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 학습 자료의 설명 정도와 새 자료의 예측오차는 별도 평가 대상이다.</p></details></li>
+        <li><p>스태킹에서 메타모형 학습용 기본모형 예측을 만드는 올바른 방법은?</p><ol class="choices" type="A"><li>기본모형이 학습한 같은 행을 다시 예측한다.</li><li>각 행을 제외한 폴드에서 학습한 모형의 out-of-fold 예측을 쓴다.</li><li>최종 시험 레이블을 특징으로 넣는다.</li><li>확률 대신 정답 레이블을 복사한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 자기 학습행 예측은 과적합 신호를 전달하므로 폴드 밖 예측으로 메타 특징을 만든다.</p></details></li>
       </ol>
     </section>
 
@@ -294,6 +331,8 @@ f1 = 2 * precision * recall / (precision + recall)</code></pre>
         <li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn 교차검증</a> — 평가 분할과 교차검증 전략</li>
         <li><a href="https://scikit-learn.org/stable/modules/learning_curve.html">scikit-learn 학습·검증곡선</a> — 편향·분산 진단</li>
         <li><a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn 확률 보정</a> — 보정곡선과 독립 보정 자료</li>
+        <li><a href="https://www.statsmodels.org/stable/regression.html">statsmodels 회귀 문서</a> — 계수 검정과 회귀 결과 진단</li>
+        <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.StackingClassifier.html">scikit-learn StackingClassifier</a> — 교차검증 예측을 이용한 메타모형 학습</li>
         <li><a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_tuned_decision_threshold.html">scikit-learn 분류 임계값 조정</a> — 업무 지표에 따른 행동 경계</li>
       </ul>
     </section>

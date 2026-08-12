@@ -16,14 +16,14 @@
       <p class="eyebrow">02-02 · 데이터 탐색</p>
       <h1>요약값 하나만 보고 결론 내리지 마세요</h1>
       <p class="lede">그래프와 집단별 분포, 변수 사이 관계를 함께 보며 다음에 무엇을 확인할지 찾아봐요.</p>
-      <ul class="tags" aria-label="단원 정보"><li>약 45분</li><li>회상 12개</li><li>문제 12개</li><li>Python 연결</li></ul>
+      <ul class="tags" aria-label="단원 정보"><li>약 60분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
     </div>
   </header>
 
   <nav class="chapter-nav" aria-label="단원 차례">
     <div class="page narrow nav-links">
       <a href="#scope">범위·목표</a><a href="#precheck">사전 점검</a><a href="#map">개념 지도</a>
-      <a href="#univariate">단변량</a><a href="#relations">관계·시각화</a><a href="#recall">회상</a>
+      <a href="#univariate">단변량</a><a href="#relations">관계·시각화</a><a href="#advanced-eda">확장 EDA</a><a href="#recall">회상</a>
       <a href="#quiz">문제</a><a href="#practice">Python</a><a href="#sources">출처</a>
     </div>
   </nav>
@@ -38,6 +38,7 @@
         <li>측정척도와 변수 수에 맞는 요약값·그래프를 선택한다.</li>
         <li>평균·중앙값, 분산·표준편차·IQR의 차이를 계산하고 해석한다.</li>
         <li>공분산과 상관계수, 피어슨과 스피어만을 구분한다.</li>
+        <li>시공간·다변량·비정형 데이터의 탐색 관점을 구분한다.</li>
         <li>상관관계만으로 인과관계를 주장할 수 없는 이유를 말한다.</li>
       </ul>
     </section>
@@ -201,6 +202,36 @@
       </article>
     </section>
 
+    <section id="advanced-eda" aria-labelledby="advanced-eda-title">
+      <p class="eyebrow">핵심 4 · 확장 탐색</p><h2 id="advanced-eda-title">자료의 구조가 달라지면 탐색 질문도 달라진다</h2>
+      <article class="concept">
+        <h3>1. 시공간 자료는 위치와 시간의 의존성을 함께 본다</h3>
+        <p>지도에서는 건수만 칠하기보다 인구·면적·노출량 같은 분모를 둔 비율도 확인한다. 행정구역이 크거나 인구가 많아서 사건 수가 커 보이는 일을 막기 위해서다. 좌표계와 투영법이 거리·면적을 왜곡할 수 있고, 가까운 지역·시간의 관측은 서로 비슷할 수 있어 일반적인 독립 가정을 그대로 적용하기 어렵다.</p>
+        <ul><li>지도에서 군집처럼 보이면 경계와 색 구간을 바꿔도 유지되는지 본다.</li><li>시간 추세·계절을 제거한 뒤에도 공간 패턴이 남는지 본다.</li><li>위치·시간 집계 단위를 바꿨을 때 결론이 달라지는지 확인한다.</li></ul>
+      </article>
+
+      <article class="concept">
+        <h3>2. 다변량 탐색은 쌍별 그림과 전체 구조를 왕복한다</h3>
+        <p>산점도 행렬과 상관 열지도는 여러 변수의 쌍별 관계를 빠르게 훑고, 평행좌표는 사례별 다차원 윤곽을 비교한다. 주성분분석(PCA)은 분산이 큰 새 축으로 투영해 군집·이상점 후보를 탐색할 수 있지만 목표값을 쓰지 않으며, 단위가 큰 변수가 축을 지배할 수 있어 스케일을 먼저 점검한다.</p>
+        <p>열지도 한 장만으로 관계를 확정하지 않는다. 상관이 높은 쌍은 실제 산점도와 하위집단을 확인하고, 변수 수가 많으면 우연히 큰 상관도 늘어남을 기억한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 비정형 자료는 특징을 만들기 전 내용과 품질부터 살핀다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="비정형 데이터 탐색 관점">
+          <table>
+            <thead><tr><th scope="col">자료</th><th scope="col">초기 탐색</th><th scope="col">주의</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">텍스트</th><td>문서 길이, 언어, 빈도, n-gram, TF-IDF</td><td>불용어·형태소·중복·라벨 누수</td></tr>
+              <tr><th scope="row">이미지</th><td>크기, 채널, 밝기, 흐림, 표본 썸네일</td><td>배경·워터마크가 목표를 대신 설명할 수 있음</td></tr>
+              <tr><th scope="row">음성</th><td>길이, 표본률, 음량, 무음 비율, 스펙트럼</td><td>장비·환경·화자 중복과 개인정보</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>워드클라우드는 단어 빈도를 눈에 띄게 보여주지만 문맥·부정·단어 사이 관계를 보존하지 않는다. 임베딩은 의미적 근접성을 수치로 표현할 수 있지만 어떤 자료와 모형에서 만들어졌는지에 따라 편향과 해석이 달라진다.</p>
+      </article>
+    </section>
+
     <section id="recall" aria-labelledby="recall-title">
       <p class="eyebrow">7분 · 답을 보지 않고 떠올리기</p><h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
@@ -216,11 +247,14 @@
         <details><summary>10. 피어슨과 스피어만이 포착하는 관계는?</summary><p>피어슨은 원자료의 선형 관계, 스피어만은 순위의 단조 관계다.</p></details>
         <details><summary>11. 상관계수 0이 보장하지 않는 것은?</summary><p>모든 형태의 관계 부재나 독립을 일반적으로 보장하지 않는다.</p></details>
         <details><summary>12. 상관만으로 인과를 말할 수 없는 세 이유는?</summary><p>교란변수, 역인과, 우연·선택 편향 같은 대안 설명이 있기 때문이다.</p></details>
+        <details><summary>13. 공간 지도를 건수와 비율로 함께 봐야 하는 이유는?</summary><p>인구·면적·노출량 같은 분모 차이 때문에 건수만으로 위험도를 비교하면 왜곡될 수 있기 때문이다.</p></details>
+        <details><summary>14. PCA 전 스케일 점검이 필요한 이유는?</summary><p>PCA가 분산을 기준으로 축을 찾으므로 단위가 큰 변수가 주성분을 지배할 수 있기 때문이다.</p></details>
+        <details><summary>15. 워드클라우드가 직접 보여주지 못하는 것은?</summary><p>문맥, 부정 표현, 단어 사이 관계와 원인 같은 구조다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">12분 · 자체 제작 문제</p><h2 id="quiz-title">12문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>순서는 있지만 등급 사이 간격이 같다고 보장하지 않는 척도는?</p><ol class="choices" type="A"><li>명목</li><li>서열</li><li>등간</li><li>비율</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 서열척도는 순위만 보장한다. 명목은 순서가 없고 등간·비율은 동일 간격까지 갖는다.</p></details></li>
         <li><p>섭씨 온도가 등간척도인 주된 이유는?</p><ol class="choices" type="A"><li>순서가 없다.</li><li>0도가 온도의 완전한 부재다.</li><li>간격은 같지만 절대 0이 아니다.</li><li>명목 범주이기 때문이다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 온도 차이는 해석할 수 있지만 섭씨 0은 열에너지의 부재가 아니어서 비율 해석이 안 된다.</p></details></li>
@@ -234,6 +268,9 @@
         <li><p>피어슨 상관계수 r=−0.9의 해석으로 가장 타당한 것은?</p><ol class="choices" type="A"><li>강한 음의 선형 관계가 관찰된다.</li><li>원인과 결과가 확정된다.</li><li>완전한 독립이다.</li><li>두 변수 평균이 음수다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> −1에 가까워 강한 음의 선형 관계다. 인과·독립·평균 부호는 알 수 없다.</p></details></li>
         <li><p>x가 증가할수록 y도 계속 증가하지만 곡선 관계일 때 먼저 비교할 상관은?</p><ol class="choices" type="A"><li>스피어만 순위상관</li><li>분산</li><li>최빈값</li><li>범위</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 스피어만은 단조 관계를 순위로 포착한다. 피어슨과 산점도도 함께 보면 관계 모양을 더 잘 이해한다.</p></details></li>
         <li><p>상관이 높은 두 변수에 대한 결론으로 옳은 것은?</p><ol class="choices" type="A"><li>한 변수가 반드시 다른 변수의 원인이다.</li><li>교란변수 가능성은 사라진다.</li><li>연관은 관찰되지만 인과에는 추가 설계가 필요하다.</li><li>시간 순서는 확인할 필요가 없다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 상관은 인과의 충분조건이 아니다. 시간 순서·교란 통제·개입 설계 등을 추가로 검토한다.</p></details></li>
+        <li><p>지역별 감염 위험을 비교하는 지도에서 건수와 함께 가장 먼저 볼 것은?</p><ol class="choices" type="A"><li>지역별 인구를 분모로 한 비율</li><li>지도 배경색만</li><li>지역 이름 길이</li><li>전체 건수의 제곱</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 노출되는 인구가 다르면 건수만으로 개인 수준 위험을 비교할 수 없다.</p></details></li>
+        <li><p>단위가 서로 크게 다른 변수로 PCA를 할 때 적절한 판단은?</p><ol class="choices" type="A"><li>큰 단위의 변수가 분산을 지배할 수 있어 스케일을 점검한다.</li><li>PCA가 자동으로 목표값을 예측한다.</li><li>상관은 모두 인과가 된다.</li><li>원자료 확인은 필요 없다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> PCA는 분산이 큰 방향을 찾으므로 측정 단위가 결과를 좌우할 수 있다.</p></details></li>
+        <li><p>문서 집합의 워드클라우드만 보고 직접 결론 내리기 어려운 것은?</p><ol class="choices" type="A"><li>표현된 단어의 상대적 빈도</li><li>단어가 쓰인 문맥과 부정 여부</li><li>글자 크기의 차이</li><li>자주 등장한 단어 후보</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 워드클라우드는 주로 빈도를 압축하며 문장 맥락과 단어 관계를 버린다.</p></details></li>
       </ol>
     </section>
 

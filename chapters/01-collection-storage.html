@@ -16,7 +16,7 @@
       <p class="eyebrow">01-03 · 데이터 수집 및 저장 계획</p>
       <h1>수집할 수 있어도, 써도 되는지는 따로 봐야 해요</h1>
       <p class="lede">출처·목적·품질·법적 근거를 먼저 확인하고, 실제 사용 방식에 맞는 저장 구조를 골라봐요.</p>
-      <ul class="tags" aria-label="단원 정보"><li>약 80분</li><li>회상 15개</li><li>문제 15개</li><li>Python</li></ul>
+      <ul class="tags" aria-label="단원 정보"><li>약 90분</li><li>회상 17개</li><li>문제 17개</li><li>Python</li></ul>
     </div>
   </header>
 
@@ -38,7 +38,7 @@
       <ul class="check-list">
         <li>원천과 지연시간 요구에 맞춰 배치·스트림·API·로그·크롤링을 구분한다.</li>
         <li>데이터 품질을 정확성·완전성·유효성·일관성·적시성·유일성으로 진단한다.</li>
-        <li>개인정보와 가명정보, 수집·이용 근거와 가명정보 특례를 구분한다.</li>
+        <li>개인정보와 가명정보, 수집·이용 근거와 가명·익명처리의 차이를 구분한다.</li>
         <li>ETL·ELT와 웨어하우스·레이크·관계형·NoSQL 저장소를 목적에 맞춰 고른다.</li>
         <li>HDFS와 MapReduce의 역할, 장점과 한계를 설명한다.</li>
       </ul>
@@ -151,7 +151,7 @@
       <p class="eyebrow">핵심 3 · 개인정보보호</p><h2 id="privacy-title">동의 여부 하나가 아니라 목적·근거·최소성·보호조치를 본다</h2>
       <aside class="warning" aria-label="법률 정보 범위">
         <h3>적용 기준</h3>
-        <p>아래는 2026년 8월 10일 현재 국가법령정보센터의 개인정보 보호법과 개인정보보호위원회 가이드라인을 대조한 학습용 요약이다. 실제 수집·결합·제공에는 최신 법령, 하위 규정, 처리 맥락과 조직의 법무·개인정보 담당자 검토가 필요하다.</p>
+        <p>아래는 2026년 8월 13일 현재 국가법령정보센터의 개인정보 보호법과 개인정보보호위원회 가이드라인을 대조한 학습용 요약이다. 실제 수집·결합·제공에는 최신 법령, 하위 규정, 처리 맥락과 조직의 법무·개인정보 담당자 검토가 필요하다.</p>
       </aside>
 
       <article class="concept">
@@ -176,6 +176,23 @@
           <li>특정 개인을 알아보기 위한 처리를 해서는 안 되며, 개인을 알아볼 수 있는 정보가 생성되면 처리를 중지하고 회수·파기해야 한다.</li>
         </ul>
         <div class="callout"><h4>여기서 많이 헷갈려요 · 가명처리는 위험을 낮추는 통제예요</h4><p>가명처리를 했다고 모든 의무가 사라지는 것은 아니에요. 추가정보 분리와 접근통제로 재식별 위험을 낮추는 방식이며, 결합 가능한 외부 데이터가 달라지면 위험도 다시 살펴봐야 해요.</p></div>
+      </article>
+
+      <article class="concept">
+        <h3>4. 기법의 이름보다 남은 식별 위험을 평가한다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="가명 익명처리 기법과 주의점">
+          <table>
+            <thead><tr><th scope="col">기법</th><th scope="col">예</th><th scope="col">남는 위험</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">삭제·마스킹</th><td>이름 삭제, 전화번호 일부 가림</td><td>나머지 속성의 조합으로 알아볼 수 있음</td></tr>
+              <tr><th scope="row">대체</th><td>고객번호를 임의 식별자로 교체</td><td>대응표가 노출되거나 다른 자료와 연결될 수 있음</td></tr>
+              <tr><th scope="row">일반화·범주화</th><td>나이를 연령대로, 주소를 시·도로 변환</td><td>희귀한 속성 조합은 여전히 두드러질 수 있음</td></tr>
+              <tr><th scope="row">집계·노이즈</th><td>소규모 셀을 합치거나 통계값을 교란</td><td>유용성과 정확도가 줄고 반복 공개로 정보가 누적될 수 있음</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>가명·익명 여부는 “마스킹을 했다” 같은 기법명 하나로 정해지지 않는다. 이용 목적, 데이터 상세도, 외부에서 결합 가능한 정보, 접근 권한과 시간·비용·기술을 함께 보고 식별 가능성을 판단한다. 개인정보보호위원회의 2026년 안내서는 준비 → 위험성 검토 → 가명처리 → 적정성 검토 → 안전한 관리의 순환을 강조한다.</p>
+        <p>사진·영상·음성·자연어 같은 비정형 데이터에는 얼굴·음성뿐 아니라 배경, 위치, 문신, 문서 속 이름처럼 여러 식별 단서가 함께 들어갈 수 있다. 자동 탐지 결과를 그대로 믿지 말고 샘플 검수와 잔여 위험 점검을 더한다.</p>
       </article>
     </section>
 
@@ -286,11 +303,13 @@
         <details><summary>13. HDFS의 NameNode와 DataNode 역할은?</summary><p>NameNode는 네임스페이스와 블록 메타데이터를 관리하고 DataNode는 실제 블록을 저장한다.</p></details>
         <details><summary>14. MapReduce의 세 핵심 처리 단계는?</summary><p>Map, Shuffle·Sort, Reduce다.</p></details>
         <details><summary>15. 데이터 지역성의 이점은?</summary><p>데이터 가까이에 계산을 배치해 대규모 네트워크 전송을 줄인다.</p></details>
+        <details><summary>16. 이름을 삭제한 것만으로 익명정보라 단정할 수 없는 이유는?</summary><p>다른 속성의 조합이나 외부 정보와의 결합으로 개인을 알아볼 가능성이 남을 수 있기 때문이다.</p></details>
+        <details><summary>17. 가명처리의 위험성 검토에서 함께 볼 요소는?</summary><p>이용 목적, 데이터 상세도와 희귀성, 결합 가능한 외부 정보, 접근 권한과 시간·비용·기술 등이다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">16분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 법제와 기술의 경계를 구분해 봐요</h2>
+      <p class="eyebrow">18분 · 자체 제작 문제</p><h2 id="quiz-title">17문제로 법제와 기술의 경계를 구분해 봐요</h2>
       <ol class="quiz-list">
         <li><p>수집 계획을 세울 때 가장 먼저 확인할 사항은?</p><ol type="A"><li>가장 저렴한 저장장치</li><li>의사결정 목적, 필요한 데이터와 적법한 처리 근거</li><li>최신 분산처리 제품</li><li>가능한 모든 웹페이지 주소</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 목적과 필요성이 원천·범위·주기·권한과 저장 설계를 결정한다.</p></details></li>
         <li><p>스트림 처리의 고유 설계 쟁점에 가장 가까운 것은?</p><ol type="A"><li>이벤트 시간, 늦은 도착, 순서와 중복</li><li>연 1회 보고서 표지</li><li>종이 문서의 제본</li><li>오프라인 파일명만 변경</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 연속 이벤트에서는 도착시각과 실제 발생시각, 지연·재전송·순서 문제가 중요하다.</p></details></li>
@@ -307,6 +326,8 @@
         <li><p>HDFS에서 실제 데이터 블록을 저장하는 구성요소는?</p><ol type="A"><li>NameNode</li><li>DataNode</li><li>Reducer</li><li>System Orchestrator</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> NameNode는 네임스페이스와 블록 메타데이터를 관리한다.</p></details></li>
         <li><p>HDFS에 특히 부적합할 가능성이 큰 작업은?</p><ol type="A"><li>대용량 파일의 순차 스트리밍 읽기</li><li>한 번 쓴 대형 로그의 반복 분석</li><li>수많은 작은 파일을 매우 낮은 지연으로 자주 위치 수정</li><li>노드에 분산된 블록의 병렬 처리</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> HDFS는 대용량 파일의 높은 처리량과 쓰기 한 번·읽기 여러 번 패턴에 무게를 둔다.</p></details></li>
         <li><p>MapReduce에서 같은 중간 키의 값들을 모아 Reducer로 보내는 단계는?</p><ol type="A"><li>Extract</li><li>Shuffle·Sort</li><li>Schema-on-write</li><li>Heartbeat</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> Map 출력은 키에 따라 분배·정렬돼 Reduce 입력으로 묶인다.</p></details></li>
+        <li><p>이름을 삭제하고 나이·희귀 직업·세부 지역을 그대로 공개했다. 가장 타당한 판단은?</p><ol type="A"><li>이름이 없으므로 무조건 익명정보다.</li><li>속성 조합과 외부 정보로 알아볼 위험을 다시 평가해야 한다.</li><li>가명정보는 안전조치가 필요 없다.</li><li>희귀한 속성일수록 식별 위험이 줄어든다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 처리 기법의 이름이 아니라 남은 식별 가능성과 이용 환경을 함께 판단한다.</p></details></li>
+        <li><p>영상 데이터의 가명처리에서 특히 적절한 점검은?</p><ol type="A"><li>얼굴만 흐리면 다른 검토는 필요 없다.</li><li>배경의 주소·차량번호·문신 같은 간접 식별 단서도 확인한다.</li><li>파일명을 바꾸면 영상 내용도 가명처리된다.</li><li>자동 탐지 결과는 샘플 검수 없이 항상 완전하다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 비정형 데이터에는 다양한 직접·간접 식별 단서가 함께 있어 잔여 위험을 검수해야 한다.</p></details></li>
       </ol>
     </section>
 
@@ -325,13 +346,14 @@
         <li><a href="https://law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1020997635">개인정보 보호법 제2조</a> — 개인정보·가명처리·처리의 정의.</li>
         <li><a href="https://law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1025128631">개인정보 보호법 제15조</a> — 수집·이용의 법적 근거와 목적 범위.</li>
         <li><a href="https://law.go.kr/LSW/lsLinkCommonInfo.do?lsJoLnkSeq=1020398635">개인정보 보호법 제28조의2부터 제28조의5</a> — 가명정보 처리·결합·안전조치·금지의무.</li>
-        <li><a href="https://m.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&amp;mCode=D010030000&amp;nttId=11931">개인정보보호위원회 · 가명정보 처리 가이드라인(2026.3 개정)</a> — 현행 실무 안내서.</li>
+        <li><a href="https://www.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&amp;mCode=C020010000&amp;nttId=11928">개인정보보호위원회 · 가명정보 처리 가이드라인(2026.3 개정)</a> — 위험 기반 처리 절차와 안전한 관리.</li>
+        <li><a href="https://www.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS074&amp;mCode=C020010000&amp;nttId=9899">개인정보보호위원회 · 비정형데이터 가명처리 기준</a> — 이미지·영상·음성·텍스트의 식별 단서와 검수.</li>
         <li><a href="https://www.rfc-editor.org/rfc/rfc9309.html">IETF RFC 9309 · Robots Exclusion Protocol</a> — 크롤러 규칙과 접근 권한의 구분.</li>
         <li><a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html">Apache Hadoop · HDFS Architecture Guide</a> — NameNode·DataNode·블록·복제와 설계 목표.</li>
         <li><a href="https://hadoop.apache.org/docs/current3/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html">Apache Hadoop · MapReduce Tutorial</a> — Map, Shuffle·Sort, Reduce와 실패 작업 처리.</li>
         <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">한국데이터산업진흥원 · 빅데이터분석기사 출제범위</a> — 수집·저장 계획의 범위 기준.</li>
       </ul>
-      <p class="source-note">법률 부분은 2026-08-10 기준 학습용 요약이다. 실제 처리는 최신 원문·하위 규정과 구체적 맥락을 별도로 검토한다.</p>
+      <p class="source-note">법률 부분은 2026-08-13 기준 학습용 요약이다. 실제 처리는 최신 원문·하위 규정과 구체적 맥락을 별도로 검토한다.</p>
     </section>
 
     <nav class="bottom-nav" aria-label="이전 단원"><a href="01-analysis-planning.html">← 이전: 분석계획</a><a href="../index.html">교재 홈 →</a></nav>

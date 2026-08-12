@@ -16,7 +16,7 @@
       <p class="eyebrow">04-02 · 분석결과 해석 및 활용</p>
       <h1>모형의 설명을 실제 행동으로 이어가요</h1>
       <p class="lede">모형이 학습한 관계를 과장 없이 읽고, 실제 의사결정의 가치와 운영 한계까지 함께 전달해 봐요.</p>
-      <ul class="tags" aria-label="단원 정보"><li>약 65분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
+      <ul class="tags" aria-label="단원 정보"><li>약 80분</li><li>회상 18개</li><li>문제 18개</li><li>Python 연결</li></ul>
     </div>
   </header>
 
@@ -38,6 +38,7 @@
         <li>전역·지역 해석과 모형 고유·모형 불문 해석을 구분한다.</li>
         <li>계수·변수 중요도·PDP·ICE를 한계와 함께 읽는다.</li>
         <li>수용자와 질문에 맞는 그래프·보고 구조를 고른다.</li>
+        <li>비교·관계·공간 시각화와 인포그래픽의 목적과 왜곡 위험을 구분한다.</li>
         <li>예측 점수를 업무 효용·비용·KPI와 연결한다.</li>
         <li>데이터·개념 변화와 운영 성능을 감시하고 대응 절차를 설계한다.</li>
       </ul>
@@ -129,6 +130,27 @@
           </tbody>
         </table>
       </div>
+      <article class="concept">
+        <h3>1. 비교·관계·공간 시각화는 서로 다른 구조를 강조한다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="시각화 유형별 선택 기준">
+          <table>
+            <thead><tr><th scope="col">유형</th><th scope="col">대표 표현</th><th scope="col">확인할 점</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">비교</th><td>정렬한 점·막대, 시간 선그래프</td><td>공통 기준선·단위·기간·불확실성</td></tr>
+              <tr><th scope="row">관계</th><td>산점도, 연결망</td><td>겹침·집단·방향성, 상관과 인과 구분</td></tr>
+              <tr><th scope="row">공간</th><td>단계구분도, 비례기호 지도</td><td>건수와 비율, 분모, 투영·경계·색 구간</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>막대는 길이를 공통 기준에서 비교하므로 보통 0을 기준으로 둔다. 선그래프는 연속 변화가 핵심이라 축 절단이 항상 금지는 아니지만 범위와 기준을 분명히 밝혀 과장을 피한다. 단계구분도는 행정구역별 비율에 알맞고, 단순 건수는 기호 크기로 나타내거나 인구 같은 분모를 함께 제시해야 오해가 줄어든다.</p>
+        <p>연결망 그림은 관계 존재와 구조를 보여주지만 선이 많으면 ‘헤어볼’이 된다. 필터링·집계 기준을 밝히고, 방향이 있는 연결과 없는 연결을 화살표·범례로 구분한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 인포그래픽은 장식이 아니라 근거를 압축한 이야기다</h3>
+        <p>인포그래픽은 핵심 메시지, 수치·그래프, 짧은 설명을 한 흐름으로 묶는다. 독자가 먼저 알아야 할 결론을 시각적 위계로 안내하되, 출처·기준일·단위·분모와 중요한 한계를 남겨야 한다. 픽토그램의 면적을 값처럼 키우거나 3차원 장식으로 차이를 부풀리면 기억에는 남아도 정확한 비교는 어려워진다.</p>
+        <ul><li><strong>한 문장:</strong> 독자가 무엇을 알아야 하는가?</li><li><strong>한 근거:</strong> 어떤 수치·비교가 그 문장을 지지하는가?</li><li><strong>한 행동:</strong> 그래서 무엇을 확인하거나 해야 하는가?</li><li><strong>검증 단서:</strong> 출처·기간·단위·분모·한계가 있는가?</li></ul>
+      </article>
       <p>보고는 결론부터 쓰되 근거와 한계를 숨기지 않는다. <strong>질문 → 핵심 결론 → 근거 지표·그림 → 권고 행동 → 가정·한계 → 재현 정보</strong> 순서가 실무 의사결정에 유용하다. 기술 부록에는 데이터 기준시점, 표본, 변수 정의, 전처리, 분할, 모형·버전, 지표와 불확실성을 남긴다.</p>
       <aside class="warning">
         <h3>오해를 만드는 시각화</h3>
@@ -249,11 +271,14 @@
         <details><summary>13. 레이블이 늦게 올 때 먼저 감시할 것은?</summary><p>입력·예측 분포, 데이터 품질, 시스템 지표와 업무 대리지표를 먼저 보고 레이블 도착 뒤 실제 성능을 확인한다.</p></details>
         <details><summary>14. 운영 모니터링의 다섯 층은?</summary><p>데이터, 예측, 모형 성능, 시스템, 업무·위험 지표다.</p></details>
         <details><summary>15. 피드백 루프는?</summary><p>모형의 결정이 이후 관측·레이블·행동을 바꾸고 그 데이터가 다시 모형을 강화하는 순환이다.</p></details>
+        <details><summary>16. 단계구분도에서 건수보다 비율이 적절한 경우는?</summary><p>지역별 인구·면적·노출량이 달라 그 분모를 고려한 위험이나 비중을 비교할 때다.</p></details>
+        <details><summary>17. 관계 시각화가 인과 방향을 자동으로 보여주지 못하는 이유는?</summary><p>관찰된 연결·상관에는 교란, 선택, 역방향 관계가 남을 수 있기 때문이다.</p></details>
+        <details><summary>18. 인포그래픽에도 반드시 남길 검증 단서는?</summary><p>자료 출처, 기준일·기간, 단위·분모와 결론에 중요한 한계다.</p></details>
       </div>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">18분 · 자체 제작 문제</p><h2 id="quiz-title">18문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>개별 고객 A의 대출 거절 예측에 어떤 변수가 기여했는지 묻는 해석은?</p><ol class="choices" type="A"><li>지역 해석</li><li>전역 해석만</li><li>군집 평가</li><li>표본추출</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 특정 한 사례의 예측 근거를 묻는다.</p></details></li>
         <li><p>로지스틱 회귀에서 β=ln(2)라면 X가 1 증가할 때?</p><ol class="choices" type="A"><li>확률이 항상 2 증가한다.</li><li>오즈가 2배다.</li><li>로그오즈가 절반이다.</li><li>정확도가 2배다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> exp(ln2)=2이므로 다른 변수가 같을 때 오즈가 두 배다. 확률 변화량은 현재 확률에 따라 다르다.</p></details></li>
@@ -270,6 +295,9 @@
         <li><p>신규 고객의 연령 분포 P(X)가 바뀐 것은?</p><ol class="choices" type="A"><li>공변량 변화</li><li>개념 변화만</li><li>과소적합 정의</li><li>1종 오류</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 입력 분포의 변화다. 성능 영향은 별도로 확인한다.</p></details></li>
         <li><p>같은 거래 패턴 X가 사기를 뜻하던 관계 P(Y|X)가 바뀐 것은?</p><ol class="choices" type="A"><li>개념 변화</li><li>단순 공변량 변화만</li><li>원-핫 인코딩</li><li>표본분산</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 입력과 목표의 조건부 관계가 달라졌다.</p></details></li>
         <li><p>운영 입력 드리프트 경보가 울렸을 때 가장 타당한 대응은?</p><ol class="choices" type="A"><li>무조건 즉시 재학습한다.</li><li>변화 원인·성능 영향·데이터 품질을 확인하고 정해진 절차로 대응한다.</li><li>경보를 영구 삭제한다.</li><li>시험 점수만 다시 보고 끝낸다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 분포 변화 자체가 성능 하락을 확정하지 않으므로 원인·영향·대응 기준에 따라 재검증한다.</p></details></li>
+        <li><p>인구가 크게 다른 지역의 범죄 위험을 단계구분도로 비교할 때 가장 적절한 값은?</p><ol class="choices" type="A"><li>범죄 건수만</li><li>인구당 범죄율과 분모</li><li>지역 면적의 색만</li><li>지역 이름 순서</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 위험 비교에는 노출 인구를 분모로 한 비율이 필요하며 표본 규모도 함께 제시한다.</p></details></li>
+        <li><p>연결망에서 A와 B가 연결돼 있다는 그림만으로 확정할 수 없는 것은?</p><ol class="choices" type="A"><li>정의된 기준에 따른 연결 존재</li><li>A가 B의 원인이라는 방향</li><li>노드가 두 개 있다는 사실</li><li>시각화에 선이 있다는 사실</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 연결·상관 표현만으로 인과 방향은 식별되지 않는다.</p></details></li>
+        <li><p>신뢰할 수 있는 인포그래픽의 조건으로 가장 적절한 것은?</p><ol class="choices" type="A"><li>출처와 단위를 생략해 화면을 단순화한다.</li><li>3차원 면적을 키워 차이를 강조한다.</li><li>핵심 메시지와 근거를 연결하고 출처·기간·분모·한계를 남긴다.</li><li>가능한 모든 수치를 같은 크기로 넣는다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 시각적 위계는 이해를 돕되 검증 가능한 맥락과 한계를 보존해야 한다.</p></details></li>
       </ol>
     </section>
 

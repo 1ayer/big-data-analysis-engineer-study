@@ -26,6 +26,8 @@ class PageParser(HTMLParser):
         self.quiz_count = 0
         self.quiz_by_subject = {}
         self.source_links = 0
+        self.misconception_slots = 0
+        self.misconception_fields = 0
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -52,6 +54,11 @@ class PageParser(HTMLParser):
             self.section = element_id
         if tag == "details" and self.section == "recall":
             self.recall_count += 1
+        classes = values.get("class", "").split()
+        if "misconception-slot" in classes:
+            self.misconception_slots += 1
+        if values.get("data-misconception-field"):
+            self.misconception_fields += 1
         if tag == "li" and self.section == "quiz" and self.stack:
             parent_tag, parent_attrs = self.stack[-1]
             if parent_tag == "ol" and "quiz-list" in parent_attrs.get("class", "").split():
@@ -88,6 +95,9 @@ def check():
     parsed = {path: parse_page(path) for path in pages}
     errors = []
 
+    if len(pages) != 19:
+        errors.append(f"HTML {len(pages)}개(보강본은 정확히 19개 필요)")
+
     for path, page in parsed.items():
         label = path.relative_to(ROOT)
         if page.lang != "ko":
@@ -116,6 +126,16 @@ def check():
                 count = page.quiz_by_subject.get(subject, 0)
                 if count != 20:
                     errors.append(f"{label}: {subject}과목 {count}개(정확히 20개 필요)")
+
+        expected_quizzes = {"modeling-challenge.html": 20, "formula-drills.html": 15}
+        if path.name in expected_quizzes and page.quiz_count != expected_quizzes[path.name]:
+            errors.append(f"{label}: 문제 {page.quiz_count}개(정확히 {expected_quizzes[path.name]}개 필요)")
+
+        if path.name == "misconception-lab.html":
+            if page.misconception_slots != 7:
+                errors.append(f"{label}: 오개념 기록 {page.misconception_slots}개(정확히 7개 필요)")
+            if page.misconception_fields != 35:
+                errors.append(f"{label}: 오개념 입력칸 {page.misconception_fields}개(정확히 35개 필요)")
 
         for href in page.hrefs:
             parts = urlsplit(href)
@@ -149,9 +169,19 @@ def check():
         ("details > *:not(summary)", "인쇄 답안 펼침"),
         (".card-save-button", "카드 후보 버튼"),
         (".card-dialog", "저장 카드 목록"),
+        (".misconception-slot", "오개념 교정 기록"),
     ):
         if token not in css:
             errors.append(f"styles.css: {label} 규칙이 필요합니다")
+
+    practical = ROOT / "examples" / "practical_pipeline.py"
+    if not practical.exists():
+        errors.append("examples/practical_pipeline.py: 실행 예제가 필요합니다")
+    else:
+        code = practical.read_text(encoding="utf-8")
+        for token in ("Pipeline", "ColumnTransformer", "train_test_split", "cross_val_score", "to_csv"):
+            if token not in code:
+                errors.append(f"examples/practical_pipeline.py: {token} 단계가 필요합니다")
 
     if errors:
         raise SystemExit("\n".join(errors))
