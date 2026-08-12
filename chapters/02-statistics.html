@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="확률, 확률분포, 표본추출, 추정과 가설검정을 다루는 빅데이터분석기사 2과목 교재">
+  <title>02-03 통계기법 이해</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>2과목</span></nav>
+      <p class="eyebrow">02-03 · 통계기법 이해</p>
+      <h1>표본으로 모집단을 판단하는 법</h1>
+      <p class="lede">확률과 표본분포를 다리로 삼아 점추정·신뢰구간·가설검정을 하나의 흐름으로 연결한다.</p>
+      <ul class="tags" aria-label="단원 정보"><li>약 65분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="단원 차례">
+    <div class="page narrow nav-links">
+      <a href="#scope">범위·목표</a><a href="#probability">확률·분포</a><a href="#sampling">표본·추정</a>
+      <a href="#testing">가설검정</a><a href="#selection">검정 선택</a><a href="#recall">회상</a>
+      <a href="#quiz">문제</a><a href="#practice">Python</a><a href="#sources">출처</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="scope" class="panel objectives" aria-labelledby="scope-title">
+      <p class="eyebrow">공식 범위 · 통계기법 이해</p>
+      <h2 id="scope-title">확률·표본분포·추정·검정</h2>
+      <p>이 단원은 확률 법칙과 대표 분포, 표본추출, 표본분포와 중심극한정리, 점·구간추정, 가설검정과 주요 모수·비모수 검정을 다룬다.</p>
+      <h3>끝나면 다음을 설명한다</h3>
+      <ul class="check-list">
+        <li>조건부확률·독립·베이즈 정리를 식과 사례로 구분한다.</li>
+        <li>변수와 사건 구조에 맞는 대표 확률분포를 고른다.</li>
+        <li>표준오차와 신뢰구간의 의미를 계산하고 바르게 해석한다.</li>
+        <li>p값, 유의수준, 1·2종 오류와 검정력을 혼동하지 않는다.</li>
+        <li>자료 구조와 질문에 맞춰 t·ANOVA·카이제곱·비모수 검정을 연결한다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="precheck-title">
+      <p class="eyebrow">4분 · 사전 점검</p><h2 id="precheck-title">문장으로 먼저 답하기</h2>
+      <ol class="questions">
+        <li>독립과 배반은 같은 뜻인가?</li>
+        <li>표본 크기가 네 배가 되면 평균의 표준오차는 어떻게 되는가?</li>
+        <li>95% 신뢰구간은 “이 한 구간에 모수가 있을 확률이 95%”라는 뜻인가?</li>
+        <li>p=0.03은 귀무가설이 참일 확률이 3%라는 뜻인가?</li>
+        <li>같은 사람의 처치 전후 평균을 비교할 때 왜 독립 2표본 검정이 아닌가?</li>
+      </ol>
+    </section>
+
+    <section id="probability" aria-labelledby="probability-title">
+      <p class="eyebrow">핵심 1 · 확률과 확률분포</p><h2 id="probability-title">사건의 관계를 식으로 번역한다</h2>
+
+      <article class="concept">
+        <h3>1. 합집합·교집합·조건부확률</h3>
+        <div class="equation-grid" aria-label="확률 기본 공식">
+          <div><span>덧셈법칙</span><strong>P(A∪B)=P(A)+P(B)−P(A∩B)</strong></div>
+          <div><span>조건부확률</span><strong>P(A|B)=P(A∩B)/P(B)</strong></div>
+          <div><span>곱셈법칙</span><strong>P(A∩B)=P(B)P(A|B)</strong></div>
+        </div>
+        <p><strong>배반</strong>은 동시에 일어날 수 없어 P(A∩B)=0인 관계다. <strong>독립</strong>은 한 사건의 발생이 다른 사건 확률을 바꾸지 않아 P(A|B)=P(A), 곧 P(A∩B)=P(A)P(B)인 관계다. 확률이 양수인 두 배반사건은 동시에 일어나지 못하므로 오히려 독립이 아니다.</p>
+        <div class="formula">P(A|B) = P(B|A)P(A) / P(B)</div>
+        <p>베이즈 정리는 원인 A가 결과 B를 만들 확률 P(B|A)와 사전확률 P(A)를 이용해 결과 B를 본 뒤 원인 A일 확률 P(A|B)를 갱신한다. 희귀 질환 검사는 민감도·특이도가 높아도 유병률이 낮으면 양성예측도가 생각보다 낮을 수 있다.</p>
+        <aside class="callout compact"><strong>이해 포인트:</strong> “질환이면 양성”과 “양성이면 질환”은 조건의 방향이 반대다. 베이즈 정리는 이 방향을 뒤집을 때 전체 양성 중 진짜 환자가 차지하는 비율을 다시 계산한다.</aside>
+      </article>
+
+      <article class="concept">
+        <h3>2. 이산·연속 확률변수와 기대값</h3>
+        <p>확률변수는 무작위 결과를 수치로 대응한다. 이산형은 셀 수 있는 값에 확률질량함수(PMF)를, 연속형은 구간 확률을 밀도로 표현하는 확률밀도함수(PDF)를 쓴다. 연속형에서 한 점의 확률은 0이며 면적이 구간 확률이다. 누적분포함수 CDF는 F(x)=P(X≤x)다.</p>
+        <div class="equation-grid" aria-label="기대값과 분산">
+          <div><span>기대값</span><strong>E[X]=ΣxP(X=x)</strong></div>
+          <div><span>분산</span><strong>Var(X)=E[(X−μ)²]</strong></div>
+          <div><span>선형변환</span><strong>Var(aX+b)=a²Var(X)</strong></div>
+        </div>
+      </article>
+
+      <article class="concept">
+        <h3>3. 사건 구조로 대표 분포를 고른다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="대표 확률분포 비교">
+          <table>
+            <thead><tr><th scope="col">분포</th><th scope="col">대표 상황</th><th scope="col">평균·분산</th><th scope="col">핵심 조건</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">베르누이</th><td>한 번의 성공/실패</td><td>p, p(1−p)</td><td>결과 두 개</td></tr>
+              <tr><th scope="row">이항</th><td>n번 중 성공 횟수</td><td>np, np(1−p)</td><td>고정 n, 독립, 같은 p</td></tr>
+              <tr><th scope="row">포아송</th><td>일정 구간 사건 횟수</td><td>λ, λ</td><td>평균 발생률 λ</td></tr>
+              <tr><th scope="row">균등</th><td>구간 안 같은 밀도</td><td>(a+b)/2, (b−a)²/12</td><td>a≤x≤b</td></tr>
+              <tr><th scope="row">정규</th><td>대칭 종 모양 연속값</td><td>μ, σ²</td><td>위치 μ, 척도 σ</td></tr>
+              <tr><th scope="row">지수</th><td>포아송 사건 사이 대기시간</td><td>1/λ, 1/λ²</td><td>무기억 성질</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>정규분포를 표준화한 Z=(X−μ)/σ는 평균 0, 분산 1인 표준정규분포를 따른다. 경험법칙으로 정규분포의 약 68%, 95%, 99.7%가 평균에서 각각 1, 2, 3 표준편차 안에 있지만, 모든 분포에 적용하는 규칙은 아니다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>4. 추론에 자주 쓰는 t·카이제곱·F 분포</h3>
+        <div class="table-wrap" tabindex="0" aria-label="추론 분포 비교">
+          <table>
+            <thead><tr><th scope="col">분포</th><th scope="col">형태</th><th scope="col">대표 사용</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">t</th><td>정규분포보다 꼬리가 두껍고 자유도 증가 시 정규에 접근</td><td>모분산 미지인 평균 추론</td></tr>
+              <tr><th scope="row">카이제곱</th><td>0 이상, 오른쪽 비대칭, 자유도에 따라 변화</td><td>분산 추론, 적합도·독립성 검정</td></tr>
+              <tr><th scope="row">F</th><td>0 이상, 두 자유도</td><td>분산비, ANOVA의 집단간/집단내 변동비</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="sampling" aria-labelledby="sampling-title">
+      <p class="eyebrow">핵심 2 · 표본과 추정</p><h2 id="sampling-title">표본통계량의 흔들림을 수치화한다</h2>
+
+      <article class="concept">
+        <h3>1. 모집단·모수와 표본·통계량</h3>
+        <p>모집단의 관심 특성 μ, σ², p는 <strong>모수</strong>이고, 표본에서 계산한 x̄, s², p̂는 <strong>통계량</strong>이다. 같은 모집단에서 표본을 반복해 뽑으면 통계량이 달라지며, 그 분포가 표본분포다. 표본 크기를 늘리면 보통 추정의 무작위 오차는 줄지만 잘못된 표본틀이나 무응답에서 생긴 편향을 자동으로 고치지는 않는다.</p>
+        <div class="table-wrap" tabindex="0" aria-label="확률표본추출 방법">
+          <table>
+            <thead><tr><th scope="col">방법</th><th scope="col">절차</th><th scope="col">언제 유용한가</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">단순무작위</th><td>동일 크기 표본이 같은 선택 기회를 갖게 무작위 추출</td><td>완전한 표본틀이 있고 집단 구분이 덜 중요</td></tr>
+              <tr><th scope="row">계통</th><td>무작위 시작점 뒤 일정 간격마다 선택</td><td>목록 추출이 간편, 주기성과 간격 충돌 주의</td></tr>
+              <tr><th scope="row">층화</th><td>모집단을 층으로 나누고 각 층에서 추출</td><td>중요한 하위집단의 대표성·정밀도 확보</td></tr>
+              <tr><th scope="row">군집</th><td>자연 집단 일부를 뽑아 집단 전체나 내부 표본 조사</td><td>넓게 흩어진 모집단의 조사비용 절감</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>층화는 각 층을 모두 대표하려 하고, 군집은 여러 군집 중 일부를 선택한다는 방향 차이를 기억한다. 편의·할당 표본 같은 비확률 추출은 빠르지만 선택확률을 알기 어려워 일반화에 더 강한 가정이 필요하다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 중심극한정리는 평균의 표본분포를 연결한다</h3>
+        <p>독립성과 유한한 분산 등 조건 아래 표본 크기가 커질수록 표본평균의 표본분포는 모집단 모양과 무관하게 정규분포에 가까워진다. 모집단 평균이 μ, 표준편차가 σ이면 표본평균의 평균은 μ, 표준오차는 σ/√n이다.</p>
+        <div class="equation-grid" aria-label="표본평균과 표본비율 표준오차">
+          <div><span>평균의 표준오차</span><strong>SE(x̄)=σ/√n ≈ s/√n</strong></div>
+          <div><span>비율의 표준오차</span><strong>SE(p̂)=√[p(1−p)/n]</strong></div>
+          <div><span>표본 4배</span><strong>SE는 1/2배</strong></div>
+        </div>
+        <aside class="callout compact"><strong>이해 포인트:</strong> 표준편차는 개별 관측값의 퍼짐, 표준오차는 반복 표본에서 추정량의 퍼짐이다. 데이터가 네 배면 정보가 네 배여도 오차는 제곱근 법칙 때문에 절반이 된다.</aside>
+      </article>
+
+      <article class="concept">
+        <h3>3. 점추정과 구간추정</h3>
+        <p>점추정은 모수에 한 값을 제시하고, 구간추정은 불확실성을 범위로 표현한다. 좋은 추정량의 성질로 불편성(기대값이 모수), 일치성(표본 증가 시 모수에 수렴), 효율성(같은 조건에서 작은 분산)을 본다.</p>
+        <div class="formula">모평균의 t 신뢰구간: x̄ ± t<sub>1−α/2,n−1</sub> · s/√n</div>
+        <p>같은 자료라면 신뢰수준이 높을수록 임계값이 커져 구간이 넓어진다. 표본 수가 커지면 √n 항 때문에 좁아지고, 표본 표준편차가 크면 넓어진다. 전제와 추출 설계가 잘못되면 좁은 구간도 정확하지 않을 수 있다.</p>
+        <aside class="warning"><h3>95% 신뢰구간의 정확한 해석</h3><p>같은 절차로 표본추출과 구간 계산을 반복하면 장기적으로 약 95%의 구간이 고정된 참 모수를 포함한다. 계산을 끝낸 특정 구간에 대해 빈도주의 해석으로 “모수가 들어 있을 확률이 95%”라고 말하지 않는다.</p></aside>
+      </article>
+    </section>
+
+    <section id="testing" aria-labelledby="testing-title">
+      <p class="eyebrow">핵심 3 · 가설검정</p><h2 id="testing-title">귀무가설 아래 관측값이 얼마나 이례적인지 본다</h2>
+
+      <article class="concept">
+        <h3>1. 검정 절차</h3>
+        <ol class="steps">
+          <li><strong>가설</strong><span>모수에 대한 H₀와 연구 질문인 H₁을 세운다.</span></li>
+          <li><strong>기준</strong><span>자료를 보기 전에 유의수준 α와 단측·양측을 정한다.</span></li>
+          <li><strong>통계량</strong><span>가정에 맞는 검정을 선택하고 값을 계산한다.</span></li>
+          <li><strong>판단</strong><span>p≤α이면 H₀를 기각, 아니면 기각하지 못한다.</span></li>
+          <li><strong>해석</strong><span>효과 크기·신뢰구간·가정·실무 중요성을 함께 보고한다.</span></li>
+        </ol>
+        <p>p값은 <strong>H₀가 참이라고 가정했을 때</strong> 현재 관측한 통계량과 같거나 더 극단적인 결과가 나올 확률이다. H₀가 참일 확률도, 결과가 우연일 확률도, 효과 크기도 아니다. p가 크면 H₀가 참이라고 증명한 것이 아니라 기각할 증거가 충분하지 않다는 뜻이다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 1종·2종 오류와 검정력</h3>
+        <div class="table-wrap" tabindex="0" aria-label="가설검정 오류 행렬">
+          <table>
+            <thead><tr><th scope="col">결정</th><th scope="col">H₀ 참</th><th scope="col">H₀ 거짓</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">H₀ 기각</th><td>1종 오류, 확률 α</td><td>옳은 탐지, 검정력 1−β</td></tr>
+              <tr><th scope="row">H₀ 기각 못함</th><td>옳은 결정</td><td>2종 오류, 확률 β</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>다른 조건이 같을 때 α를 매우 낮추면 거짓 양성은 줄지만 실제 효과를 놓치는 β가 커질 수 있다. 검정력은 효과가 클수록, 표본이 많을수록, 변동이 작을수록 대체로 커진다. 단측검정은 방향을 사전에 정했을 때 그 방향의 검정력이 높지만 반대 방향 효과를 기각 근거로 쓰지 못한다.</p>
+        <aside class="callout compact"><strong>이해 포인트:</strong> 화재경보에서 1종 오류는 불이 없는데 경보, 2종 오류는 불이 있는데 침묵이다. 어느 오류가 더 비싼지는 문제마다 다르므로 α와 표본 수는 비용을 반영해 정한다.</aside>
+      </article>
+
+      <article class="concept">
+        <h3>3. 통계적 유의성과 실무적 중요성</h3>
+        <p>표본이 매우 크면 아주 작은 차이도 p값이 작아질 수 있다. 반대로 표본이 작으면 중요한 차이가 있어도 검정력이 부족할 수 있다. 평균 차이, 비율 차이, Cohen의 d, 오즈비 같은 효과 크기와 신뢰구간을 함께 제시해 차이의 방향·크기·불확실성을 평가한다.</p>
+        <p>여러 가설을 각각 α=0.05로 반복하면 적어도 하나의 거짓 양성이 생길 확률이 커진다. 사전 가설을 제한하거나 Bonferroni, FDR 같은 다중비교 보정을 문제에 맞게 검토한다.</p>
+      </article>
+    </section>
+
+    <section id="selection" aria-labelledby="selection-title">
+      <p class="eyebrow">핵심 4 · 검정 선택</p><h2 id="selection-title">목표변수·집단 수·독립성을 먼저 본다</h2>
+      <div class="table-wrap" tabindex="0" aria-label="대표 검정 선택표">
+        <table>
+          <thead><tr><th scope="col">질문·자료 구조</th><th scope="col">대표 모수 검정</th><th scope="col">대표 비모수 대안</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">한 집단 평균 vs 기준</th><td>일표본 t</td><td>Wilcoxon 부호순위 등</td></tr>
+            <tr><th scope="row">독립 두 집단 평균</th><td>독립표본 t, Welch t</td><td>Mann–Whitney U</td></tr>
+            <tr><th scope="row">같은 개체 전후</th><td>대응표본 t</td><td>Wilcoxon 부호순위</td></tr>
+            <tr><th scope="row">독립 3집단 이상 평균</th><td>일원 ANOVA</td><td>Kruskal–Wallis</td></tr>
+            <tr><th scope="row">범주형 두 변수 관계</th><td>카이제곱 독립성 검정</td><td>작은 기대빈도는 Fisher 정확검정 검토</td></tr>
+            <tr><th scope="row">수치형 두 변수 선형관계</th><td>피어슨 상관 검정</td><td>스피어만 순위상관</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>모수검정은 단순히 “표본 30 이상이면 무조건” 고르는 것이 아니다. 독립성, 자료 척도, 분포와 잔차, 등분산 등 해당 검정의 가정을 진단한다. Welch t는 독립 두 집단의 등분산을 가정하지 않는 대표 선택이다.</p>
+      <p>일원 ANOVA의 H₀는 모든 집단 평균이 같다는 것이고, 기각하면 <strong>적어도 하나</strong>가 다르다는 뜻이다. 어느 집단끼리 다른지는 사후 다중비교가 필요하다. F 통계량은 집단 사이 변동을 집단 안 변동과 비교한다.</p>
+      <p>카이제곱 독립성 검정은 관측빈도와 H₀ 아래 기대빈도의 차이를 <span class="nowrap">χ²=Σ(O−E)²/E</span>로 합한다. 원자료의 개별 행보다 빈도표와 기대빈도 조건이 핵심이다.</p>
+      <aside class="warning">
+        <h3>시험과 실기의 혼동 지점</h3>
+        <ul>
+          <li><strong>독립표본 ≠ 대응표본:</strong> 같은 사람 전후는 차이값 하나의 표본으로 다룬다.</li>
+          <li><strong>ANOVA 기각:</strong> 모든 평균이 서로 다르다는 뜻이 아니라 적어도 하나가 다르다는 뜻이다.</li>
+          <li><strong>p&gt;α:</strong> H₀를 채택·증명하는 것이 아니라 기각하지 못한다.</li>
+          <li><strong>p값 ≠ 효과 크기:</strong> 작은 p가 큰 효과를 보장하지 않는다.</li>
+          <li><strong>비모수 ≠ 무가정:</strong> 순위와 표본 독립성 등 각 검정의 조건은 남는다.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title">
+      <p class="eyebrow">9분 · 폐쇄형 회상</p><h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <div class="details-list">
+        <details><summary>1. 배반과 독립의 차이는?</summary><p>배반은 교집합 확률이 0이고, 독립은 한 사건이 다른 사건 확률을 바꾸지 않아 교집합이 확률의 곱이다.</p></details>
+        <details><summary>2. 조건부확률 공식은?</summary><p>P(A|B)=P(A∩B)/P(B), 단 P(B)&gt;0이다.</p></details>
+        <details><summary>3. 베이즈 정리 공식은?</summary><p>P(A|B)=P(B|A)P(A)/P(B)다.</p></details>
+        <details><summary>4. 이항분포의 조건과 평균·분산은?</summary><p>고정된 n번의 독립 시행에서 성공확률 p가 같으며 평균 np, 분산 np(1−p)다.</p></details>
+        <details><summary>5. 포아송분포의 평균과 분산은?</summary><p>둘 다 발생률 모수 λ다.</p></details>
+        <details><summary>6. t 분포가 표준정규분포와 다른 점은?</summary><p>꼬리가 더 두껍고 자유도가 증가하면 표준정규분포에 가까워진다.</p></details>
+        <details><summary>7. 층화추출과 군집추출의 방향 차이는?</summary><p>층화는 각 층에서 표본을 뽑고, 군집은 여러 자연 집단 중 일부 집단을 선택한다.</p></details>
+        <details><summary>8. 표준편차와 표준오차의 차이는?</summary><p>표준편차는 관측값의 퍼짐, 표준오차는 반복 표본에서 추정량의 퍼짐이다.</p></details>
+        <details><summary>9. 평균의 표준오차 공식은?</summary><p>모표준편차를 알면 σ/√n, 모르면 보통 s/√n으로 추정한다.</p></details>
+        <details><summary>10. 95% 신뢰구간의 빈도주의 해석은?</summary><p>같은 절차를 반복할 때 만들어진 구간의 약 95%가 참 모수를 포함한다.</p></details>
+        <details><summary>11. p값의 정의는?</summary><p>H₀가 참이라는 조건 아래 관측값과 같거나 더 극단적인 검정통계량을 얻을 확률이다.</p></details>
+        <details><summary>12. 1종·2종 오류와 검정력은?</summary><p>참 H₀를 기각하는 α, 거짓 H₀를 기각하지 못하는 β, 거짓 H₀를 옳게 기각하는 1−β다.</p></details>
+        <details><summary>13. 같은 사람의 전후 평균 비교에 맞는 검정은?</summary><p>차이값을 분석하는 대응표본 t 검정 또는 대응 비모수 대안이다.</p></details>
+        <details><summary>14. 일원 ANOVA 기각이 뜻하는 것은?</summary><p>모든 평균이 같지는 않아 적어도 한 집단 평균이 다르다는 뜻이다.</p></details>
+        <details><summary>15. 범주형 두 변수의 독립성을 볼 대표 검정은?</summary><p>관측·기대빈도를 비교하는 카이제곱 독립성 검정이다.</p></details>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">선택지 변별 15문제</h2>
+      <ol class="quiz-list">
+        <li><p>P(A)=0.5, P(B)=0.4, P(A∩B)=0.2일 때 A와 B의 관계는?</p><ol class="choices" type="A"><li>배반</li><li>독립</li><li>항상 종속</li><li>판단 불가</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 0.5×0.4=0.2이므로 독립이다. 교집합이 0이 아니어서 배반은 아니다.</p></details></li>
+        <li><p>P(A)=0.6, P(B)=0.5, P(A∩B)=0.3일 때 P(A∪B)는?</p><ol class="choices" type="A"><li>0.3</li><li>0.5</li><li>0.8</li><li>1.1</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 0.6+0.5−0.3=0.8이다. 교집합을 빼 중복 계산을 제거한다.</p></details></li>
+        <li><p>고정된 10개 제품 중 불량 제품 수를, 각 제품 불량확률이 같고 독립이라 가정해 모형화할 분포는?</p><ol class="choices" type="A"><li>이항</li><li>정규</li><li>지수</li><li>균등</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 고정 n번의 독립 성공 횟수는 이항분포다.</p></details></li>
+        <li><p>X~Binomial(n=20,p=0.3)일 때 기대값은?</p><ol class="choices" type="A"><li>0.3</li><li>6</li><li>14</li><li>20</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> np=20×0.3=6이다.</p></details></li>
+        <li><p>시간당 평균 4건 발생하는 사건 수를 대표적으로 설명할 분포는?</p><ol class="choices" type="A"><li>포아송</li><li>베르누이</li><li>t</li><li>F</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 일정 구간의 사건 횟수는 포아송분포의 대표 상황이다.</p></details></li>
+        <li><p>모분산을 모르는 작은 표본에서 정규성 가정 아래 모평균을 추론할 때 대표 분포는?</p><ol class="choices" type="A"><li>t</li><li>균등</li><li>베르누이</li><li>포아송</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 표본 표준편차로 모표준편차를 대신한 평균 추론에는 t 분포가 대표적이다.</p></details></li>
+        <li><p>모든 지역을 대도시·중소도시·농촌으로 나누고 각 집단에서 뽑는 방법은?</p><ol class="choices" type="A"><li>층화추출</li><li>군집추출</li><li>편의추출</li><li>눈덩이추출</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 모든 층에서 표본을 추출해 하위집단 대표성을 확보한다.</p></details></li>
+        <li><p>개별 관측값의 표준편차가 12, 표본 크기가 36일 때 표본평균 표준오차는?</p><ol class="choices" type="A"><li>0.33</li><li>2</li><li>6</li><li>12</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 12/√36=2다.</p></details></li>
+        <li><p>다른 조건이 같고 표본 크기를 100에서 400으로 늘리면 평균의 표준오차는?</p><ol class="choices" type="A"><li>4배</li><li>2배</li><li>절반</li><li>변하지 않음</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 표본이 4배면 √n이 2배여서 표준오차는 절반이다.</p></details></li>
+        <li><p>같은 표본에서 95% 신뢰구간을 99%로 바꾸면 일반적으로?</p><ol class="choices" type="A"><li>더 좁아진다.</li><li>더 넓어진다.</li><li>중심이 반드시 0이 된다.</li><li>표본 수가 자동 증가한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 더 높은 포괄률을 얻기 위해 임계값과 오차한계가 커진다.</p></details></li>
+        <li><p>p=0.03의 올바른 해석은?</p><ol class="choices" type="A"><li>H₀가 참일 확률이 3%다.</li><li>H₀ 아래 현재와 같거나 더 극단적인 결과 확률이 3%다.</li><li>대립가설이 참일 확률이 97%다.</li><li>효과가 3% 크기다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> p값은 H₀를 조건으로 한 데이터·통계량의 꼬리확률이다. 가설 확률이나 효과 크기가 아니다.</p></details></li>
+        <li><p>실제로 효과가 없는데 효과가 있다고 결론 내리는 오류는?</p><ol class="choices" type="A"><li>1종 오류</li><li>2종 오류</li><li>검정력</li><li>표준오차</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 참인 H₀를 기각하는 거짓 양성이 1종 오류다.</p></details></li>
+        <li><p>같은 환자 30명의 투약 전후 혈압 평균을 비교할 대표 검정은?</p><ol class="choices" type="A"><li>대응표본 t</li><li>독립표본 t</li><li>카이제곱 독립성</li><li>일원 ANOVA만</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 같은 환자 측정끼리 자연스럽게 짝지어져 차이값을 검정한다.</p></details></li>
+        <li><p>네 치료군의 평균이 모두 같은지 검정한 ANOVA에서 H₀를 기각했다. 바로 말할 수 있는 결론은?</p><ol class="choices" type="A"><li>네 평균이 모두 서로 다르다.</li><li>적어도 한 평균이 다르다.</li><li>첫째와 둘째만 다르다.</li><li>효과가 실무적으로 크다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 전체 검정은 적어도 하나의 차이만 말한다. 구체적 쌍은 사후 비교, 실무 크기는 효과 크기로 본다.</p></details></li>
+        <li><p>지역과 결제수단 두 범주형 변수의 독립성을 볼 대표 검정은?</p><ol class="choices" type="A"><li>카이제곱 독립성</li><li>대응표본 t</li><li>피어슨 평균검정</li><li>선형회귀의 R²만</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 교차표의 관측빈도와 독립 가정 아래 기대빈도를 비교한다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">이항확률·표준오차·근사 신뢰구간을 확인한다</h2>
+      <p>표준 라이브러리 예제는 이항 PMF의 합이 1인지, 표본 크기와 표준오차의 제곱근 관계, 정규근사 구간을 <code>assert</code>로 확인한다. <a href="../examples/statistics_demo.py" download>실행 파일 내려받기</a></p>
+      <pre><code>from math import comb, sqrt
+
+def binomial_pmf(k, n, p):
+    return comb(n, k) * p**k * (1 - p)**(n - k)
+
+standard_error = sample_sd / sqrt(sample_size)</code></pre>
+      <p class="muted">실제 검정은 scipy·statsmodels 같은 검증된 구현을 사용하고, 대립가설 방향·표본 구조·가정과 버전별 API를 공식 문서에서 확인한다.</p>
+    </section>
+
+    <section class="panel finish" aria-labelledby="finish-title"><p class="eyebrow">마무리</p><h2 id="finish-title">45초 추론 설명</h2><p>“확률모형 → 표본추출 → 통계량의 표본분포 → 표준오차 → 신뢰구간 또는 H₀ 아래 p값 → 효과 크기와 가정” 순서로 설명한다.</p></section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 추가 학습</p><h2 id="sources-title">이 단원을 만든 자료</h2>
+      <ul class="sources">
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">DATAQ 빅데이터분석기사 시험 주요내용</a> — 공식 출제범위</li>
+        <li><a href="https://itl.nist.gov/div898/handbook/eda/section3/eda366i.htm">NIST 이항분포</a> — 확률질량함수와 분포 특성</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3661.htm">NIST 정규분포</a> — 밀도·누적분포와 표준화</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/prc/section1/prc13.htm">NIST 통계적 가설검정</a> — 1·2종 오류와 검정력</li>
+        <li><a href="https://itl.nist.gov/div898/handbook/prc/section1/prc131.htm">NIST 임계값과 p값</a> — 유의수준·기각역·p값</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda352.htm">NIST 모평균 신뢰구간</a> — t 구간과 반복표본 해석</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/prc/section3/prc311.htm">NIST 대응 관측 분석</a> — 전후 차이와 대응 t 검정</li>
+        <li><a href="https://itl.nist.gov/div898/handbook/eda/section3/eda354.htm">NIST 일원 ANOVA</a> — 집단간·집단내 변동과 F 검정</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/prc/section4/prc46.htm">NIST 카이제곱 동질성 검정</a> — 관측·기대빈도 비교</li>
+        <li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html">SciPy Mann–Whitney U</a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.wilcoxon.html">Wilcoxon</a> · <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kruskal.html">Kruskal–Wallis</a> — 비모수 검정 공식 API</li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav" aria-label="단원 이동">
+      <a class="button secondary" href="02-exploration.html">이전: 데이터 탐색</a>
+      <a class="button" href="03-model-design.html">다음 과목: 모형 설계</a>
+    </nav>
+  </main>
+
+  <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+</body>
+</html>

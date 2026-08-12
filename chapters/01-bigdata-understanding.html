@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="빅데이터의 정의, 가치, 분석 유형, 기술과 참조 아키텍처를 다루는 빅데이터분석기사 1과목 교재">
+  <title>01-01 빅데이터의 이해</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>1과목</span></nav>
+      <p class="eyebrow">01-01 · 빅데이터의 이해</p>
+      <h1>큰 데이터가 아니라, 달라진 문제</h1>
+      <p class="lede">규모만 외우지 않고 데이터 특성, 확장 가능한 처리, 가치 창출과 위험을 한 구조로 연결한다.</p>
+      <ul class="tags" aria-label="단원 정보"><li>약 55분</li><li>회상 12개</li><li>문제 12개</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="단원 차례">
+    <div class="page narrow nav-links">
+      <a href="#scope">범위·목표</a><a href="#meaning">정의·특성</a><a href="#value">가치·분석</a>
+      <a href="#architecture">아키텍처</a><a href="#risk">위험</a><a href="#recall">회상</a>
+      <a href="#quiz">문제</a><a href="#sources">출처</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="scope" class="panel objectives" aria-labelledby="scope-title">
+      <p class="eyebrow">공식 범위 · 빅데이터의 이해</p>
+      <h2 id="scope-title">특성에서 가치와 기술 구조까지</h2>
+      <p>이 단원은 빅데이터의 개념과 등장 배경, 데이터 가치, 데이터산업과 분석 유형, 구성 기술과 위험을 다룬다.</p>
+      <h3>끝나면 다음을 설명한다</h3>
+      <ul class="check-list">
+        <li>빅데이터를 단순히 “용량이 큰 데이터”라고만 정의하면 부족한 이유를 설명한다.</li>
+        <li>3V·4V·5V가 고정된 국제 표준 목록이 아니라 설명 목적에 따른 틀임을 안다.</li>
+        <li>DIKW와 기술·진단·예측·처방 분석을 구분한다.</li>
+        <li>참조 아키텍처의 역할과 데이터 생애주기를 연결한다.</li>
+        <li>가치가 데이터 크기가 아니라 의사결정과 실행에서 발생함을 설명한다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="precheck-title">
+      <p class="eyebrow">4분 · 사전 점검</p><h2 id="precheck-title">익숙한 단어를 정확하게 만들기</h2>
+      <ol class="questions">
+        <li>1TB 파일 하나는 언제나 빅데이터인가?</li>
+        <li>3V와 5V 중 어느 쪽만 정답인가?</li>
+        <li>상관관계가 발견되면 곧바로 처방 분석까지 끝난 것인가?</li>
+        <li>데이터 레이크와 데이터 웨어하우스는 같은 것인가?</li>
+        <li>좋은 예측모형이면 데이터 편향의 위험도 자동으로 사라지는가?</li>
+      </ol>
+    </section>
+
+    <section id="meaning" aria-labelledby="meaning-title">
+      <p class="eyebrow">핵심 1 · 정의와 특성</p><h2 id="meaning-title">데이터 특성과 처리 체계를 함께 본다</h2>
+      <ol class="concept-map">
+        <li><strong>Volume</strong><span>기존 방식에 부담이 되는 규모</span></li>
+        <li><strong>Variety</strong><span>형식·출처·의미의 다양성</span></li>
+        <li><strong>Velocity</strong><span>생성·수집·처리의 속도</span></li>
+        <li><strong>Variability</strong><span>분포·구조·의미의 변동</span></li>
+        <li><strong>Scalability</strong><span>부하 증가에 확장하는 구조</span></li>
+        <li><strong>Value</strong><span>판단·행동으로 실현되는 효용</span></li>
+      </ol>
+
+      <article class="concept">
+        <h3>1. 절대 크기보다 기존 체계의 한계가 중요하다</h3>
+        <p>NIST는 빅데이터를 주로 규모·다양성·속도 및 변동성의 특성을 가지며, 효율적인 저장·조작·분석을 위해 확장 가능한 아키텍처가 필요한 광범위한 데이터셋으로 설명한다. 따라서 파일 크기만으로 판정하지 않는다. 작은 센서 이벤트라도 초저지연 처리가 필요하면 속도가 문제이고, 수많은 문서·영상·로그가 섞이면 다양성이 문제다.</p>
+        <div class="callout">
+          <h4>이해 포인트 · “빅”은 상대적이다</h4>
+          <p>어제의 대용량은 오늘 한 대의 컴퓨터에서 처리될 수 있다. 시험에서는 숫자 기준을 찾기보다 <strong>현재 도구로 감당하기 어려운 특성</strong>과 <strong>확장 가능한 처리 필요성</strong>을 함께 찾는다.</p>
+        </div>
+      </article>
+
+      <article class="concept">
+        <h3>2. V 목록은 설명 틀이지 하나의 고정 정답표가 아니다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="빅데이터 특성 비교">
+          <table>
+            <thead><tr><th scope="col">특성</th><th scope="col">질문</th><th scope="col">예시 대응</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">규모 Volume</th><td>얼마나 많이 쌓이는가?</td><td>분산 저장, 압축, 파티셔닝</td></tr>
+              <tr><th scope="row">다양성 Variety</th><td>형식과 의미가 얼마나 다른가?</td><td>스키마·메타데이터·통합</td></tr>
+              <tr><th scope="row">속도 Velocity</th><td>얼마나 빨리 들어오고 답해야 하는가?</td><td>스트림 처리, 지연시간 관리</td></tr>
+              <tr><th scope="row">변동성 Variability</th><td>분포·구조·의미가 바뀌는가?</td><td>스키마 진화, 변화 감시</td></tr>
+              <tr><th scope="row">신뢰성 Veracity</th><td>오류·편향·불확실성은 어느 정도인가?</td><td>품질 규칙, 검증, 출처 추적</td></tr>
+              <tr><th scope="row">가치 Value</th><td>어떤 판단과 성과를 만드는가?</td><td>KPI·비용·위험과 연결</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>교재나 기관에 따라 3V에 신뢰성·가치 등을 더해 4V·5V로 가르친다. NIST 정의는 규모·다양성·속도와 변동성을 중심에 둔다. 따라서 “다섯 번째 V는 무조건 이것”이라고 단정하기보다, 선택지에 제시된 용어의 의미와 맥락을 판별한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 정형·반정형·비정형은 저장 위치가 아니라 구조의 명시성이다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="데이터 구조 유형">
+          <table>
+            <thead><tr><th scope="col">유형</th><th scope="col">특징</th><th scope="col">예</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">정형</th><td>행·열과 자료형 등 스키마가 명확</td><td>관계형 테이블, 거래 레코드</td></tr>
+              <tr><th scope="row">반정형</th><td>태그·키 등 자체 구조가 있으나 행·열이 고정되지 않음</td><td>JSON, XML, 이벤트 로그</td></tr>
+              <tr><th scope="row">비정형</th><td>분석 전 별도 특징 추출이 필요한 내용 중심 데이터</td><td>자연어 문서, 음성, 이미지</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>JSON도 필드 규칙을 엄격히 관리할 수 있고, 관계형 테이블도 의미가 불명확할 수 있다. 구조 유형과 품질 수준을 동일시하지 않는다.</p>
+      </article>
+    </section>
+
+    <section id="value" aria-labelledby="value-title">
+      <p class="eyebrow">핵심 2 · 지식과 분석 가치</p><h2 id="value-title">원시 사실이 행동으로 이어질 때 가치가 생긴다</h2>
+      <article class="concept">
+        <h3>1. DIKW는 변환의 방향을 설명하는 개념 지도다</h3>
+        <ol class="steps">
+          <li><strong>Data</strong><span>맥락을 붙이기 전 관측값: 38, 40, 42</span></li>
+          <li><strong>Information</strong><span>의미와 관계를 부여: 최근 3일 반품 건수</span></li>
+          <li><strong>Knowledge</strong><span>패턴과 원리를 이해: 특정 포장 변경 뒤 반품 증가</span></li>
+          <li><strong>Wisdom</strong><span>목표·제약·가치를 고려해 행동: 포장을 원복하고 재검증</span></li>
+        </ol>
+        <p>현실의 분석은 반드시 한 방향으로만 오르지 않는다. 먼저 의사결정 질문을 정하고 필요한 데이터를 거꾸로 찾기도 한다. DIKW는 데이터가 저절로 지혜가 된다는 법칙이 아니라, <strong>맥락·해석·판단이 추가되는 과정</strong>을 기억하는 틀이다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 분석 유형은 답하려는 질문으로 고른다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="분석 유형 비교">
+          <table>
+            <thead><tr><th scope="col">유형</th><th scope="col">핵심 질문</th><th scope="col">예</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">기술 분석</th><td>무슨 일이 있었나?</td><td>지난달 채널별 이탈률 요약</td></tr>
+              <tr><th scope="row">진단 분석</th><td>왜 일어났나?</td><td>이탈 집단의 변화 요인 탐색</td></tr>
+              <tr><th scope="row">예측 분석</th><td>앞으로 무엇이 일어날까?</td><td>고객별 다음 달 이탈확률 추정</td></tr>
+              <tr><th scope="row">처방 분석</th><td>무엇을 해야 하나?</td><td>예산·접촉 한도 아래 대상 최적화</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>예측은 미래 값을 추정하지만 행동을 자동 결정하지 않는다. 처방에는 예측뿐 아니라 비용, 효용, 자원과 정책 제약이 필요하다. 진단 분석에서 발견한 연관도 실험·준실험 등 별도 인과 설계 없이 원인으로 단정할 수 없다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 데이터 가치는 재사용과 결합에서 커지지만 비용도 함께 커진다</h3>
+        <ul>
+          <li><strong>재사용:</strong> 한 번 수집한 운영 데이터가 품질 관리·수요 예측·감사에 쓰일 수 있다.</li>
+          <li><strong>결합:</strong> 서로 다른 데이터가 새로운 맥락을 만들지만, 연결키 오류와 재식별 위험도 높인다.</li>
+          <li><strong>시의성:</strong> 같은 정보라도 늦게 도착하면 의사결정 가치가 줄어든다.</li>
+          <li><strong>피드백:</strong> 추천 결과가 다시 클릭 데이터를 만들면 모형이 관측하는 세계 자체가 바뀐다.</li>
+        </ul>
+        <p>가치는 보유량이 아니라 더 나은 의사결정으로 절감한 비용·늘린 편익·낮춘 위험에서 평가한다. 수집·저장·정제·보안·운영 비용과 개인정보 침해 가능성도 함께 뺀다.</p>
+      </article>
+    </section>
+
+    <section id="architecture" aria-labelledby="architecture-title">
+      <p class="eyebrow">핵심 3 · 기술과 역할</p><h2 id="architecture-title">제품 이름보다 흐름과 책임을 본다</h2>
+      <p>NIST 빅데이터 참조 아키텍처는 특정 제품 조합이 아니라 상호작용하는 역할로 시스템을 설명한다. 하나의 조직이나 제품이 여러 역할을 맡을 수 있다.</p>
+      <div class="table-wrap" tabindex="0" aria-label="NIST 빅데이터 참조 아키텍처 역할">
+        <table>
+          <thead><tr><th scope="col">역할</th><th scope="col">책임</th><th scope="col">확인 질문</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">시스템 조정자</th><td>요구·정책·거버넌스와 전체 시스템 조정</td><td>왜 만들고 누가 책임지는가?</td></tr>
+            <tr><th scope="row">데이터 제공자</th><td>원천 데이터를 생성하거나 제공</td><td>출처와 사용조건은 무엇인가?</td></tr>
+            <tr><th scope="row">빅데이터 응용 제공자</th><td>수집·준비·분석·시각화·접근 기능</td><td>데이터가 어떤 단계로 변하는가?</td></tr>
+            <tr><th scope="row">빅데이터 프레임워크 제공자</th><td>처리·저장·전송을 떠받치는 인프라</td><td>부하와 장애에 어떻게 대응하는가?</td></tr>
+            <tr><th scope="row">데이터 소비자</th><td>결과를 받아 판단·서비스에 사용</td><td>누가 어떤 행동을 하는가?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>관리와 보안·개인정보보호는 마지막 한 단계가 아니라 모든 역할과 생애주기를 가로지른다. 데이터 흐름은 대체로 수집 → 준비 → 분석 → 시각화 → 접근·행동으로 볼 수 있고, 분석은 전체 생애주기의 일부다.</p>
+
+      <article class="concept">
+        <h3>처리 구조를 고르는 네 가지 질문</h3>
+        <ol>
+          <li><strong>지연시간:</strong> 결과가 초·분·일 중 언제까지 필요한가?</li>
+          <li><strong>처리량:</strong> 단위시간에 얼마나 많은 데이터를 감당해야 하는가?</li>
+          <li><strong>일관성·가용성:</strong> 장애나 네트워크 분할에서 무엇을 우선하는가?</li>
+          <li><strong>복구·추적:</strong> 실패한 작업을 재실행하고 결과의 출처를 설명할 수 있는가?</li>
+        </ol>
+        <p><strong>규모 확장(scale-up)</strong>은 한 장비의 자원을 키우고, <strong>수평 확장(scale-out)</strong>은 여러 노드를 추가한다. 분산 구조는 용량과 병렬성을 늘리지만 네트워크 지연, 부분 장애, 데이터 분배와 운영 복잡성을 함께 만든다.</p>
+      </article>
+    </section>
+
+    <section id="risk" aria-labelledby="risk-title">
+      <p class="eyebrow">핵심 4 · 기회와 위험</p><h2 id="risk-title">분석 가능하다는 것과 사용해도 된다는 것은 다르다</h2>
+      <div class="two-columns">
+        <article class="panel"><h3>대표 기회</h3><ul><li>이상 징후의 조기 탐지</li><li>개인화와 자원 배분</li><li>운영 병목과 낭비 발견</li><li>새로운 서비스·연구 가능성</li></ul></article>
+        <article class="panel"><h3>대표 위험</h3><ul><li>개인정보 침해와 목적 외 이용</li><li>대표성 부족·역사적 편향의 확대</li><li>잘못된 상관관계와 자동화 과신</li><li>보안·독점·디지털 격차</li></ul></article>
+      </div>
+      <p>데이터가 많아도 표본이 모집단을 잘 대표한다는 보장은 없다. 결측이나 측정오류가 체계적이면 같은 편향을 더 정밀하게 재현할 수 있다. 품질·공정성·설명가능성·보안은 모형 완성 뒤 붙이는 장식이 아니라 문제 정의와 수집 단계부터 관리한다.</p>
+      <aside class="warning" aria-label="시험 함정">
+        <h3>시험에서 자주 섞이는 판단</h3>
+        <ul>
+          <li>데이터 규모 증가 ≠ 자동 가치 증가</li>
+          <li>상관관계 발견 ≠ 인과관계 입증</li>
+          <li>익명처럼 보이는 데이터 ≠ 재식별 위험 없음</li>
+          <li>분산 처리 ≠ 항상 더 빠름</li>
+          <li>좋은 평균 성능 ≠ 모든 집단에 공정함</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title">
+      <p class="eyebrow">7분 · 폐쇄형 회상</p><h2 id="recall-title">답을 먼저 말한 뒤 펼치기</h2>
+      <div class="details-list">
+        <details><summary>1. NIST 정의에서 데이터 특성 외에 함께 요구되는 것은?</summary><p>효율적인 저장·조작·분석을 위한 확장 가능한 아키텍처다.</p></details>
+        <details><summary>2. 3V는 무엇인가?</summary><p>규모(Volume), 다양성(Variety), 속도(Velocity)다.</p></details>
+        <details><summary>3. 5V 목록을 절대적으로 외우면 위험한 이유는?</summary><p>기관과 설명 목적에 따라 변동성·신뢰성·가치 등을 더하는 방식이 달라 하나의 고정 국제표준 목록이 아니기 때문이다.</p></details>
+        <details><summary>4. 반정형 데이터의 대표 특징과 예는?</summary><p>태그나 키 같은 자체 구조가 있지만 고정 행·열 스키마는 아니며 JSON·XML·이벤트 로그가 대표적이다.</p></details>
+        <details><summary>5. DIKW의 순서는?</summary><p>Data → Information → Knowledge → Wisdom이다.</p></details>
+        <details><summary>6. 예측 분석과 처방 분석의 차이는?</summary><p>예측은 일어날 결과를 추정하고, 처방은 효용·비용·제약을 고려해 행동을 고른다.</p></details>
+        <details><summary>7. 상관관계가 인과관계가 아닌 핵심 이유는?</summary><p>교란, 역인과, 선택 편향 등 다른 설명을 배제하지 못하기 때문이다.</p></details>
+        <details><summary>8. scale-up과 scale-out의 차이는?</summary><p>scale-up은 한 장비의 자원을 키우고, scale-out은 노드를 추가한다.</p></details>
+        <details><summary>9. NIST 참조 아키텍처에서 원천 데이터를 내는 역할은?</summary><p>데이터 제공자(Data Provider)다.</p></details>
+        <details><summary>10. 관리와 보안·개인정보보호는 어느 단계에 적용되는가?</summary><p>특정 마지막 단계가 아니라 역할과 생애주기 전체를 가로지른다.</p></details>
+        <details><summary>11. 데이터가 많아도 대표성이 보장되지 않는 이유는?</summary><p>수집 대상과 방식에 체계적 편향이 있으면 관측 수가 늘어도 편향은 남기 때문이다.</p></details>
+        <details><summary>12. 데이터 가치의 최종 기준은?</summary><p>보유량 자체가 아니라 비용·위험을 고려해 더 나은 의사결정과 행동을 만드는 효용이다.</p></details>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">12분 · 자체 제작 문제</p><h2 id="quiz-title">선택지의 과장을 제거하기</h2>
+      <ol class="quiz-list">
+        <li><p>빅데이터에 대한 설명으로 가장 적절한 것은?</p><ol type="A"><li>정해진 용량 기준을 넘는 모든 파일이다.</li><li>비정형 데이터만을 뜻한다.</li><li>데이터 특성 때문에 확장 가능한 저장·처리·분석 구조가 필요한 경우다.</li><li>분산 저장된 데이터는 크기와 관계없이 모두 빅데이터다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 절대 크기나 형식 하나가 아니라 규모·다양성·속도·변동성 등의 특성과 필요한 처리 구조를 함께 본다.</p></details></li>
+        <li><p>다음 중 속도(Velocity)의 문제에 가장 가까운 것은?</p><ol type="A"><li>영상과 표를 함께 저장한다.</li><li>결제 이상을 수 초 안에 탐지해야 한다.</li><li>누적 로그가 수 PB에 이르렀다.</li><li>측정값에 오류가 많다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 생성·유입·처리와 응답의 시간 요구다. A는 다양성, C는 규모, D는 신뢰성에 가깝다.</p></details></li>
+        <li><p>빅데이터의 V 특성에 관한 판단으로 옳은 것은?</p><ol type="A"><li>모든 기관이 동일한 5V를 정의한다.</li><li>3V 이외의 특성은 모두 틀린 표현이다.</li><li>가치는 데이터 용량과 같은 뜻이다.</li><li>설명 틀에 따라 신뢰성·가치·변동성 등이 추가될 수 있다.</li></ol><details><summary>정답과 해설</summary><p><strong>D.</strong> 목록의 구성은 문헌마다 다르므로 용어의 의미와 문맥을 판단한다.</p></details></li>
+        <li><p>반정형 데이터의 예로 가장 적절한 것은?</p><ol type="A"><li>고정 스키마의 주문 테이블</li><li>키와 중첩 구조를 가진 JSON 이벤트</li><li>원시 음성 파형</li><li>종이 설문지</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> JSON은 키와 구조를 자체적으로 포함하지만 행·열이 고정될 필요는 없다.</p></details></li>
+        <li><p>DIKW에서 수치에 “최근 3일 반품 건수”라는 맥락을 붙인 단계는?</p><ol type="A"><li>Data</li><li>Information</li><li>Knowledge</li><li>Wisdom</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 원시 관측값에 의미와 관계를 부여해 정보가 된다.</p></details></li>
+        <li><p>예측 분석에서 처방 분석으로 넘어갈 때 추가로 가장 필요한 것은?</p><ol type="A"><li>미래 값의 추정만 반복한다.</li><li>효용·비용·자원·정책 제약을 반영한다.</li><li>모든 변수를 비정형으로 바꾼다.</li><li>상관계수를 인과효과로 해석한다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 처방은 가능한 행동 가운데 목적과 제약을 만족하는 선택을 만든다.</p></details></li>
+        <li><p>NIST 참조 아키텍처에서 처리·저장·전송 인프라를 제공하는 역할은?</p><ol type="A"><li>데이터 소비자</li><li>시스템 조정자</li><li>빅데이터 프레임워크 제공자</li><li>데이터 제공자</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 응용 제공자는 생애주기 기능을, 프레임워크 제공자는 그 기반 인프라를 제공한다.</p></details></li>
+        <li><p>수평 확장(scale-out)의 설명은?</p><ol type="A"><li>한 서버의 CPU와 메모리만 증설한다.</li><li>여러 노드를 추가해 부하를 나눈다.</li><li>데이터를 모두 한 파일로 합친다.</li><li>분석 결과를 시각화한다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 여러 노드를 추가하는 방식이며 분산 운영 복잡성도 생긴다.</p></details></li>
+        <li><p>빅데이터가 많을수록 자동으로 분석 품질이 좋아진다는 주장에 대한 반례는?</p><ol type="A"><li>대표성 없는 표본이 같은 방식으로 더 많이 수집된다.</li><li>메타데이터가 관리된다.</li><li>검증 자료가 분리된다.</li><li>업무 지표가 사전에 정해진다.</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 체계적 선택 편향은 관측 수 증가만으로 사라지지 않는다.</p></details></li>
+        <li><p>진단 분석에서 발견한 강한 연관을 원인으로 단정할 수 없는 이유는?</p><ol type="A"><li>데이터가 정형이기 때문이다.</li><li>교란과 역인과 같은 대안 설명이 남기 때문이다.</li><li>기술 분석보다 항상 자료가 적기 때문이다.</li><li>분산 처리를 사용하기 때문이다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 인과 주장은 대안 설명을 통제하는 별도 설계가 필요하다.</p></details></li>
+        <li><p>보안과 개인정보보호를 적용하는 시점으로 가장 적절한 것은?</p><ol type="A"><li>분석 결과를 공개하기 직전에만</li><li>데이터를 삭제할 때만</li><li>수집부터 이용·보관·파기까지 생애주기 전체에</li><li>모형 정확도가 낮을 때만</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 위험 관리는 하나의 후처리 단계가 아니라 모든 역할과 단계에 걸친다.</p></details></li>
+        <li><p>데이터 가치 평가로 가장 적절한 것은?</p><ol type="A"><li>저장한 바이트 수만 센다.</li><li>수집 가능한 데이터는 모두 무기한 보관한다.</li><li>의사결정 편익에서 수집·운영·위험 비용을 함께 고려한다.</li><li>예측 정확도만 높으면 가치는 확정된다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 모형 점수는 중간 지표이며 실제 행동의 편익·비용·위험이 최종 가치 판단에 들어간다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식·1차 자료</h2>
+      <ul class="sources">
+        <li><a href="https://csrc.nist.gov/Topics/Technologies/big-data">NIST CSRC · Big Data 정의</a> — 규모·다양성·속도·변동성과 확장 가능한 아키텍처.</li>
+        <li><a href="https://www.nist.gov/itl/big-data-nist/documents/nbdif-version-20-final">NIST Big Data Interoperability Framework Version 2.0</a> — 개념, 용어와 전체 프레임워크.</li>
+        <li><a href="https://www.nist.gov/publications/nist-big-data-interoperability-framework-volume-6-reference-architecture">NIST SP 1500-6r2 · Reference Architecture</a> — 역할, 인터페이스와 생애주기 관점.</li>
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">한국데이터산업진흥원 · 빅데이터분석기사 출제범위</a> — 단원 범위의 기준.</li>
+      </ul>
+      <p class="source-note">설명은 위 자료를 토대로 새로 작성했다. V의 개수처럼 문헌별 표현이 다른 내용은 하나의 절대 목록으로 단정하지 않았다.</p>
+    </section>
+
+    <nav class="bottom-nav" aria-label="다음 단원"><a href="../index.html">← 교재 홈</a><a href="01-analysis-planning.html">다음: 분석계획 →</a></nav>
+  </main>
+
+  <footer><div class="page narrow"><p>1과목 · 빅데이터의 이해</p></div></footer>
+</body>
+</html>

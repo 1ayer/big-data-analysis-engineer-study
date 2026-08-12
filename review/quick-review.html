@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="빅데이터분석기사 4과목 핵심 개념과 혼동 지점을 압축한 시험 직전요약">
+  <title>빅데이터분석기사 직전요약과 혼동표</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
+      <p class="eyebrow">직전요약 · 네 과목 압축</p>
+      <h1>아는 내용을 빠르게 꺼내는 지도</h1>
+      <p class="lede">새로 배우기보다 관계와 조건을 말하고, 흔히 뒤집는 개념만 표로 교정한다.</p>
+      <ul class="tags" aria-label="자료 정보"><li>약 45분</li><li>4과목</li><li>혼동쌍 16개</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="요약 차례">
+    <div class="page narrow nav-links">
+      <a href="#use">사용법</a><a href="#subject-1">1과목</a><a href="#subject-2">2과목</a>
+      <a href="#subject-3">3과목</a><a href="#subject-4">4과목</a><a href="#confusions">혼동표</a>
+      <a href="#last-check">마지막 점검</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="use" class="panel objectives" aria-labelledby="use-title">
+      <p class="eyebrow">사용법</p><h2 id="use-title">읽기 전에 20초 말하기</h2>
+      <ol class="steps">
+        <li><strong>회상</strong><span>각 제목만 보고 관련 개념·조건·반례를 소리 내어 말한다.</span></li>
+        <li><strong>대조</strong><span>빈칸과 뒤집힌 개념만 표에서 확인한다.</span></li>
+        <li><strong>적용</strong><span><a href="mock-exam.html">80문항 모의고사</a>에서 그 개념이 선택지로 바뀌는 방식을 본다.</span></li>
+      </ol>
+      <p>처음부터 정독하는 자료가 아니다. 기억이 막힌 항목은 연결된 본문으로 돌아가고, 이미 말할 수 있는 항목은 건너뛴다.</p>
+    </section>
+
+    <section id="subject-1" aria-labelledby="subject-1-title">
+      <p class="eyebrow">1과목 · 빅데이터 분석기획</p><h2 id="subject-1-title">목적 → 근거 → 흐름 → 책임</h2>
+      <article class="concept">
+        <h3>빅데이터와 가치</h3>
+        <ul>
+          <li>빅데이터는 절대 용량 기준이 아니라 규모·다양성·속도·변동성 등의 특성 때문에 <strong>확장 가능한 아키텍처</strong>가 필요한 데이터다.</li>
+          <li>3V는 Volume·Variety·Velocity. Veracity·Value·Variability 등 추가 V는 문헌별로 다르므로 뜻을 판별한다.</li>
+          <li>정형은 고정 스키마, 반정형은 키·태그 등 자체 구조, 비정형은 내용에서 별도 특징 추출이 필요하다.</li>
+          <li>DIKW: Data → Information → Knowledge → Wisdom. 맥락·패턴 이해·판단이 추가된다.</li>
+          <li>기술 → 진단 → 예측 → 처방 분석은 “무슨 일 → 왜 → 앞으로 → 무엇을 할지”에 답한다.</li>
+          <li>데이터가 많아도 대표성·정확성·공정성은 자동 보장되지 않는다.</li>
+        </ul>
+      </article>
+      <article class="concept">
+        <h3>분석기획</h3>
+        <ul>
+          <li>업무 목표·의사결정 → 분석 단위·목표변수·기준시점·관측창·예측창 → 수용 지표·비용·제약 순으로 구체화한다.</li>
+          <li>하향식은 전략·업무 문제, 상향식은 데이터·패턴에서 출발하며 실제 과제는 둘을 반복한다.</li>
+          <li>CRISP-DM: 업무 이해 → 데이터 이해 → 준비 → 모델링 → 평가 → 배포. 순서는 엄격하지 않다.</li>
+          <li>KDD: 선택 → 전처리 → 변환 → 데이터마이닝 → 해석·평가. 데이터마이닝은 전체 과정의 한 단계다.</li>
+          <li>우선순위는 가치·데이터 준비도·기술·조직 실행성·위험을 함께 본다.</li>
+          <li>프로젝트 계획은 한 과제, 마스터 플랜은 포트폴리오와 공통 기반의 중장기 로드맵이다.</li>
+        </ul>
+      </article>
+      <article class="concept">
+        <h3>수집·저장·법제</h3>
+        <ul>
+          <li>배치는 모은 뒤 주기 처리, 스트림은 연속 이벤트 처리. 스트림은 지연·순서·중복·멱등성을 설계한다.</li>
+          <li>robots.txt는 크롤러 접근 규칙이지 저작권·계약·개인정보상 이용 권한이 아니다.</li>
+          <li>품질: 정확성·완전성·유효성·일관성·적시성·유일성. 체크섬은 의미적 정확성이 아니라 바이트 무결성을 본다.</li>
+          <li>가명정보도 개인정보다. 동의는 수집·이용의 여러 법적 근거 중 하나다.</li>
+          <li>통계작성·과학적 연구·공익적 기록보존 등에는 법이 정한 조건 아래 가명정보 특례가 있다.</li>
+          <li>ETL은 변환 후 적재, ELT는 적재 후 변환. 데이터와 플랫폼 요구에 따라 고른다.</li>
+          <li>HDFS: NameNode는 메타데이터, DataNode는 블록. Map → Shuffle·Sort → Reduce.</li>
+        </ul>
+      </article>
+      <p><a class="button secondary" href="../chapters/01-bigdata-understanding.html">1과목 본문 보기</a></p>
+    </section>
+
+    <section id="subject-2" aria-labelledby="subject-2-title">
+      <p class="eyebrow">2과목 · 빅데이터 탐색</p><h2 id="subject-2-title">자료형 → 분포 → 추론</h2>
+      <article class="concept">
+        <h3>전처리와 탐색</h3>
+        <ul>
+          <li>결측은 MCAR·MAR·MNAR 가능성을 검토한다. 평균·중앙값 대치는 분산과 관계를 왜곡할 수 있다.</li>
+          <li>IQR 이상값 경계: Q1 − 1.5×IQR, Q3 + 1.5×IQR. 이상값은 오류가 아니라 희귀한 참값일 수도 있다.</li>
+          <li>표준화 z=(x−평균)/표준편차, 최소-최대 정규화=(x−최솟값)/(최댓값−최솟값).</li>
+          <li>명목·순서·등간·비율 척도에 가능한 연산이 다르다. 섭씨 20도는 10도의 두 배라는 의미가 없다.</li>
+          <li>평균은 이상값에 민감, 중앙값은 강건. 분산·표준편차·IQR은 산포를 본다.</li>
+          <li>왜도는 비대칭, 첨도는 꼬리와 극단값 경향을 설명한다. 상관은 인과가 아니다.</li>
+        </ul>
+      </article>
+      <article class="concept">
+        <h3>확률과 추론</h3>
+        <ul>
+          <li>조건부확률 P(A|B)=P(A∩B)/P(B). 독립이면 P(A∩B)=P(A)P(B).</li>
+          <li>기대값은 확률가중 평균, 분산은 평균에서 제곱거리의 기대값이다.</li>
+          <li>이항분포: 고정 시행 수, 독립, 두 결과, 일정 성공확률. 포아송은 구간 내 사건 수.</li>
+          <li>표본통계량은 표본에서 계산, 모수는 모집단 특성. 표준오차는 통계량의 표본추출 변동이다.</li>
+          <li>95% 신뢰구간은 같은 절차를 반복할 때 약 95%의 구간이 참 모수를 포함한다는 장기적 성질이다.</li>
+          <li>p값은 귀무가설 아래 관측값 이상 극단적인 자료가 나올 확률이지 귀무가설이 참일 확률이 아니다.</li>
+          <li>제1종 오류는 참인 H0 기각(α), 제2종 오류는 거짓 H0를 기각하지 못함(β), 검정력=1−β.</li>
+        </ul>
+      </article>
+      <div class="table-wrap" tabindex="0" aria-label="대표 검정 선택">
+        <table>
+          <thead><tr><th scope="col">질문</th><th scope="col">대표 모수 검정</th><th scope="col">대표 비모수 대안</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">독립 두 집단 위치</th><td>독립표본 t 검정</td><td>Mann–Whitney U</td></tr>
+            <tr><th scope="row">대응 두 시점 위치</th><td>대응표본 t 검정</td><td>Wilcoxon signed-rank</td></tr>
+            <tr><th scope="row">독립 3집단 이상 평균</th><td>일원분산분석</td><td>Kruskal–Wallis</td></tr>
+            <tr><th scope="row">두 범주형 변수 연관</th><td>카이제곱 독립성 검정</td><td>기대도수가 작으면 Fisher 정확검정 고려</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a class="button secondary" href="../chapters/02-statistics.html">2과목 본문 보기</a></p>
+    </section>
+
+    <section id="subject-3" aria-labelledby="subject-3-title">
+      <p class="eyebrow">3과목 · 빅데이터 모델링</p><h2 id="subject-3-title">목표변수 → 경계 가정 → 검증</h2>
+      <article class="concept">
+        <h3>설계와 지도학습</h3>
+        <ul>
+          <li>연속 목표는 회귀, 범주 목표는 분류, 정답 없이 구조를 찾으면 군집·차원축소 등 비지도학습이다.</li>
+          <li>학습·검증·시험은 역할이 다르다. 전처리·특징선택도 학습 자료에서 적합해 누수를 막는다.</li>
+          <li>시계열은 미래가 과거 학습에 섞이지 않도록 시간 순서를 보존한다.</li>
+          <li>선형회귀는 E(Y|X)의 선형 구조를, 로지스틱 회귀는 로그오즈의 선형 구조를 가정한다.</li>
+          <li>exp(β)는 다른 변수가 같을 때 X 1 증가에 따른 오즈비다. 확률이 β만큼 증가한다는 뜻이 아니다.</li>
+          <li>Ridge(L2)는 제곱계수 벌점으로 축소, Lasso(L1)는 절댓값 벌점으로 일부 계수를 0으로 만들 수 있다.</li>
+          <li>나무는 불순도 감소로 분할, SVM은 마진 최대화, 신경망은 층·활성화와 역전파로 비선형 관계를 학습한다.</li>
+        </ul>
+      </article>
+      <article class="concept">
+        <h3>비지도·고급기법</h3>
+        <ul>
+          <li>연관규칙: 지지도 P(A∩B), 신뢰도 P(B|A), 향상도 P(B|A)/P(B). 향상도 1은 독립 수준이다.</li>
+          <li>k-means는 군집 내 제곱거리 최소화, k를 미리 정하고 이상값·척도·초기값에 민감하다.</li>
+          <li>계층 군집은 덴드로그램을 만들며 연결법에 따라 결과가 달라진다.</li>
+          <li>DBSCAN은 밀도 기반으로 임의 모양 군집과 잡음을 찾지만 밀도 차이가 크면 어렵다.</li>
+          <li>PCA는 분산이 큰 직교 방향으로 선형 투영한다. 지도 레이블을 쓰지 않으므로 예측에 최적인 축을 보장하지 않는다.</li>
+          <li>배깅은 병렬 학습 결과를 평균·투표해 분산을 낮추고, 부스팅은 앞선 오류를 순차 보완한다.</li>
+          <li>시계열 정상성은 평균·분산·자기공분산 구조가 시간에 따라 안정적인 성질을 뜻한다.</li>
+        </ul>
+      </article>
+      <div class="table-wrap" tabindex="0" aria-label="분석 모형 선택 압축표">
+        <table>
+          <thead><tr><th scope="col">상황</th><th scope="col">첫 후보</th><th scope="col">핵심 주의</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">연속값·설명 중요</th><td>선형회귀·규제 회귀</td><td>잔차·비선형·공선성</td></tr>
+            <tr><th scope="row">범주·확률 필요</th><td>로지스틱 회귀</td><td>임계값·불균형·보정</td></tr>
+            <tr><th scope="row">규칙과 상호작용</th><td>의사결정나무</td><td>과적합·불안정성</td></tr>
+            <tr><th scope="row">고차원 경계</th><td>SVM</td><td>척도·커널·대규모 비용</td></tr>
+            <tr><th scope="row">정답 없는 구획</th><td>k-means·계층·DBSCAN</td><td>거리·척도·밀도·해석</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a class="button secondary" href="../chapters/03-model-design.html">3과목 본문 보기</a></p>
+    </section>
+
+    <section id="subject-4" aria-labelledby="subject-4-title">
+      <p class="eyebrow">4과목 · 빅데이터 결과해석</p><h2 id="subject-4-title">지표 → 오류비용 → 행동 → 감시</h2>
+      <article class="concept">
+        <h3>평가와 개선</h3>
+        <ul>
+          <li>정확도=(TP+TN)/전체, 정밀도=TP/(TP+FP), 재현율=TP/(TP+FN), 특이도=TN/(TN+FP).</li>
+          <li>F1은 정밀도와 재현율의 조화평균. 클래스 불균형에서는 정확도 하나로 판단하지 않는다.</li>
+          <li>ROC-AUC는 임계값 전반의 순위 분리 능력, PR 곡선은 양성 희소 상황에서 양성 예측 품질을 더 직접 보여준다.</li>
+          <li>MAE는 절대오차 평균, MSE·RMSE는 큰 오차를 더 강하게 벌한다. RMSE는 목표와 같은 단위다.</li>
+          <li>교차검증은 일반화 성능 추정·모형 선택에 쓰되 최종 시험 자료는 마지막에 한 번 사용한다.</li>
+          <li>학습·검증 모두 낮은 성능은 과소적합, 학습만 높고 검증이 낮으면 과적합 가능성이 크다.</li>
+          <li>임계값은 오류 비용과 처리 용량에 맞춘다. 모형 재학습 없이도 혼동행렬이 바뀐다.</li>
+        </ul>
+      </article>
+      <article class="concept">
+        <h3>해석·활용·모니터링</h3>
+        <ul>
+          <li>전역 해석은 전체 행동, 지역 해석은 한 예측의 근거를 설명한다.</li>
+          <li>순열 중요도는 한 변수를 섞을 때 평가 점수가 얼마나 떨어지는지 본다. 상관 변수는 서로 대체할 수 있다.</li>
+          <li>PDP는 개별 예측 반응을 평균내고, ICE는 사례별 반응선을 보인다. 상관 특징에서는 비현실 조합을 조심한다.</li>
+          <li>변수 중요도·계수는 모형이 이용한 연관이지 자동 인과증거가 아니다.</li>
+          <li>데이터 드리프트는 P(X), 개념 드리프트는 P(Y|X)의 변화다.</li>
+          <li>운영 모니터링은 입력·파이프라인·예측·성과·집단별 성능과 업무 KPI를 함께 본다.</li>
+          <li>오프라인 점수보다 기준선 대비 순편익, 적용률, 사용자 행동과 안전 제약이 최종 활용 가치를 결정한다.</li>
+        </ul>
+      </article>
+      <p><a class="button secondary" href="../chapters/04-evaluation-improvement.html">4과목 본문 보기</a></p>
+    </section>
+
+    <section id="confusions" aria-labelledby="confusions-title">
+      <p class="eyebrow">혼동표</p><h2 id="confusions-title">한 단어 차이로 정답이 바뀌는 쌍</h2>
+      <div class="table-wrap" tabindex="0" aria-label="기획과 데이터 혼동표">
+        <table>
+          <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">구분 질문</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">업무 목표</th><td>분석 목표</td><td>바꿀 성과인가, 추정할 출력인가?</td></tr>
+            <tr><th scope="row">하향식</th><td>상향식</td><td>전략·문제에서 시작했나, 데이터·패턴에서 시작했나?</td></tr>
+            <tr><th scope="row">ETL</th><td>ELT</td><td>변환이 대상 저장소 적재 전인가 후인가?</td></tr>
+            <tr><th scope="row">웨어하우스</th><td>레이크</td><td>일관된 정제 모델인가, 다양한 원본의 유연한 보존인가?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="통계와 전처리 혼동표">
+        <table>
+          <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">구분 질문</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">표준편차</th><td>표준오차</td><td>개별 관측값의 산포인가, 통계량의 표본추출 변동인가?</td></tr>
+            <tr><th scope="row">정규화</th><td>표준화</td><td>범위를 맞추나, 평균 0·표준편차 1 척도로 바꾸나?</td></tr>
+            <tr><th scope="row">α</th><td>p값</td><td>사전에 정한 오류 한계인가, 자료로 계산한 극단성인가?</td></tr>
+            <tr><th scope="row">독립표본</th><td>대응표본</td><td>서로 다른 대상인가, 같은 대상·짝의 반복 측정인가?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="모델링과 평가 혼동표">
+        <table>
+          <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">구분 질문</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">선형회귀</th><td>로지스틱 회귀</td><td>연속값을 직접 예측하나, 범주 확률의 로그오즈를 모델링하나?</td></tr>
+            <tr><th scope="row">Ridge</th><td>Lasso</td><td>L2 제곱 벌점인가, L1 절댓값 벌점인가?</td></tr>
+            <tr><th scope="row">배깅</th><td>부스팅</td><td>병렬 평균으로 분산을 낮추나, 순차 오류 보완인가?</td></tr>
+            <tr><th scope="row">정밀도</th><td>재현율</td><td>양성 예측 중 정답인가, 실제 양성 중 포착인가?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-wrap" tabindex="0" aria-label="해석과 운영 혼동표">
+        <table>
+          <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">구분 질문</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">PDP</th><td>ICE</td><td>개별 반응의 평균인가, 사례별 반응선인가?</td></tr>
+            <tr><th scope="row">연관 해석</th><td>인과 해석</td><td>모형이 의존한 패턴인가, 개입 효과가 식별됐는가?</td></tr>
+            <tr><th scope="row">데이터 드리프트</th><td>개념 드리프트</td><td>P(X)가 변했나, P(Y|X)가 변했나?</td></tr>
+            <tr><th scope="row">복제</th><td>백업</td><td>가용성을 위한 동시 사본인가, 과거 상태 복구를 위한 독립 사본인가?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="last-check" class="panel finish" aria-labelledby="last-check-title">
+      <p class="eyebrow">시험 직전 30분</p><h2 id="last-check-title">새 자료를 열지 않는 순서</h2>
+      <ol>
+        <li>혼동표의 A와 B를 가리고 구분 질문에 답한다.</li>
+        <li>공식은 이름보다 분모와 오류비용을 말한다.</li>
+        <li>법제는 “항상·오직·무제한” 같은 절대 표현을 먼저 의심한다.</li>
+        <li>3과목은 목표변수 유형과 정답 유무로 후보 모형을 먼저 줄인다.</li>
+        <li>틀린 문제는 부주의로 넘기지 말고, 정답 근거와 오답 반례를 한 문장씩 만든다.</li>
+      </ol>
+      <p><a class="button" href="mock-exam.html">80문항 모의고사 시작</a></p>
+    </section>
+
+    <nav class="bottom-nav" aria-label="교재 이동"><a href="../index.html">← 교재 홈</a><a href="mock-exam.html">다음: 80문항 →</a></nav>
+  </main>
+
+  <footer><div class="page narrow"><p>빅데이터분석기사 · 직전요약과 혼동표</p></div></footer>
+</body>
+</html>

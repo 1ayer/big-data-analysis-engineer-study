@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="결측값, 이상값, 데이터 통합·변환·축소를 다루는 빅데이터분석기사 2과목 교재">
+  <title>02-01 데이터 전처리</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>2과목</span>
+      </nav>
+      <p class="eyebrow">02-01 · 데이터 전처리</p>
+      <h1>결측·이상값에서 변환·축소까지</h1>
+      <p class="lede">값을 지우는 기술이 아니라, 분석 가능한 의미와 평가 경계를 보존하는 의사결정이다.</p>
+      <ul class="tags" aria-label="단원 정보">
+        <li>약 50분</li><li>회상 12개</li><li>문제 12개</li><li>Python 연결</li>
+      </ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="단원 차례">
+    <div class="page narrow nav-links">
+      <a href="#scope">범위·목표</a><a href="#precheck">사전 점검</a><a href="#map">개념 지도</a>
+      <a href="#quality">정제·통합</a><a href="#transform">변환·축소</a><a href="#recall">회상</a>
+      <a href="#quiz">문제</a><a href="#practice">Python</a><a href="#sources">출처</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="scope" class="panel objectives" aria-labelledby="scope-title">
+      <p class="eyebrow">공식 범위 · 데이터 전처리</p>
+      <h2 id="scope-title">정제·통합·변환·축소</h2>
+      <p>이 단원은 데이터 정제, 결측값과 이상값 처리, 데이터 통합, 데이터 변환, 불균형 처리와 차원 축소를 한 흐름으로 다룬다.</p>
+      <h3>끝나면 다음을 설명한다</h3>
+      <ul class="check-list">
+        <li>결측 원인과 분석 목적을 보고 삭제·대체·표시 전략을 고른다.</li>
+        <li>통계적 이상값과 업무적으로 불가능한 오류를 구분한다.</li>
+        <li>표준화·정규화·범주형 인코딩의 목적과 함정을 비교한다.</li>
+        <li>전처리 기준을 학습 데이터에서만 추정해야 하는 이유를 말한다.</li>
+      </ul>
+    </section>
+
+    <section id="precheck" aria-labelledby="precheck-title">
+      <p class="eyebrow">3분 · 사전 점검</p>
+      <h2 id="precheck-title">처리법보다 먼저 물을 것</h2>
+      <ol class="questions">
+        <li>결측값을 평균으로 채우면 분포의 분산은 대체로 어떻게 되는가?</li>
+        <li>상자그림 바깥의 값은 모두 삭제해야 하는가?</li>
+        <li>표준화와 최소-최대 정규화는 결과 범위가 어떻게 다른가?</li>
+        <li>전체 데이터로 대체값을 구한 뒤 학습·시험 데이터를 나누면 왜 문제인가?</li>
+      </ol>
+    </section>
+
+    <section id="map" aria-labelledby="map-title">
+      <p class="eyebrow">개념 지도</p>
+      <h2 id="map-title">진단 → 정제 → 통합 → 변환 → 축소 → 기록</h2>
+      <ol class="concept-map">
+        <li><strong>1. 진단</strong><span>형식·범위·결측·중복·분포</span></li>
+        <li><strong>2. 정제</strong><span>오류 수정, 결측·이상값 처리</span></li>
+        <li><strong>3. 통합</strong><span>키·단위·스키마·중복 조정</span></li>
+        <li><strong>4. 변환</strong><span>스케일, 분포, 범주 표현</span></li>
+        <li><strong>5. 축소</strong><span>표본·변수·차원 줄이기</span></li>
+        <li><strong>6. 검증</strong><span>누수 차단, 전후 품질 기록</span></li>
+      </ol>
+      <aside class="callout compact">
+        <strong>이해 포인트:</strong> 전처리는 얼룩을 지우는 세탁이 아니다. 어떤 관측을 남기고 어떤 정보를
+        새 표현으로 바꿀지 결정하는 분석의 일부다. 처리 전 원본, 처리 규칙, 영향받은 행 수를 남겨야 되돌리고 설명할 수 있다.
+      </aside>
+    </section>
+
+    <section id="quality" aria-labelledby="quality-title">
+      <p class="eyebrow">핵심 1 · 정제와 통합</p>
+      <h2 id="quality-title">결측·이상·중복의 원인을 먼저 분류한다</h2>
+
+      <article class="concept">
+        <h3>1. 품질 문제는 정확성만이 아니다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="데이터 품질 점검 축">
+          <table>
+            <thead><tr><th scope="col">품질 축</th><th scope="col">질문</th><th scope="col">예시</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">완전성</th><td>필수 값이 존재하는가?</td><td>가입일 누락</td></tr>
+              <tr><th scope="row">유효성</th><td>형식·범위·도메인 규칙을 지키는가?</td><td>월이 13, 음수 나이</td></tr>
+              <tr><th scope="row">일관성</th><td>표·시점·시스템 사이 값이 맞는가?</td><td>주문합계와 품목합계 불일치</td></tr>
+              <tr><th scope="row">유일성</th><td>한 실체가 불필요하게 중복되지 않는가?</td><td>동일 거래 이중 적재</td></tr>
+              <tr><th scope="row">적시성</th><td>목적에 필요한 시점까지 갱신되는가?</td><td>한 달 늦은 재고</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>타입 변환에 성공했다는 사실은 값이 업무적으로 타당하다는 뜻이 아니다. 날짜 파싱 뒤 미래 날짜인지, 범주 코드가 허용 목록에 있는지, 금액과 수량의 부호가 거래 유형과 맞는지를 함께 검사한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 결측은 표시법과 발생 이유를 분리해서 본다</h3>
+        <p><code>NaN</code>, 빈 문자열, <code>-999</code>, “미상”은 모두 결측을 나타낼 수 있지만 자료형과 도구가 다르게 처리한다. 먼저 명시적 결측 표현으로 통일하고 <code>isna</code> 같은 전용 판별을 쓴다. 특히 NaN은 자기 자신과의 동등 비교도 일반 숫자와 다르므로 <code>x == NaN</code>에 기대지 않는다.</p>
+        <div class="table-wrap" tabindex="0" aria-label="결측 메커니즘 비교">
+          <table>
+            <thead><tr><th scope="col">구분</th><th scope="col">뜻</th><th scope="col">해석 예</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">MCAR</th><td>결측 여부가 관측·미관측 값과 무관</td><td>임의의 전송 장애</td></tr>
+              <tr><th scope="row">MAR</th><td>관측된 다른 변수로 결측을 설명 가능</td><td>연령대별 응답률 차이</td></tr>
+              <tr><th scope="row">MNAR</th><td>결측 여부가 결측된 값 자체와 관련</td><td>고소득자가 소득 응답을 더 회피</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>메커니즘은 데이터만 보고 언제나 확정할 수 있는 라벨이 아니다. 수집 과정과 업무 지식을 함께 살피며, 가정이 결과에 주는 영향을 민감도 분석으로 확인할 수 있다.</p>
+        <div class="table-wrap" tabindex="0" aria-label="결측 처리 방법 비교">
+          <table>
+            <thead><tr><th scope="col">전략</th><th scope="col">적합할 수 있는 상황</th><th scope="col">주요 위험</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">행·열 삭제</th><td>결측이 적고 삭제 편향이 작음</td><td>표본 감소, 선택 편향</td></tr>
+              <tr><th scope="row">상수·최빈값</th><td>범주형 “미상” 자체에 의미</td><td>가짜 빈도 집중</td></tr>
+              <tr><th scope="row">평균·중앙값</th><td>빠른 단변량 대체, 중앙값은 극단값에 강함</td><td>분산과 변수 관계 축소</td></tr>
+              <tr><th scope="row">모형 기반</th><td>다른 변수 관계를 활용</td><td>모형 가정·복잡성, 불확실성 과소평가</td></tr>
+              <tr><th scope="row">결측 표시 변수</th><td>빠진 사실 자체가 신호</td><td>대체값과 함께 신중히 해석</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <aside class="callout compact"><strong>이해 포인트:</strong> 평균 대체는 빈칸을 평균에 쌓으므로 중심은 안정돼 보여도 값들이 평균 주위로 인위적으로 모인다. 그래서 변동성과 변수 사이 관계가 약해질 수 있다.</aside>
+      </article>
+
+      <article class="concept">
+        <h3>3. 이상값은 통계적 희귀성과 데이터 오류를 구분한다</h3>
+        <div class="equation-grid" aria-label="이상값 탐지 공식">
+          <div><span>z 점수</span><strong>z = (x − x̄) / s</strong></div>
+          <div><span>사분위 범위</span><strong>IQR = Q3 − Q1</strong></div>
+          <div><span>상자그림 경계</span><strong>Q1 − 1.5IQR, Q3 + 1.5IQR</strong></div>
+        </div>
+        <p>z 점수는 평균과 표준편차에 기대므로 비대칭 분포나 극단값에 민감하다. IQR 경계는 순위 기반이라 더 강건하지만, 경계 밖이라는 사실만으로 오류를 증명하지 않는다. 희귀한 대형 거래는 분석 대상일 수 있고, 키 입력 실수로 생긴 300세는 수정 또는 결측 전환 대상이다.</p>
+        <ol class="steps">
+          <li><strong>탐지</strong><span>상자그림·산점도·규칙·z 점수 등으로 후보를 찾는다.</span></li>
+          <li><strong>확인</strong><span>원천 기록, 단위, 입력 과정, 업무 맥락을 대조한다.</span></li>
+          <li><strong>처리</strong><span>수정·제거·변환·절단·강건한 방법·별도 집단 중 선택한다.</span></li>
+          <li><strong>비교</strong><span>처리 전후 표본 수, 분포, 결론과 성능 변화를 기록한다.</span></li>
+        </ol>
+        <aside class="warning">
+          <h3>시험 함정: 경계는 판결문이 아니다</h3>
+          <ul>
+            <li>상자그림 경계 밖 값은 <strong>이상값 후보</strong>이지 자동 삭제 대상이 아니다.</li>
+            <li>극단값을 평균으로 대체하면 중요한 꼬리 정보를 없앨 수 있다.</li>
+            <li>로그 변환은 오른쪽 꼬리를 줄일 수 있지만 0·음수와 해석 변화를 점검한다.</li>
+          </ul>
+        </aside>
+      </article>
+
+      <article class="concept">
+        <h3>4. 통합은 조인 성공보다 행의 의미 보존이 중요하다</h3>
+        <p>자료형과 단위, 시간대, 코드 체계, 키의 유일성을 맞춘 뒤 결합한다. 일대일로 예상한 키가 실제로 일대다이면 행 수와 합계가 부풀 수 있다. pandas의 <code>merge(validate=...)</code>처럼 예상 관계를 검증하는 장치를 쓰면 조용한 중복 증식을 막을 수 있다.</p>
+        <div class="table-wrap" tabindex="0" aria-label="데이터 통합 점검표">
+          <table>
+            <thead><tr><th scope="col">점검</th><th scope="col">결합 전</th><th scope="col">결합 후</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">키</th><td>NULL·중복·형식 확인</td><td>미매칭·다중매칭 확인</td></tr>
+              <tr><th scope="row">행</th><td>기대 관계 1:1, 1:N 정의</td><td>행 수 증감과 원인 확인</td></tr>
+              <tr><th scope="row">측정</th><td>원화/달러, kg/g, 시간대 통일</td><td>합계·범위·대표 표본 재검산</td></tr>
+              <tr><th scope="row">중복</th><td>자연키·업무 정의 결정</td><td>완전 중복과 정상 반복거래 구분</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="transform" aria-labelledby="transform-title">
+      <p class="eyebrow">핵심 2 · 변환과 축소</p>
+      <h2 id="transform-title">모형이 읽을 표현으로 바꾸되 정보를 잃는 이유를 안다</h2>
+
+      <article class="concept">
+        <h3>1. 표준화와 최소-최대 정규화</h3>
+        <div class="table-wrap" tabindex="0" aria-label="스케일 변환 비교">
+          <table>
+            <thead><tr><th scope="col">방법</th><th scope="col">공식·결과</th><th scope="col">특징</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">표준화</th><td>z = (x − x̄) / s</td><td>평균 0, 표준편차 1을 목표; 범위 제한 없음</td></tr>
+              <tr><th scope="row">최소-최대</th><td>(x − min) / (max − min)</td><td>보통 [0,1]; 극단값에 민감</td></tr>
+              <tr><th scope="row">강건 스케일</th><td>(x − median) / IQR</td><td>중앙값·IQR 사용; 극단값 영향 감소</td></tr>
+              <tr><th scope="row">로그</th><td>log(x) 또는 log(1+x)</td><td>곱셈 관계·오른쪽 꼬리 완화; 정의역 확인</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>거리·내적·경사 기반 모형은 큰 단위의 변수가 계산을 지배할 수 있어 스케일 조정의 영향을 크게 받는다. 의사결정나무처럼 한 변수의 임계값으로 분할하는 방법은 단조 스케일 변환에 상대적으로 덜 민감하다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 범주형 값은 순서의 존재 여부가 핵심이다</h3>
+        <ul>
+          <li><strong>명목형:</strong> 혈액형·지역처럼 순서가 없으므로 원-핫 인코딩이 대표적이다.</li>
+          <li><strong>순서형:</strong> 낮음·보통·높음처럼 순서는 있지만 간격이 같다고 단정할 수 없다.</li>
+          <li><strong>레이블 정수화 함정:</strong> 서울=1, 부산=2, 제주=3은 제주가 서울보다 “세 배”라는 거리를 만든다.</li>
+          <li><strong>고카디널리티:</strong> 범주가 너무 많으면 원-핫 차원이 커진다. 희귀 범주 묶기나 문제에 맞는 인코딩을 검토한다.</li>
+        </ul>
+        <p>구간화는 연속값을 범주로 줄여 해석과 비선형 패턴 표현을 도울 수 있지만, 구간 안 차이를 버리고 경계 근처의 작은 차이를 크게 만들 수 있다. 동일 간격과 동일 빈도 구간화는 목적이 다르다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 축소는 표본·변수·표현의 세 경로가 있다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="데이터 축소 방법 비교">
+          <table>
+            <thead><tr><th scope="col">경로</th><th scope="col">방법 예</th><th scope="col">보존하려는 것</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">표본 축소</th><td>단순·층화·군집 표본추출</td><td>모집단 대표성과 희귀 집단</td></tr>
+              <tr><th scope="row">변수 선택</th><td>필터·래퍼·임베디드</td><td>원래 변수의 해석 가능성</td></tr>
+              <tr><th scope="row">차원 추출</th><td>PCA 등</td><td>정보를 새 축에 압축</td></tr>
+              <tr><th scope="row">집계·압축</th><td>시간·공간 집계, 비닝</td><td>분석에 필요한 해상도</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>필터 방식은 상관·검정·정보량 등 모형 밖 기준으로 빠르게 고르고, 래퍼는 변수 조합별 모형 성능을 반복 평가하며, 임베디드는 L1 규제나 나무처럼 학습 과정 안에서 선택한다. 선택 기준도 학습 데이터에서만 추정한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>4. 클래스 불균형은 정확도보다 평가 설계부터 바꾼다</h3>
+        <p>양성 1% 자료에서 모두 음성이라 답하면 정확도는 99%지만 양성을 하나도 찾지 못한다. 층화 분할로 평가 집합의 비율을 관리하고 혼동행렬·정밀도·재현율 같은 지표를 본 뒤, 필요하면 클래스 가중치나 학습 집합의 과소·과대표집을 검토한다.</p>
+        <aside class="warning">
+          <h3>시험과 실기의 혼동 지점</h3>
+          <ul>
+            <li><strong>표준화 ≠ 정규분포화:</strong> 평균과 스케일을 바꿀 뿐 분포 모양을 자동으로 정규분포로 만들지 않는다.</li>
+            <li><strong>정규화:</strong> 문맥에 따라 [0,1] 스케일 또는 벡터 노름 변환을 가리킬 수 있어 공식을 확인한다.</li>
+            <li><strong>재표집은 학습 집합에서:</strong> 시험 분포를 인위적으로 바꾸면 운영 성능 해석이 흐려진다.</li>
+            <li><strong>fit은 학습만:</strong> 대체값·스케일·범주 목록·선택 기준은 학습 데이터로 정하고 나머지에 적용한다.</li>
+          </ul>
+        </aside>
+      </article>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title">
+      <p class="eyebrow">7분 · 폐쇄형 회상</p>
+      <h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <div class="details-list">
+        <details><summary>1. 데이터 품질의 다섯 점검 축은?</summary><p>완전성, 유효성, 일관성, 유일성, 적시성이다.</p></details>
+        <details><summary>2. NaN을 동등 비교 대신 전용 함수로 확인하는 이유는?</summary><p>NaN은 일반 숫자와 달리 자기 자신과도 같지 않은 비교 의미를 가지므로 <code>isna</code>·<code>isnan</code> 등을 써야 한다.</p></details>
+        <details><summary>3. MCAR·MAR·MNAR의 차이는?</summary><p>결측이 모든 값과 무관, 관측값으로 설명 가능, 미관측된 값 자체와 관련인 경우다.</p></details>
+        <details><summary>4. 평균 대체의 대표적인 부작용은?</summary><p>값을 평균에 집중시켜 분산과 다른 변수와의 관계를 약화할 수 있다.</p></details>
+        <details><summary>5. 결측 표시 변수를 추가할 이유는?</summary><p>값이 빠졌다는 사실 자체가 목표와 관련된 신호일 수 있기 때문이다.</p></details>
+        <details><summary>6. IQR과 대표 이상값 경계식은?</summary><p>IQR=Q3−Q1이며, 대표 경계는 Q1−1.5IQR과 Q3+1.5IQR이다.</p></details>
+        <details><summary>7. 통계적 이상값을 자동 삭제하면 안 되는 이유는?</summary><p>오류가 아니라 희귀하지만 유효하고 중요한 관측일 수 있기 때문이다.</p></details>
+        <details><summary>8. 조인 전후에 키와 행 수를 확인하는 이유는?</summary><p>예상하지 않은 다중 매칭과 중복 증식으로 합계와 관측 단위가 바뀌는 일을 막기 위해서다.</p></details>
+        <details><summary>9. 표준화와 최소-최대 변환의 결과 차이는?</summary><p>표준화는 평균 0·표준편차 1을 목표로 범위를 제한하지 않고, 최소-최대는 보통 [0,1] 범위로 옮긴다.</p></details>
+        <details><summary>10. 명목형 범주를 단순 정수화할 때의 위험은?</summary><p>실제로 없는 순서와 거리 관계를 모형에 부여할 수 있다.</p></details>
+        <details><summary>11. 필터·래퍼·임베디드 변수 선택의 차이는?</summary><p>각각 모형 밖 통계 기준, 변수 조합의 반복 성능, 모형 학습 과정 안에서 선택한다.</p></details>
+        <details><summary>12. 전처리 누수를 막는 기본 규칙은?</summary><p>먼저 데이터를 분할하고 학습 데이터로만 변환 기준을 fit한 뒤 검증·시험 데이터에는 transform만 한다.</p></details>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">12분 · 자체 제작 문제</p>
+      <h2 id="quiz-title">선택지 변별 12문제</h2>
+      <ol class="quiz-list">
+        <li><p>필수 고객 ID가 비어 있는 문제와 가장 직접적으로 관련된 품질 축은?</p><ol class="choices" type="A"><li>완전성</li><li>적시성</li><li>유일성</li><li>정밀도</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 필요한 값의 존재 여부는 완전성이다. 적시성은 갱신 시점, 유일성은 중복, 정밀도는 측정 세밀도와 관련한다.</p></details></li>
+        <li><p>결측값 처리에 대한 설명으로 가장 타당한 것은?</p><ol class="choices" type="A"><li>모든 결측은 행 삭제가 최선이다.</li><li>평균 대체는 원래 분산을 항상 보존한다.</li><li>원인과 비율, 변수 역할을 보고 방법을 정한다.</li><li>MNAR는 관측된 다른 변수만으로 완전히 설명된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 목적과 결측 메커니즘을 함께 본다. A는 편향·표본손실, B는 분산 축소 위험, D는 MAR에 가까운 설명이다.</p></details></li>
+        <li><p>극단값이 많은 소득 변수의 단순 대체값으로 평균보다 먼저 검토할 통계량은?</p><ol class="choices" type="A"><li>중앙값</li><li>최댓값</li><li>범위</li><li>합계</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 중앙값은 극단값 영향이 작다. 나머지는 중심 위치 대체값으로 부적절하다. 다만 실제 선택은 결측 원인과 분석 목적도 본다.</p></details></li>
+        <li><p>Q1=10, Q3=18일 때 1.5IQR 기준의 위쪽 경계는?</p><ol class="choices" type="A"><li>20</li><li>26</li><li>30</li><li>38</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> IQR=8, 위쪽 경계=18+1.5×8=30이다. 경계 밖은 검토 후보이지 자동 오류가 아니다.</p></details></li>
+        <li><p>상자그림 위쪽 경계를 넘은 대형 거래를 발견했을 때 첫 대응으로 가장 적절한 것은?</p><ol class="choices" type="A"><li>무조건 삭제한다.</li><li>평균으로 바꾼다.</li><li>원천 기록과 업무 맥락을 확인한다.</li><li>목표값으로 사용한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 오류인지 유효한 희귀 사건인지 확인이 먼저다. A·B는 정보 손실, D는 분석 질문 없이 역할을 바꾼다.</p></details></li>
+        <li><p>일대일로 예상한 두 표를 결합했더니 행 수와 매출 합계가 늘었다. 가장 먼저 볼 것은?</p><ol class="choices" type="A"><li>키의 중복과 다중 매칭</li><li>글꼴 크기</li><li>표준화 평균</li><li>난수 seed</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 어느 한쪽 키가 중복되면 데카르트식 행 증식이 일어날 수 있다. B·C·D는 조인 증식 원인이 아니다.</p></details></li>
+        <li><p>평균 70, 표준편차 10인 변수에서 값 90의 z 점수는?</p><ol class="choices" type="A"><li>0.2</li><li>2</li><li>7</li><li>9</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (90−70)/10=2이다.</p></details></li>
+        <li><p>최솟값 20, 최댓값 100인 변수를 [0,1]로 바꿀 때 값 60은?</p><ol class="choices" type="A"><li>0.4</li><li>0.5</li><li>0.6</li><li>0.75</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (60−20)/(100−20)=40/80=0.5다.</p></details></li>
+        <li><p>명목형 도시 변수에 1, 2, 3을 부여할 때 생길 수 있는 문제는?</p><ol class="choices" type="A"><li>없는 순서·거리를 암시한다.</li><li>결측이 모두 제거된다.</li><li>표본 수가 늘어난다.</li><li>항상 차원이 늘어난다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 단순 숫자 코드는 모형이 크기와 간격으로 해석할 수 있다. B·C는 무관하고 D는 원-핫에서 주로 생긴다.</p></details></li>
+        <li><p>원-핫 인코딩에 가장 잘 맞는 변수는?</p><ol class="choices" type="A"><li>순서 없는 결제수단</li><li>섭씨 온도</li><li>연속형 매출</li><li>시간순 일자</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 결제수단은 명목형 범주다. 나머지는 수치·시간 의미를 보존하는 표현을 먼저 검토한다.</p></details></li>
+        <li><p>전체 데이터의 평균으로 결측 대체 후 시험 데이터를 분리한 경우는?</p><ol class="choices" type="A"><li>시험 분포가 대체 기준에 들어간 누수다.</li><li>올바른 독립 평가다.</li><li>클래스 불균형 해결이다.</li><li>차원 축소다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 시험 정보가 학습 과정에 반영됐다. 먼저 분할하고 학습 평균만 써야 한다.</p></details></li>
+        <li><p>양성 1% 분류에서 정확도만으로 모형을 고를 때의 핵심 위험은?</p><ol class="choices" type="A"><li>모두 음성으로 예측해도 99%가 될 수 있다.</li><li>정확도는 항상 0이 된다.</li><li>양성이 자동 증식한다.</li><li>변수 표준편차가 1이 된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 다수 클래스만 맞혀 높은 정확도를 얻을 수 있다. 혼동행렬과 정밀도·재현율 등 목적에 맞는 지표가 필요하다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <p class="eyebrow">5분+ · Python 연결</p>
+      <h2 id="practice-title">중앙값 대체·z 점수·IQR을 계산한다</h2>
+      <p>표준 라이브러리 예제는 학습 자료에서만 중앙값과 경계를 계산하고, 원본 목록을 바꾸지 않았는지까지 확인한다. <a href="../examples/preprocessing_demo.py" download>실행 파일 내려받기</a></p>
+      <pre><code>from statistics import mean, median, stdev
+
+fill_value = median(x for x in train if x is not None)
+filled = [fill_value if x is None else x for x in train]
+z_scores = [(x - mean(filled)) / stdev(filled) for x in filled]</code></pre>
+      <p class="muted">실무의 pandas·scikit-learn에서는 대체기와 변환기를 파이프라인 안에 두어 학습과 적용 경계를 일관되게 관리한다.</p>
+    </section>
+
+    <section class="panel finish" aria-labelledby="finish-title">
+      <p class="eyebrow">마무리</p><h2 id="finish-title">30초 처리 근거</h2>
+      <p>“문제 발견 → 발생 원인 확인 → 후보 처리법의 가정 → 처리 전후 영향 → 학습 데이터에서만 기준 추정” 순서로 설명한다.</p>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 추가 학습</p><h2 id="sources-title">이 단원을 만든 자료</h2>
+      <ul class="sources">
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">DATAQ 빅데이터분석기사 시험 주요내용</a> — 공식 출제범위</li>
+        <li><a href="https://pandas.pydata.org/docs/user_guide/missing_data.html">pandas 결측 데이터 안내</a> — 결측 표현과 판별·삭제·대체</li>
+        <li><a href="https://pandas.pydata.org/docs/user_guide/merging.html">pandas 병합 안내</a> — 조인과 키 유일성 검증</li>
+        <li><a href="https://scikit-learn.org/stable/modules/impute.html">scikit-learn 결측값 대체</a> — 단순 대체와 결측 표시</li>
+        <li><a href="https://scikit-learn.org/stable/modules/preprocessing.html">scikit-learn 전처리 안내</a> — 스케일과 범주형 인코딩</li>
+        <li><a href="https://scikit-learn.org/stable/modules/feature_selection.html">scikit-learn 변수 선택</a> — 필터·재귀·모형 기반 선택</li>
+        <li><a href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda35h.htm">NIST 이상값 탐지</a> — 이상값의 원인·z 점수·강건한 대안과 처리 원칙</li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav" aria-label="단원 이동">
+      <a class="button secondary" href="../index.html">교재 홈</a>
+      <a class="button" href="02-exploration.html">다음: 데이터 탐색</a>
+    </nav>
+  </main>
+
+  <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+</body>
+</html>

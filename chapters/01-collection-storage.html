@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="데이터 수집, 품질, 개인정보보호, ETL·ELT, 저장 기술과 분산 처리를 다루는 빅데이터분석기사 1과목 교재">
+  <title>01-03 데이터 수집 및 저장 계획</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>1과목</span></nav>
+      <p class="eyebrow">01-03 · 데이터 수집 및 저장 계획</p>
+      <h1>얻을 수 있는 데이터보다 써도 되는 데이터를</h1>
+      <p class="lede">출처·목적·품질·법적 근거를 먼저 확인하고, 접근 패턴과 운영 요구에 맞는 저장 구조를 고른다.</p>
+      <ul class="tags" aria-label="단원 정보"><li>약 80분</li><li>회상 15개</li><li>문제 15개</li><li>Python</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="단원 차례">
+    <div class="page narrow nav-links">
+      <a href="#scope">범위·목표</a><a href="#collect">수집</a><a href="#quality">품질·계보</a>
+      <a href="#privacy">개인정보</a><a href="#pipeline">ETL·ELT</a><a href="#storage">저장</a>
+      <a href="#distributed">분산 처리</a><a href="#recall">회상</a><a href="#quiz">문제</a>
+      <a href="#practice">Python</a><a href="#sources">출처</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="scope" class="panel objectives" aria-labelledby="scope-title">
+      <p class="eyebrow">공식 범위 · 데이터 수집 및 저장 계획</p>
+      <h2 id="scope-title">수집 타당성부터 저장·보안·운영까지</h2>
+      <p>이 단원은 데이터 유형과 원천, 수집 방식, 품질과 메타데이터, 개인정보보호, 적재 파이프라인, 저장 기술과 분산 처리를 다룬다.</p>
+      <h3>끝나면 다음을 설명한다</h3>
+      <ul class="check-list">
+        <li>원천과 지연시간 요구에 맞춰 배치·스트림·API·로그·크롤링을 구분한다.</li>
+        <li>데이터 품질을 정확성·완전성·유효성·일관성·적시성·유일성으로 진단한다.</li>
+        <li>개인정보와 가명정보, 수집·이용 근거와 가명정보 특례를 구분한다.</li>
+        <li>ETL·ELT와 웨어하우스·레이크·관계형·NoSQL 저장소를 목적에 맞춰 고른다.</li>
+        <li>HDFS와 MapReduce의 역할, 장점과 한계를 설명한다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="precheck-title">
+      <p class="eyebrow">5분 · 사전 점검</p><h2 id="precheck-title">수집 전에 답해야 할 질문</h2>
+      <ol class="questions">
+        <li>공개 웹페이지라면 제한 없이 자동 수집해도 되는가?</li>
+        <li>개인정보의 수집·이용은 언제나 동의만이 유일한 근거인가?</li>
+        <li>가명처리한 데이터는 개인정보가 아닌가?</li>
+        <li>데이터 레이크는 정제를 전혀 하지 않는 저장소인가?</li>
+        <li>HDFS는 작은 파일의 초저지연 임의 수정에 최적인가?</li>
+      </ol>
+    </section>
+
+    <section id="collect" aria-labelledby="collect-title">
+      <p class="eyebrow">핵심 1 · 수집 계획</p><h2 id="collect-title">목적과 기준시점이 원천·주기·방법을 결정한다</h2>
+      <ol class="concept-map">
+        <li><strong>목적</strong><span>어떤 결정에 필요한가</span></li>
+        <li><strong>원천</strong><span>누가 어떻게 생성했나</span></li>
+        <li><strong>범위</strong><span>대상·기간·필드·표본</span></li>
+        <li><strong>주기</strong><span>배치·근실시간·실시간</span></li>
+        <li><strong>근거</strong><span>권한·계약·법적 근거</span></li>
+        <li><strong>통제</strong><span>품질·보안·비용·복구</span></li>
+      </ol>
+
+      <article class="concept">
+        <h3>1. 내부·외부 원천의 생성 과정을 먼저 본다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="데이터 원천과 수집 방식">
+          <table>
+            <thead><tr><th scope="col">원천</th><th scope="col">수집 방식</th><th scope="col">핵심 점검</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">업무 DB</th><td>쿼리, 변경 데이터 캡처, 덤프</td><td>운영 부하·기준시점·삭제와 갱신</td></tr>
+              <tr><th scope="row">애플리케이션 로그</th><td>파일 수집, 메시지 큐, 이벤트 스트림</td><td>이벤트 정의·중복·순서·시간대</td></tr>
+              <tr><th scope="row">API</th><td>인증된 요청과 응답 적재</td><td>약관·권한·페이지네이션·속도 제한·재시도</td></tr>
+              <tr><th scope="row">웹</th><td>크롤링·파싱</td><td>robots.txt·약관·저작권·개인정보·요청 부하</td></tr>
+              <tr><th scope="row">센서·장비</th><td>게이트웨이·스트림</td><td>교정·결측·노이즈·단위·장치 시각</td></tr>
+              <tr><th scope="row">외부 파일</th><td>다운로드·전송·공유</td><td>라이선스·버전·갱신주기·무결성</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>같은 필드명이라도 생성 규칙이 바뀌면 의미가 달라진다. 수집 명세에는 원천 소유자, 추출 조건, 단위·코드, 기준시각과 시간대, 갱신·삭제 규칙, 실패 재처리, 보존기간과 사용조건을 남긴다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 배치와 스트림은 처리 시점의 선택이다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="배치와 스트림 처리 비교">
+          <table>
+            <thead><tr><th scope="col">구분</th><th scope="col">배치</th><th scope="col">스트림</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">처리</th><td>모인 데이터를 일정 주기로 처리</td><td>연속 이벤트를 도착에 가깝게 처리</td></tr>
+              <tr><th scope="row">적합</th><td>일일 집계, 대량 재처리, 정기 보고</td><td>이상 탐지, 실시간 추천, 상태 감시</td></tr>
+              <tr><th scope="row">설계 쟁점</th><td>처리 창·의존성·재실행</td><td>이벤트 시간·지연·순서·중복·상태</td></tr>
+              <tr><th scope="row">비용</th><td>단순하고 처리 효율이 높기 쉬움</td><td>낮은 지연 대신 운영 복잡성이 큼</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>실시간은 무조건 우월하지 않다. 의사결정이 하루 한 번이면 배치가 더 단순하고 재현 가능할 수 있다. 스트림에서도 장애 재처리 때문에 같은 이벤트가 다시 올 수 있으므로, 동일 요청을 반복해도 결과가 불필요하게 중복되지 않는 <strong>멱등성</strong>과 이벤트 식별자를 설계한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 크롤링 가능성과 이용 정당성은 분리한다</h3>
+        <p>RFC 9309의 robots.txt는 서비스 소유자가 크롤러의 URI 접근 규칙을 게시하는 표준이다. RFC 자체도 이 규칙이 접근 권한 부여가 아니라고 명시한다. 즉 robots.txt가 허용하더라도 약관·저작권·개인정보·계약과 요청 부하를 별도로 검토해야 하고, 금지된 경로를 기술적으로 열 수 있다고 수집해서는 안 된다.</p>
+        <ul>
+          <li>식별 가능한 User-Agent와 연락처, 합리적인 요청 간격을 둔다.</li>
+          <li>필요한 최소 필드와 기간만 수집하고 원문 재배포 권한을 확인한다.</li>
+          <li>응답코드·재시도·중단 기준과 원천 변경 감지를 기록한다.</li>
+          <li>공식 API가 있다면 구조·정책·부하 관리가 명확한 API를 우선 검토한다.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="quality" aria-labelledby="quality-title">
+      <p class="eyebrow">핵심 2 · 품질과 데이터 계보</p><h2 id="quality-title">좋은 데이터는 목적에 맞고 설명 가능하다</h2>
+      <div class="table-wrap" tabindex="0" aria-label="데이터 품질 차원">
+        <table>
+          <thead><tr><th scope="col">차원</th><th scope="col">질문</th><th scope="col">검사 예</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">정확성</th><td>현실의 참값을 올바르게 나타내는가?</td><td>검증 원천과 대조, 측정기 교정</td></tr>
+            <tr><th scope="row">완전성</th><td>필요한 값과 레코드가 빠지지 않았는가?</td><td>필수값 결측률, 기간별 건수</td></tr>
+            <tr><th scope="row">유효성</th><td>형식·범위·도메인 규칙을 만족하는가?</td><td>날짜 형식, 허용 코드, 값 범위</td></tr>
+            <tr><th scope="row">일관성</th><td>시스템·필드·기간 사이 의미가 맞는가?</td><td>합계 대조, 코드 매핑, 단위 확인</td></tr>
+            <tr><th scope="row">적시성</th><td>필요한 시점에 최신 상태인가?</td><td>원천 발생과 적재 시각의 지연</td></tr>
+            <tr><th scope="row">유일성</th><td>같은 실체가 불필요하게 중복되지 않았는가?</td><td>업무키 중복률, 중복 이벤트 ID</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>정확성과 유효성은 다르다. 나이 150은 범위 규칙으로 유효하지 않다고 판정할 수 있지만, 형식상 유효한 나이 35가 실제로 정확한지는 외부 근거가 필요하다. 결측 0%도 기본값 0으로 잘못 채웠다면 품질이 높지 않다.</p>
+
+      <article class="concept">
+        <h3>메타데이터·계보·무결성은 서로 다른 질문에 답한다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="메타데이터와 데이터 계보 비교">
+          <table>
+            <thead><tr><th scope="col">요소</th><th scope="col">답하는 질문</th><th scope="col">예</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">업무 메타데이터</th><td>이 값은 업무에서 무엇을 뜻하나?</td><td>이탈의 정의, 코드 사전, 소유자</td></tr>
+              <tr><th scope="row">기술 메타데이터</th><td>어떤 형식과 위치에 있나?</td><td>스키마, 자료형, 테이블·파일 경로</td></tr>
+              <tr><th scope="row">운영 메타데이터</th><td>언제 어떤 작업이 수행됐나?</td><td>적재 시각, 행 수, 작업 상태</td></tr>
+              <tr><th scope="row">데이터 계보</th><td>어디서 와서 어떤 변환을 거쳤나?</td><td>원천 열 → 정제 → 특징 → 보고서</td></tr>
+              <tr><th scope="row">체크섬</th><td>전송·보관 중 바이트가 바뀌었나?</td><td>동일 파일의 SHA-256 비교</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>체크섬 일치는 파일이 전송 중 변하지 않았다는 근거일 뿐 내용이 정확하거나 안전하다는 뜻은 아니다. 데이터 계보는 오류 원천 추적, 재현, 영향 분석과 규제 대응을 돕는다.</p>
+      </article>
+    </section>
+
+    <section id="privacy" aria-labelledby="privacy-title">
+      <p class="eyebrow">핵심 3 · 개인정보보호</p><h2 id="privacy-title">동의 여부 하나가 아니라 목적·근거·최소성·보호조치를 본다</h2>
+      <aside class="warning" aria-label="법률 정보 범위">
+        <h3>적용 기준</h3>
+        <p>아래는 2026년 8월 10일 현재 국가법령정보센터의 개인정보 보호법과 개인정보보호위원회 가이드라인을 대조한 학습용 요약이다. 실제 수집·결합·제공에는 최신 법령, 하위 규정, 처리 맥락과 조직의 법무·개인정보 담당자 검토가 필요하다.</p>
+      </aside>
+
+      <article class="concept">
+        <h3>1. 개인정보와 가명정보</h3>
+        <p>개인정보 보호법 제2조의 개인정보는 살아 있는 개인에 관한 정보로서 그 자체로 개인을 알아볼 수 있는 정보뿐 아니라, 다른 정보와 쉽게 결합해 알아볼 수 있는 정보와 가명처리한 정보도 포함한다. 쉽게 결합할 수 있는지는 시간·비용·기술 등을 합리적으로 고려한다.</p>
+        <p><strong>가명처리</strong>는 추가정보 없이는 특정 개인을 알아볼 수 없도록 일부를 삭제하거나 대체하는 등 처리하는 것이다. 가명정보는 개인정보의 한 범주이므로 “이름을 지웠으니 개인정보가 아니다”라고 단정하면 틀리다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 수집·이용은 동의만이 유일한 근거가 아니다</h3>
+        <p>제15조는 동의를 포함한 법정 근거 중 하나가 있을 때 개인정보를 수집할 수 있고, 그 수집 목적 범위에서 이용할 수 있도록 한다. 법률상 의무 준수, 공공기관의 소관 업무, 계약 체결·이행, 급박한 생명·신체·재산 이익, 일정 요건을 갖춘 정당한 이익 등도 조문상 근거가 될 수 있다.</p>
+        <p>따라서 시험에서 “개인정보는 오직 동의가 있어야만 처리 가능하다”는 절대 표현은 틀릴 가능성이 높다. 반대로 근거 하나가 있다고 무제한 처리할 수 있는 것도 아니다. 목적 명확성, 필요한 최소 수집, 안전조치, 보유기간과 정보주체 권리 등 전체 원칙을 함께 지킨다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 가명정보 특례의 조건</h3>
+        <ul>
+          <li>제28조의2에 따라 통계작성, 과학적 연구, 공익적 기록보존 등을 위해 정보주체 동의 없이 가명정보를 처리할 수 있다.</li>
+          <li>이 목적으로 제3자에게 제공할 때 특정 개인을 알아보기 위해 사용할 수 있는 정보를 포함해서는 안 된다.</li>
+          <li>서로 다른 개인정보처리자 간 가명정보 결합은 지정된 전문기관이 수행한다.</li>
+          <li>추가정보는 가명정보와 분리 보관하고 기술적·관리적·물리적 안전조치와 처리기록을 갖춘다.</li>
+          <li>특정 개인을 알아보기 위한 처리를 해서는 안 되며, 개인을 알아볼 수 있는 정보가 생성되면 처리를 중지하고 회수·파기해야 한다.</li>
+        </ul>
+        <div class="callout"><h4>이해 포인트 · 가명처리는 위험을 낮추는 통제다</h4><p>가명처리는 모든 의무를 없애는 탈출구가 아니라 추가정보 분리와 접근통제로 재식별 위험을 줄이는 방식이다. 결합 가능한 외부 데이터가 늘면 위험도 달라지므로 맥락을 함께 본다.</p></div>
+      </article>
+    </section>
+
+    <section id="pipeline" aria-labelledby="pipeline-title">
+      <p class="eyebrow">핵심 4 · 적재 파이프라인</p><h2 id="pipeline-title">ETL과 ELT는 변환 위치와 시점이 다르다</h2>
+      <div class="table-wrap" tabindex="0" aria-label="ETL과 ELT 비교">
+        <table>
+          <thead><tr><th scope="col">구분</th><th scope="col">ETL</th><th scope="col">ELT</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">순서</th><td>추출 → 변환 → 적재</td><td>추출 → 적재 → 변환</td></tr>
+            <tr><th scope="row">변환 장소</th><td>적재 전 별도 처리 계층</td><td>대상 저장·분석 플랫폼 내부</td></tr>
+            <tr><th scope="row">장점</th><td>정제·표준화된 데이터만 대상에 적재</td><td>원본 보존과 다양한 후속 변환에 유연</td></tr>
+            <tr><th scope="row">주의</th><td>요구 변경 때 원천 재처리가 어려울 수 있음</td><td>민감 원본의 접근통제·비용·중복 변환 관리</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>ETL과 ELT 중 하나가 항상 우월하지 않다. 대상 플랫폼의 계산 능력, 원본 보존 필요, 데이터 민감도, 변환 재현성, 비용과 지연시간에 따라 고른다.</p>
+      <ol class="steps">
+        <li><strong>Extract</strong><span>원천을 일관된 기준시점과 증분 규칙으로 읽는다.</span></li>
+        <li><strong>Validate</strong><span>스키마·건수·필수값·범위·중복·무결성을 검사한다.</span></li>
+        <li><strong>Transform</strong><span>정제·통합·코드·단위·파생변수 규칙을 버전 관리한다.</span></li>
+        <li><strong>Load</strong><span>원자적 교체·중복 방지·실패 복구를 고려해 적재한다.</span></li>
+        <li><strong>Observe</strong><span>지연·실패·품질·비용·계보를 감시하고 경보를 연결한다.</span></li>
+      </ol>
+      <p>재처리 가능성을 확보하려면 원천 스냅샷이나 변경 이력, 코드와 설정 버전, 실행 시각·입력·출력 건수, 품질 결과를 남긴다. 비밀키나 직접식별자를 로그에 남기는 것은 추적성이 아니라 노출 위험이다.</p>
+    </section>
+
+    <section id="storage" aria-labelledby="storage-title">
+      <p class="eyebrow">핵심 5 · 저장 기술</p><h2 id="storage-title">데이터 모양보다 읽기·쓰기·일관성 요구로 고른다</h2>
+      <div class="table-wrap" tabindex="0" aria-label="주요 저장 구조 비교">
+        <table>
+          <thead><tr><th scope="col">저장 구조</th><th scope="col">강점</th><th scope="col">적합한 접근</th><th scope="col">주의</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">관계형 DB</th><td>명확한 스키마·제약·트랜잭션·조인</td><td>정합성이 중요한 업무 처리</td><td>비정형·초대규모 수평 확장은 설계 필요</td></tr>
+            <tr><th scope="row">데이터 웨어하우스</th><td>통합·정제된 분석용 모델과 SQL</td><td>일관된 지표·보고·OLAP</td><td>모델링·적재 비용, 원천 유연성</td></tr>
+            <tr><th scope="row">데이터 레이크</th><td>다양한 원본·가공 데이터를 유연하게 보존</td><td>탐색·재처리·대규모 분석</td><td>카탈로그·품질·권한 없으면 찾기 어려움</td></tr>
+            <tr><th scope="row">키-값</th><td>키 기반 단순·빠른 조회와 확장</td><td>세션·캐시·프로필 조회</td><td>복잡 질의·관계 표현이 제한적</td></tr>
+            <tr><th scope="row">문서형</th><td>중첩 문서와 유연한 스키마</td><td>콘텐츠·상품·이벤트 문서</td><td>스키마 규율과 조인 방식 검토</td></tr>
+            <tr><th scope="row">열 계열</th><td>희소하고 넓은 데이터를 분산 저장</td><td>대규모 시계열·이벤트 조회</td><td>접근 패턴 중심 설계 필요</td></tr>
+            <tr><th scope="row">그래프 DB</th><td>노드·관계 순회와 경로 질의</td><td>추천·사기 네트워크·지식 그래프</td><td>단순 집계에는 불필요할 수 있음</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>NoSQL은 “SQL을 절대 쓸 수 없다”는 뜻보다 관계형 모델 외의 다양한 분산 저장 모델을 묶는 실무적 범주로 이해한다. 제품명보다 질의 형태, 쓰기량, 일관성, 지연시간, 확장과 운영 역량을 먼저 본다.</p>
+
+      <article class="concept">
+        <h3>웨어하우스와 레이크의 경계</h3>
+        <p>웨어하우스는 주제 중심으로 통합·정제한 데이터를 일관된 분석에 제공하고, 레이크는 원본을 포함한 다양한 형식의 데이터를 유연하게 보존한다. <strong>schema-on-write</strong>는 쓰기 전에 구조를 엄격히 맞추는 경향, <strong>schema-on-read</strong>는 읽을 때 목적에 맞게 구조를 적용하는 경향을 설명한다. 실제 플랫폼은 두 방식을 섞을 수 있으므로 절대 구분으로 외우지 않는다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>저장 계획에 함께 적을 운영 항목</h3>
+        <ul>
+          <li><strong>파티셔닝:</strong> 자주 거르는 키와 데이터 분포를 고려하고 쏠림을 감시한다.</li>
+          <li><strong>보존·파기:</strong> 목적과 법적 근거에 맞는 기간, 삭제 전파와 검증 절차를 둔다.</li>
+          <li><strong>백업·복구:</strong> 복구 시점 목표와 복구 시간 목표를 정하고 실제 복구를 시험한다.</li>
+          <li><strong>접근통제:</strong> 최소권한, 인증·권한분리, 전송·저장 암호화와 감사기록을 적용한다.</li>
+          <li><strong>카탈로그:</strong> 소유자·스키마·품질·민감도·계보와 사용조건을 검색 가능하게 한다.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="distributed" aria-labelledby="distributed-title">
+      <p class="eyebrow">핵심 6 · HDFS와 MapReduce</p><h2 id="distributed-title">저장은 블록으로, 계산은 데이터 가까이</h2>
+      <article class="concept">
+        <h3>1. HDFS의 역할 분리</h3>
+        <div class="table-wrap" tabindex="0" aria-label="HDFS 구성요소">
+          <table>
+            <thead><tr><th scope="col">구성</th><th scope="col">역할</th><th scope="col">핵심 통신</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">NameNode</th><td>파일시스템 네임스페이스와 블록 매핑·복제 결정 관리</td><td>DataNode의 Heartbeat·Blockreport 수신</td></tr>
+              <tr><th scope="row">DataNode</th><td>실제 블록 저장, 읽기·쓰기와 블록 생성·삭제·복제 수행</td><td>클라이언트 데이터 I/O와 상태 보고</td></tr>
+              <tr><th scope="row">블록·복제</th><td>파일을 블록으로 나누고 여러 DataNode에 복제</td><td>노드 장애에도 읽기·복구 가능성 향상</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>HDFS는 대용량 파일의 스트리밍 접근과 높은 처리량, 한 번 쓰고 여러 번 읽는 패턴을 중심으로 설계됐다. 많은 작은 파일, 매우 낮은 지연의 임의 읽기, 잦은 위치 수정에는 적합하지 않을 수 있다. 복제는 가용성을 높이지만 백업·논리 오류 방지와 완전히 같은 것은 아니다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. MapReduce의 데이터 흐름</h3>
+        <ol class="steps">
+          <li><strong>입력 분할</strong><span>입력을 여러 조각으로 나눠 병렬 작업을 만든다.</span></li>
+          <li><strong>Map</strong><span>입력 키·값에서 중간 키·값을 생성한다.</span></li>
+          <li><strong>Shuffle·Sort</strong><span>같은 중간 키의 값을 모아 정렬·전달한다.</span></li>
+          <li><strong>Reduce</strong><span>키별 값 묶음을 집계·결합해 출력을 만든다.</span></li>
+          <li><strong>복구</strong><span>프레임워크가 작업을 추적하고 실패 작업을 재실행한다.</span></li>
+        </ol>
+        <p>단어 수 세기에서 Map은 각 단어에 <code>(단어, 1)</code>을 내고, Shuffle·Sort가 같은 단어를 모으며, Reduce가 1들을 합친다. 데이터를 저장한 노드 가까이 계산을 배치하는 데이터 지역성은 네트워크 전송을 줄인다. 반복 알고리즘은 단계마다 디스크 I/O가 커질 수 있어 모든 분석에 최선은 아니다.</p>
+      </article>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title">
+      <p class="eyebrow">9분 · 폐쇄형 회상</p><h2 id="recall-title">수집부터 저장까지 이어 말하기</h2>
+      <div class="details-list">
+        <details><summary>1. 수집 명세에 들어갈 핵심 시간 정보는?</summary><p>원천 발생·기준시각과 시간대, 수집·갱신 주기, 지연 허용치, 보존기간이다.</p></details>
+        <details><summary>2. 배치와 스트림의 핵심 차이는?</summary><p>배치는 모인 데이터를 주기적으로 처리하고, 스트림은 연속 이벤트를 도착에 가깝게 처리한다.</p></details>
+        <details><summary>3. 멱등성이 중요한 이유는?</summary><p>재시도나 중복 이벤트가 생겨도 같은 처리를 반복해 불필요한 중복 결과를 만들지 않게 하기 위해서다.</p></details>
+        <details><summary>4. robots.txt가 허용하면 법적 이용 권한도 생기는가?</summary><p>아니다. RFC 9309도 robots 규칙은 접근 권한 부여가 아니라고 하며 약관·저작권·개인정보 등을 별도로 검토한다.</p></details>
+        <details><summary>5. 정확성과 유효성의 차이는?</summary><p>유효성은 형식·범위 규칙 준수이고, 정확성은 현실의 참값을 올바르게 나타내는지다.</p></details>
+        <details><summary>6. 데이터 계보가 답하는 질문은?</summary><p>데이터가 어디서 와서 어떤 변환을 거쳐 현재 결과가 됐는지다.</p></details>
+        <details><summary>7. 체크섬 일치가 보장하지 않는 것은?</summary><p>내용의 정확성·적법성·안전성은 보장하지 않고 바이트 변경 여부만 확인한다.</p></details>
+        <details><summary>8. 가명정보는 개인정보인가?</summary><p>그렇다. 개인정보 보호법 제2조의 개인정보 정의에 포함된다.</p></details>
+        <details><summary>9. 개인정보 수집·이용에서 동의는 유일한 근거인가?</summary><p>아니다. 제15조가 정한 여러 법적 근거 중 하나다.</p></details>
+        <details><summary>10. 동의 없이 가명정보를 처리할 수 있는 대표 목적은?</summary><p>통계작성, 과학적 연구, 공익적 기록보존 등이다.</p></details>
+        <details><summary>11. ETL과 ELT의 순서는?</summary><p>ETL은 추출→변환→적재, ELT는 추출→적재→변환이다.</p></details>
+        <details><summary>12. 웨어하우스와 레이크의 대표 차이는?</summary><p>웨어하우스는 통합·정제된 분석 데이터와 일관된 지표에, 레이크는 다양한 원본·가공 데이터의 유연한 보존과 재처리에 무게를 둔다.</p></details>
+        <details><summary>13. HDFS의 NameNode와 DataNode 역할은?</summary><p>NameNode는 네임스페이스와 블록 메타데이터를 관리하고 DataNode는 실제 블록을 저장한다.</p></details>
+        <details><summary>14. MapReduce의 세 핵심 처리 단계는?</summary><p>Map, Shuffle·Sort, Reduce다.</p></details>
+        <details><summary>15. 데이터 지역성의 이점은?</summary><p>데이터 가까이에 계산을 배치해 대규모 네트워크 전송을 줄인다.</p></details>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">16분 · 자체 제작 문제</p><h2 id="quiz-title">법제와 기술의 경계를 구분하기</h2>
+      <ol class="quiz-list">
+        <li><p>수집 계획을 세울 때 가장 먼저 확인할 사항은?</p><ol type="A"><li>가장 저렴한 저장장치</li><li>의사결정 목적, 필요한 데이터와 적법한 처리 근거</li><li>최신 분산처리 제품</li><li>가능한 모든 웹페이지 주소</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 목적과 필요성이 원천·범위·주기·권한과 저장 설계를 결정한다.</p></details></li>
+        <li><p>스트림 처리의 고유 설계 쟁점에 가장 가까운 것은?</p><ol type="A"><li>이벤트 시간, 늦은 도착, 순서와 중복</li><li>연 1회 보고서 표지</li><li>종이 문서의 제본</li><li>오프라인 파일명만 변경</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 연속 이벤트에서는 도착시각과 실제 발생시각, 지연·재전송·순서 문제가 중요하다.</p></details></li>
+        <li><p>robots.txt에 대한 설명으로 옳은 것은?</p><ol type="A"><li>웹 콘텐츠의 저작권을 자동 이전한다.</li><li>개인정보 처리 동의를 대신한다.</li><li>크롤러 접근 규칙을 제시하지만 접근 권한 부여 자체는 아니다.</li><li>없으면 모든 자동 수집이 법적으로 허용된다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> RFC 9309의 프로토콜 규칙과 법률·계약상 이용 권한은 별개다.</p></details></li>
+        <li><p>필수값이 모두 채워졌지만 고객 나이가 실제 값과 다르다. 직접 문제 되는 품질 차원은?</p><ol type="A"><li>완전성</li><li>정확성</li><li>적시성</li><li>유일성</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 값이 존재해 완전성은 충족해도 현실과 다르면 정확성이 낮다.</p></details></li>
+        <li><p>파일의 SHA-256 체크섬이 송신 측과 수신 측에서 같다. 직접 결론 내릴 수 있는 것은?</p><ol type="A"><li>모든 레코드가 참이다.</li><li>개인정보가 없다.</li><li>비교한 바이트 내용이 전송 중 달라지지 않았다.</li><li>분석 편향이 없다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 체크섬은 무결성 검사의 한 수단이지 의미적 정확성 검사가 아니다.</p></details></li>
+        <li><p>개인정보 보호법상 개인정보 설명으로 옳은 것은?</p><ol type="A"><li>이름이 삭제되면 항상 개인정보가 아니다.</li><li>가명정보는 개인정보 정의에서 제외된다.</li><li>살아 있는 개인을 다른 정보와 쉽게 결합해 알아볼 수 있는 정보도 포함될 수 있다.</li><li>숫자로 된 정보는 개인정보가 될 수 없다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 결합 가능성은 시간·비용·기술 등을 합리적으로 고려하며 가명정보도 개인정보에 포함된다.</p></details></li>
+        <li><p>개인정보 수집·이용에 관한 설명으로 옳은 것은?</p><ol type="A"><li>동의만이 유일한 법적 근거다.</li><li>법정 근거가 하나 있으면 목적과 무관하게 무제한 이용한다.</li><li>제15조의 법정 근거 중 하나가 있어야 하며 수집 목적 범위에서 이용한다.</li><li>공개된 정보는 언제나 자유롭게 처리한다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 동의 외 근거도 있지만 목적 제한과 다른 보호 원칙이 사라지지 않는다.</p></details></li>
+        <li><p>가명정보 특례에 관한 설명으로 옳지 않은 것은?</p><ol type="A"><li>통계작성 등 법정 목적을 위해 동의 없이 처리할 수 있다.</li><li>추가정보를 분리 보관한다.</li><li>특정 개인을 알아보기 위한 처리가 허용된다.</li><li>서로 다른 처리자 간 결합은 지정 전문기관이 수행한다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 특정 개인을 알아보기 위한 처리는 금지된다.</p></details></li>
+        <li><p>ELT에 가장 가까운 흐름은?</p><ol type="A"><li>원천을 추출하고 대상 플랫폼에 적재한 뒤 그 안에서 변환한다.</li><li>변환을 마친 뒤 원천을 만든다.</li><li>적재 없이 시각화만 한다.</li><li>모형을 먼저 배포하고 데이터를 수집한다.</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> ELT는 대상 플랫폼의 계산 능력을 활용해 적재 후 변환한다.</p></details></li>
+        <li><p>일관된 전사 지표와 반복 SQL 보고가 핵심인 저장 구조로 가장 적절한 것은?</p><ol type="A"><li>데이터 웨어하우스</li><li>이미지 폴더</li><li>키-값 캐시만</li><li>그래프 DB만</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 통합·정제된 분석 모델과 일관된 지표 제공이 웨어하우스의 강점이다.</p></details></li>
+        <li><p>데이터 레이크에 대한 설명으로 옳은 것은?</p><ol type="A"><li>메타데이터와 접근통제가 필요 없다.</li><li>정형 데이터는 저장할 수 없다.</li><li>다양한 원본·가공 데이터를 유연하게 보존하지만 카탈로그·품질 관리가 필요하다.</li><li>항상 웨어하우스보다 빠르다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 유연성은 무관리 상태를 뜻하지 않는다.</p></details></li>
+        <li><p>친구 관계에서 몇 단계 떨어졌는지 반복 탐색하는 질의에 가장 자연스러운 저장 모델은?</p><ol type="A"><li>그래프 DB</li><li>키-값만</li><li>CSV 한 셀</li><li>단순 문서 스캔만</li></ol><details><summary>정답과 해설</summary><p><strong>A.</strong> 노드와 관계의 경로 순회가 핵심인 문제다.</p></details></li>
+        <li><p>HDFS에서 실제 데이터 블록을 저장하는 구성요소는?</p><ol type="A"><li>NameNode</li><li>DataNode</li><li>Reducer</li><li>System Orchestrator</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> NameNode는 네임스페이스와 블록 메타데이터를 관리한다.</p></details></li>
+        <li><p>HDFS에 특히 부적합할 가능성이 큰 작업은?</p><ol type="A"><li>대용량 파일의 순차 스트리밍 읽기</li><li>한 번 쓴 대형 로그의 반복 분석</li><li>수많은 작은 파일을 매우 낮은 지연으로 자주 위치 수정</li><li>노드에 분산된 블록의 병렬 처리</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> HDFS는 대용량 파일의 높은 처리량과 쓰기 한 번·읽기 여러 번 패턴에 무게를 둔다.</p></details></li>
+        <li><p>MapReduce에서 같은 중간 키의 값들을 모아 Reducer로 보내는 단계는?</p><ol type="A"><li>Extract</li><li>Shuffle·Sort</li><li>Schema-on-write</li><li>Heartbeat</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> Map 출력은 키에 따라 분배·정렬돼 Reduce 입력으로 묶인다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <p class="eyebrow">5분 · Python 연결</p><h2 id="practice-title">필수값·중복·체크섬을 작게 검증하기</h2>
+      <p>표준 라이브러리 예제는 레코드의 필수 필드와 업무키 중복을 검사하고, 원천 텍스트의 SHA-256 지문을 만든다. 품질 규칙과 바이트 무결성 검사가 서로 다른 목적임을 확인한다.</p>
+      <pre><code>python3 examples/data_quality_demo.py
+# data quality demo: ok</code></pre>
+      <p><a class="button secondary" href="../examples/data_quality_demo.py">예제 파일 열기</a></p>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식·1차 자료</h2>
+      <ul class="sources">
+        <li><a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=270351">국가법령정보센터 · 개인정보 보호법 현행 원문</a> — 개인정보 정의, 수집·이용과 가명정보 특례.</li>
+        <li><a href="https://law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1020997635">개인정보 보호법 제2조</a> — 개인정보·가명처리·처리의 정의.</li>
+        <li><a href="https://law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&amp;lsJoLnkSeq=1025128631">개인정보 보호법 제15조</a> — 수집·이용의 법적 근거와 목적 범위.</li>
+        <li><a href="https://law.go.kr/LSW/lsLinkCommonInfo.do?lsJoLnkSeq=1020398635">개인정보 보호법 제28조의2부터 제28조의5</a> — 가명정보 처리·결합·안전조치·금지의무.</li>
+        <li><a href="https://m.pipc.go.kr/np/cop/bbs/selectBoardArticle.do?bbsId=BS217&amp;mCode=D010030000&amp;nttId=11931">개인정보보호위원회 · 가명정보 처리 가이드라인(2026.3 개정)</a> — 현행 실무 안내서.</li>
+        <li><a href="https://www.rfc-editor.org/rfc/rfc9309.html">IETF RFC 9309 · Robots Exclusion Protocol</a> — 크롤러 규칙과 접근 권한의 구분.</li>
+        <li><a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html">Apache Hadoop · HDFS Architecture Guide</a> — NameNode·DataNode·블록·복제와 설계 목표.</li>
+        <li><a href="https://hadoop.apache.org/docs/current3/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html">Apache Hadoop · MapReduce Tutorial</a> — Map, Shuffle·Sort, Reduce와 실패 작업 처리.</li>
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">한국데이터산업진흥원 · 빅데이터분석기사 출제범위</a> — 수집·저장 계획의 범위 기준.</li>
+      </ul>
+      <p class="source-note">법률 부분은 2026-08-10 기준 학습용 요약이다. 실제 처리는 최신 원문·하위 규정과 구체적 맥락을 별도로 검토한다.</p>
+    </section>
+
+    <nav class="bottom-nav" aria-label="이전 단원"><a href="01-analysis-planning.html">← 이전: 분석계획</a><a href="../index.html">교재 홈 →</a></nav>
+  </main>
+
+  <footer><div class="page narrow"><p>1과목 · 데이터 수집 및 저장 계획</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="분류·회귀·군집 평가, 교차검증, 과적합 진단과 모형 개선을 다루는 빅데이터분석기사 4과목 교재">
+  <title>04-01 분석모형 평가와 개선</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+
+  <header class="chapter-hero">
+    <div class="page narrow">
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>4과목</span></nav>
+      <p class="eyebrow">04-01 · 분석모형 평가 및 개선</p>
+      <h1>점수보다 의사결정에 맞는 평가</h1>
+      <p class="lede">한 지표의 최고점을 찾는 대신 오류 비용·검증 구조·일반화 격차를 보고 개선한다.</p>
+      <ul class="tags" aria-label="단원 정보"><li>약 70분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="단원 차례">
+    <div class="page narrow nav-links">
+      <a href="#scope">범위·목표</a><a href="#design">평가 설계</a><a href="#classification">분류</a>
+      <a href="#other-metrics">회귀·군집</a><a href="#validation">검증·개선</a><a href="#recall">회상</a>
+      <a href="#quiz">문제</a><a href="#practice">Python</a><a href="#sources">출처</a>
+    </div>
+  </nav>
+
+  <main id="main" class="page narrow stack">
+    <section id="scope" class="panel objectives" aria-labelledby="scope-title">
+      <p class="eyebrow">공식 범위 · 분석모형 평가 및 개선</p>
+      <h2 id="scope-title">평가지표·교차검증·모형 진단·개선</h2>
+      <p>이 단원은 분석모형의 적합성 평가, 분류·회귀·군집 지표, 교차검증과 모형 비교, 과소·과대적합 진단, 하이퍼파라미터와 임계값 개선을 다룬다.</p>
+      <h3>끝나면 다음을 설명한다</h3>
+      <ul class="check-list">
+        <li>혼동행렬에서 정확도·정밀도·재현율·특이도·F1을 계산한다.</li>
+        <li>ROC-AUC, PR 곡선, 확률 보정과 임계값 선택의 역할을 구분한다.</li>
+        <li>MAE·MSE·RMSE·R²와 군집 내부지표를 목적에 맞게 고른다.</li>
+        <li>교차검증과 최종 시험 데이터의 역할을 분리한다.</li>
+        <li>학습·검증 곡선으로 과소·과대적합의 개선 방향을 제안한다.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="precheck-title">
+      <p class="eyebrow">4분 · 사전 점검</p><h2 id="precheck-title">좋은 점수가 무엇인지 먼저 정하기</h2>
+      <ol class="questions">
+        <li>정확도 99%인 희귀질환 모형이 쓸모없을 수 있는 이유는?</li>
+        <li>정밀도와 재현율의 분모는 각각 무엇인가?</li>
+        <li>분류 임계값을 낮추면 재현율과 거짓 양성은 보통 어떻게 변하는가?</li>
+        <li>RMSE와 MAE 중 큰 오차에 더 강한 벌점을 주는 것은?</li>
+        <li>검증 점수로 후보를 고른 뒤 그 점수를 최종 일반화 성능이라 부르면 왜 낙관적인가?</li>
+      </ol>
+    </section>
+
+    <section id="design" aria-labelledby="design-title">
+      <p class="eyebrow">핵심 1 · 평가 설계</p><h2 id="design-title">업무 목표를 오류 비용과 지표로 번역한다</h2>
+      <ol class="concept-map">
+        <li><strong>1. 대상</strong><span>예측 단위·운영 모집단</span></li>
+        <li><strong>2. 오류</strong><span>FP·FN·큰 수치오차의 비용</span></li>
+        <li><strong>3. 지표</strong><span>목적과 출력 형태에 정렬</span></li>
+        <li><strong>4. 분할</strong><span>시간·그룹·층화 구조 보존</span></li>
+        <li><strong>5. 기준</strong><span>단순모형·현행 절차와 비교</span></li>
+        <li><strong>6. 불확실성</strong><span>폴드·집단·기간별 변동</span></li>
+      </ol>
+      <p>평가 지표는 모형 속성이 아니라 의사결정의 대리변수다. 암 진단에서는 놓친 환자(FN), 스팸 필터에서는 정상 메일 차단(FP), 수요예측에서는 대형 오차의 재고비용이 다르다. 목표를 먼저 정하지 않으면 같은 모형도 지표마다 순위가 바뀐다.</p>
+      <aside class="callout compact"><strong>이해 포인트:</strong> 경기의 승리 조건을 정하지 않고 선수 순위를 매길 수 없는 것처럼, 모형도 어떤 오류를 비싸게 볼지 정하기 전에는 “최고”가 없다.</aside>
+      <div class="table-wrap" tabindex="0" aria-label="평가 설계 점검표">
+        <table>
+          <thead><tr><th scope="col">질문</th><th scope="col">잘못된 지름길</th><th scope="col">확인 방법</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">누구에게 쓰나?</th><td>편한 표본만 시험</td><td>운영 모집단·기간·하위집단 정의</td></tr>
+            <tr><th scope="row">무엇을 내나?</th><td>레이블과 확률을 같은 지표로 평가</td><td>순위·확률·최종 행동을 구분</td></tr>
+            <tr><th scope="row">무엇과 비교하나?</th><td>후보끼리만 비교</td><td>기준모형·현행 업무·사람 판단 포함</td></tr>
+            <tr><th scope="row">얼마나 안정적인가?</th><td>평균 점수 하나만 보고</td><td>폴드·기간·집단별 점수와 분산 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="classification" aria-labelledby="classification-title">
+      <p class="eyebrow">핵심 2 · 분류 평가</p><h2 id="classification-title">혼동행렬은 오류를 네 칸으로 분해한다</h2>
+
+      <article class="concept">
+        <h3>1. TP·TN·FP·FN</h3>
+        <div class="table-wrap" tabindex="0" aria-label="이진 분류 혼동행렬">
+          <table>
+            <thead><tr><th scope="col">실제＼예측</th><th scope="col">양성 예측</th><th scope="col">음성 예측</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">실제 양성</th><td>TP: 옳게 탐지</td><td>FN: 놓침</td></tr>
+              <tr><th scope="row">실제 음성</th><td>FP: 잘못 경보</td><td>TN: 옳게 제외</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="equation-grid" aria-label="분류 평가지표 공식">
+          <div><span>정확도</span><strong>(TP+TN)/전체</strong></div>
+          <div><span>정밀도</span><strong>TP/(TP+FP)</strong></div>
+          <div><span>재현율·민감도</span><strong>TP/(TP+FN)</strong></div>
+          <div><span>특이도</span><strong>TN/(TN+FP)</strong></div>
+          <div><span>F1</span><strong>2PR/(P+R)</strong></div>
+          <div><span>균형정확도</span><strong>(민감도+특이도)/2</strong></div>
+        </div>
+        <p><strong>정밀도</strong>는 양성이라고 경보한 것 중 맞은 비율이라 FP에 민감하고, <strong>재현율</strong>은 실제 양성 중 찾은 비율이라 FN에 민감하다. F1은 둘의 조화평균으로 한쪽이 낮으면 함께 낮아지지만 TN을 직접 반영하지 않는다.</p>
+        <aside class="warning"><h3>분모로 구분하기</h3><ul><li>정밀도 질문: “내가 양성이라고 한 것 중?”</li><li>재현율 질문: “실제 양성 중?”</li><li>특이도 질문: “실제 음성 중?”</li><li>정확도는 불균형 자료에서 다수 클래스에 가려질 수 있다.</li></ul></aside>
+      </article>
+
+      <article class="concept">
+        <h3>2. 임계값은 확률을 행동으로 바꾸는 정책이다</h3>
+        <p>예측확률이 임계값 이상이면 양성이라 정한다. 임계값을 낮추면 더 많이 양성으로 분류해 TP와 FP가 보통 함께 늘고, 재현율은 올라가지만 정밀도·특이도는 내려갈 수 있다. 0.5는 기본값일 뿐 모든 비용 구조의 최적값이 아니다.</p>
+        <div class="table-wrap" tabindex="0" aria-label="분류 곡선 비교">
+          <table>
+            <thead><tr><th scope="col">도구</th><th scope="col">축·요약</th><th scope="col">주요 용도</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">ROC</th><td>FPR 대비 TPR, AUC로 순위 성능 요약</td><td>임계값 전반의 분리·순위 능력</td></tr>
+              <tr><th scope="row">PR</th><td>재현율 대비 정밀도</td><td>희귀 양성에서 양성 탐지 품질</td></tr>
+              <tr><th scope="row">이득·향상도</th><td>상위 점수 집단의 포착률·기준 대비 배수</td><td>제한된 대상에 행동할 때</td></tr>
+              <tr><th scope="row">비용곡선</th><td>임계값별 기대 비용·효용</td><td>FP·FN 비용이 명시될 때</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>ROC-AUC는 무작위로 고른 양성의 점수를 무작위 음성보다 높게 줄 확률로 해석할 수 있는 순위 지표다. 특정 임계값의 정밀도·재현율이나 확률의 정확성을 보장하지 않는다. 클래스가 극도로 불균형하면 낮은 FPR도 많은 FP가 될 수 있어 PR과 실제 건수를 함께 본다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 분리 능력과 확률 보정은 다르다</h3>
+        <p>확률 0.8로 예측한 사례 묶음에서 실제 양성이 약 80%라면 잘 보정된 확률이다. 보정곡선은 확률 구간별 평균 예측확률과 실제 양성 비율을 비교한다. AUC가 높아 순위는 잘 매겨도 확률을 지나치게 자신 있게 내면 비용·의사결정 계산이 틀릴 수 있다.</p>
+        <p>Brier 점수는 이진 실제값과 예측확률 차이의 제곱평균이고 낮을수록 좋다. 다만 하나의 점수에는 보정, 분리 능력, 자료 불확실성이 함께 들어가므로 보정곡선을 병행한다. 보정기를 학습할 데이터도 원 모형 학습 데이터와 독립시켜 낙관 편향을 막는다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>4. 다중 클래스 평균 방식</h3>
+        <ul>
+          <li><strong>macro:</strong> 클래스별 지표를 동일 가중 평균해 희귀 클래스도 같은 비중으로 본다.</li>
+          <li><strong>weighted:</strong> 클래스 지지도(표본 수)로 가중해 다수 클래스 영향을 더 받는다.</li>
+          <li><strong>micro:</strong> 클래스별 TP·FP·FN을 먼저 합친 뒤 계산해 전체 개별 판단을 본다.</li>
+        </ul>
+        <p>어떤 평균이 “정답”이 아니라 업무 목적이 어떤 클래스를 중요하게 보는지에 따라 선택한다. 평균만 제시하지 말고 클래스별 지표와 표본 수도 확인한다.</p>
+      </article>
+    </section>
+
+    <section id="other-metrics" aria-labelledby="other-title">
+      <p class="eyebrow">핵심 3 · 회귀와 군집 평가</p><h2 id="other-title">오차의 단위와 벌점 모양을 본다</h2>
+
+      <article class="concept">
+        <h3>1. 회귀 지표</h3>
+        <div class="table-wrap" tabindex="0" aria-label="회귀 평가지표 비교">
+          <table>
+            <thead><tr><th scope="col">지표</th><th scope="col">공식 요약</th><th scope="col">특징</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">MAE</th><td>평균 |y−ŷ|</td><td>원래 단위, 큰 오차에 선형 벌점</td></tr>
+              <tr><th scope="row">MSE</th><td>평균 (y−ŷ)²</td><td>큰 오차를 강하게 벌점, 단위 제곱</td></tr>
+              <tr><th scope="row">RMSE</th><td>√MSE</td><td>큰 오차 강조, 원래 단위</td></tr>
+              <tr><th scope="row">R²</th><td>1−SSE/SST</td><td>평균 기준 대비 설명; 시험에서 음수 가능</td></tr>
+              <tr><th scope="row">MAPE</th><td>평균 |(y−ŷ)/y|</td><td>비율 해석; y=0·작은 값에 문제</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>RMSE가 MAE보다 훨씬 크면 일부 큰 오차의 영향을 의심할 수 있다. R²=0은 평균만 예측하는 기준과 같은 수준이고, 독립 시험 자료에서는 0보다 작아 기준보다 나쁠 수 있다. 데이터셋 분산에 의존하므로 서로 다른 데이터셋의 R²를 단순 비교하지 않는다.</p>
+        <p>잔차 e=y−ŷ를 예측값·시간·집단별로 그려 평균 0 주위의 구조 없는 패턴인지 확인한다. 곡선, 깔때기 모양, 시간 자기상관, 특정 집단 편향은 누락된 비선형성·이분산·시간 구조·집단 차이를 시사한다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 군집 평가는 정답 레이블 유무를 구분한다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="군집 평가지표 비교">
+          <table>
+            <thead><tr><th scope="col">유형</th><th scope="col">지표 예</th><th scope="col">해석과 한계</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">내부</th><td>실루엣, Davies–Bouldin</td><td>응집·분리; 거리·군집 모양 가정 영향</td></tr>
+              <tr><th scope="row">외부</th><td>ARI, NMI</td><td>외부 정답 레이블과 일치 정도</td></tr>
+              <tr><th scope="row">안정성</th><td>재표집·seed 변화의 일관성</td><td>작은 변화에 군집이 무너지지 않는지</td></tr>
+              <tr><th scope="row">업무</th><td>집단 크기·구분 가능성·행동 가능성</td><td>통계적 분리와 실제 활용을 연결</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>실루엣은 각 점의 같은 군집 내 평균거리 a와 가장 가까운 다른 군집 평균거리 b를 이용해 (b−a)/max(a,b)로 계산하며 −1에서 1 사이이다. 1에 가까울수록 응집·분리가 좋지만 비구형·밀도 기반 군집의 품질을 항상 공정하게 평가하지는 않는다.</p>
+      </article>
+    </section>
+
+    <section id="validation" aria-labelledby="validation-title">
+      <p class="eyebrow">핵심 4 · 검증과 개선</p><h2 id="validation-title">선택용 점수와 최종 확인용 점수를 분리한다</h2>
+
+      <article class="concept">
+        <h3>1. 교차검증은 한 번의 분할 우연을 줄인다</h3>
+        <p>k-겹 교차검증은 데이터를 k개 폴드로 나눠 하나를 검증, 나머지를 학습하는 일을 k번 반복한다. 평균 점수는 예상 성능을, 폴드 간 변동은 분할 민감도를 보여준다. k가 크면 학습 자료는 늘지만 계산비용과 폴드 간 상관이 커질 수 있다.</p>
+        <ul>
+          <li><strong>층화 k-fold:</strong> 분류 클래스 비율을 폴드마다 비슷하게 유지한다.</li>
+          <li><strong>그룹 교차검증:</strong> 같은 사람·장비의 행을 폴드 사이에서 격리한다.</li>
+          <li><strong>시계열 분할:</strong> 과거로 학습하고 미래로 검증해 시간 방향을 보존한다.</li>
+          <li><strong>중첩 교차검증:</strong> 안쪽에서 튜닝하고 바깥쪽에서 그 선택 절차의 성능을 추정한다.</li>
+        </ul>
+        <p>전처리·변수 선택·재표집도 각 학습 폴드 안에서 fit해야 한다. 전체 데이터에서 먼저 전처리하면 검증 폴드가 전처리 기준에 들어가 누수가 된다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>2. 과소적합·과대적합은 학습과 검증의 조합으로 진단한다</h3>
+        <div class="table-wrap" tabindex="0" aria-label="학습 검증 점수 패턴과 개선">
+          <table>
+            <thead><tr><th scope="col">패턴</th><th scope="col">진단</th><th scope="col">개선 후보</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">학습·검증 모두 낮음</th><td>높은 편향, 과소적합</td><td>표현·특징·모형 복잡성 늘리기, 규제 완화</td></tr>
+              <tr><th scope="row">학습 높고 검증 낮음</th><td>높은 분산, 과대적합</td><td>규제·단순화·더 많은 대표 자료·앙상블</td></tr>
+              <tr><th scope="row">둘 다 높고 격차 작음</th><td>현재 분할에서 양호</td><td>하위집단·시간·운영 제약 추가 점검</td></tr>
+              <tr><th scope="row">폴드 변동이 큼</th><td>표본·집단·분할 민감</td><td>분할 구조·데이터 품질·불확실성 점검</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>학습곡선</strong>은 학습 표본 수에 따른 학습·검증 점수를 보여 데이터 추가의 효용을 진단한다. <strong>검증곡선</strong>은 한 하이퍼파라미터 값에 따른 두 점수를 보여 규제·복잡성의 적정 구간을 찾는다.</p>
+      </article>
+
+      <article class="concept">
+        <h3>3. 개선은 데이터·표현·모형·결정 정책으로 나눈다</h3>
+        <ol class="steps">
+          <li><strong>오류 분석</strong><span>FP·FN·큰 잔차를 집단·기간·원인별로 표본 확인한다.</span></li>
+          <li><strong>데이터</strong><span>레이블 오류, 대표성, 누수, 결측, 희귀 사례를 개선한다.</span></li>
+          <li><strong>표현</strong><span>변환·상호작용·변수 선택을 학습 폴드 안에서 비교한다.</span></li>
+          <li><strong>모형</strong><span>규제·복잡성·알고리즘·하이퍼파라미터를 검증한다.</span></li>
+          <li><strong>정책</strong><span>업무 비용에 맞춰 임계값·보정·사람 검토 구간을 정한다.</span></li>
+          <li><strong>봉인 시험</strong><span>모든 선택 후 독립 시험 집합에서 한 번 최종 확인한다.</span></li>
+        </ol>
+        <p>격자탐색은 지정 조합을 모두 평가하고, 무작위탐색은 분포에서 정한 횟수만 뽑아 넓은 공간을 효율적으로 탐색할 수 있다. 탐색 범위와 지표는 사전에 정하고, 많이 시도할수록 검증 집합에도 과적합할 수 있음을 기억한다.</p>
+        <aside class="warning">
+          <h3>시험과 실기의 혼동 지점</h3>
+          <ul>
+            <li><strong>AUC ≠ 보정:</strong> 순위가 좋아도 확률값은 부정확할 수 있다.</li>
+            <li><strong>임계값 튜닝 ≠ 재학습:</strong> 같은 점수에서 행동 경계만 바꿀 수 있다.</li>
+            <li><strong>R²:</strong> 독립 시험 자료에서는 음수가 가능하다.</li>
+            <li><strong>CV 평균만:</strong> 폴드 변동과 분할 구조를 숨기지 않는다.</li>
+            <li><strong>시험 데이터 반복:</strong> 결과를 보고 선택을 바꾸면 시험 데이터에 과적합한다.</li>
+          </ul>
+        </aside>
+      </article>
+    </section>
+
+    <section id="recall" aria-labelledby="recall-title">
+      <p class="eyebrow">9분 · 폐쇄형 회상</p><h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <div class="details-list">
+        <details><summary>1. FP와 FN은?</summary><p>FP는 실제 음성을 양성으로 잘못 경보, FN은 실제 양성을 음성으로 놓친 경우다.</p></details>
+        <details><summary>2. 정밀도와 재현율 공식은?</summary><p>정밀도=TP/(TP+FP), 재현율=TP/(TP+FN)이다.</p></details>
+        <details><summary>3. 특이도 공식은?</summary><p>TN/(TN+FP), 실제 음성 중 옳게 음성으로 분류한 비율이다.</p></details>
+        <details><summary>4. F1은 어떤 평균이며 무엇을 직접 반영하지 않는가?</summary><p>정밀도와 재현율의 조화평균이며 TN을 직접 반영하지 않는다.</p></details>
+        <details><summary>5. 임계값을 낮출 때의 전형적 변화는?</summary><p>양성 예측이 늘어 재현율과 FP가 올라가고 정밀도·특이도는 내려갈 수 있다.</p></details>
+        <details><summary>6. ROC 곡선의 두 축은?</summary><p>x축 FPR=1−특이도, y축 TPR=재현율이다.</p></details>
+        <details><summary>7. AUC와 확률 보정의 차이는?</summary><p>AUC는 순위·분리 능력, 보정은 예측확률과 실제 빈도의 일치를 본다.</p></details>
+        <details><summary>8. macro와 micro 평균의 차이는?</summary><p>macro는 클래스별 값을 동일 가중 평균하고, micro는 모든 클래스의 판단 수를 먼저 합쳐 계산한다.</p></details>
+        <details><summary>9. MAE와 RMSE 중 큰 오차에 더 민감한 것은?</summary><p>제곱오차를 쓰는 RMSE다.</p></details>
+        <details><summary>10. 시험 R²가 음수라는 뜻은?</summary><p>그 시험 집합에서 평균만 예측하는 기준보다 제곱오차가 더 크다는 뜻이다.</p></details>
+        <details><summary>11. 실루엣 계수의 범위와 좋은 방향은?</summary><p>−1에서 1 사이이며 일반적으로 1에 가까울수록 응집·분리가 좋다.</p></details>
+        <details><summary>12. k-fold 교차검증은?</summary><p>k개 폴드를 번갈아 검증으로 쓰며 k번 학습·평가해 평균과 변동을 본다.</p></details>
+        <details><summary>13. 중첩 교차검증의 안쪽과 바깥쪽 역할은?</summary><p>안쪽은 후보·하이퍼파라미터 선택, 바깥쪽은 그 선택 절차의 일반화 성능 추정이다.</p></details>
+        <details><summary>14. 학습·검증 모두 낮을 때와 격차가 클 때의 진단은?</summary><p>둘 다 낮으면 과소적합, 학습만 높고 검증이 낮으면 과대적합을 의심한다.</p></details>
+        <details><summary>15. 최종 시험 집합은 언제 쓰는가?</summary><p>전처리·변수·모형·하이퍼파라미터·임계값 선택을 모두 끝낸 뒤 제한적으로 쓴다.</p></details>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">선택지 변별 15문제</h2>
+      <ol class="quiz-list">
+        <li><p>TP=40, TN=50, FP=10, FN=20일 때 정확도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.75</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (40+50)/120=0.75다.</p></details></li>
+        <li><p>같은 혼동행렬에서 정밀도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.80</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> TP/(TP+FP)=40/50=0.80이다.</p></details></li>
+        <li><p>같은 혼동행렬에서 재현율은?</p><ol class="choices" type="A"><li>0.50</li><li>약 0.67</li><li>0.80</li><li>약 0.83</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 40/(40+20)=2/3이다.</p></details></li>
+        <li><p>실제 환자를 놓치는 비용이 매우 큰 검진에서 우선할 지표는?</p><ol class="choices" type="A"><li>재현율</li><li>특이도만</li><li>R²</li><li>실루엣</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> FN을 줄이는 목표와 직접 연결된다. 실제 운영에서는 FP 비용과 후속검사 능력도 함께 본다.</p></details></li>
+        <li><p>양성 1% 자료에서 모두 음성으로 예측할 때 생기는 현상은?</p><ol class="choices" type="A"><li>정확도는 높지만 재현율은 0일 수 있다.</li><li>정밀도와 재현율이 항상 1이다.</li><li>AUC가 반드시 1이다.</li><li>R²가 1이다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 다수 음성만 맞혀 정확도 99%가 가능하지만 양성을 하나도 찾지 못한다.</p></details></li>
+        <li><p>분류 임계값을 0.7에서 0.3으로 낮췄을 때 일반적으로?</p><ol class="choices" type="A"><li>양성 예측이 줄어든다.</li><li>재현율이 올라가고 FP도 늘 수 있다.</li><li>모형 계수가 자동 재학습된다.</li><li>AUC가 반드시 변한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 더 많은 사례가 양성이 된다. 점수 순위가 같으면 임계값만 바꾸는 것은 AUC를 바꾸지 않는다.</p></details></li>
+        <li><p>ROC 곡선의 x축은?</p><ol class="choices" type="A"><li>정밀도</li><li>재현율</li><li>거짓 양성률</li><li>정확도</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> FPR=FP/(FP+TN)=1−특이도다. y축은 TPR이다.</p></details></li>
+        <li><p>AUC가 높지만 확률 0.9인 묶음의 실제 양성이 0.6이라면?</p><ol class="choices" type="A"><li>순위는 좋을 수 있지만 확률이 과신돼 있다.</li><li>AUC 정의상 불가능하다.</li><li>완벽히 보정됐다.</li><li>임계값이 반드시 0이다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 분리 능력과 보정은 다른 속성이다. 보정곡선에서 0.9 예측이 0.6 실제 빈도라면 과신이다.</p></details></li>
+        <li><p>희귀 클래스도 다수 클래스와 같은 비중으로 클래스별 재현율을 평균하려면?</p><ol class="choices" type="A"><li>macro</li><li>weighted</li><li>micro</li><li>accuracy만</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> macro는 각 클래스를 동일 가중한다. weighted는 표본 수 가중이다.</p></details></li>
+        <li><p>오차가 [1,1,1,9]일 때 큰 오차를 더 강하게 반영하는 지표는?</p><ol class="choices" type="A"><li>RMSE</li><li>MAE</li><li>정확도</li><li>재현율</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 제곱 후 평균하는 RMSE가 9의 영향을 더 크게 받는다.</p></details></li>
+        <li><p>시험 R²=−0.2의 가장 타당한 해석은?</p><ol class="choices" type="A"><li>계산 오류라 불가능하다.</li><li>평균 기준 예측보다 나쁘다.</li><li>20% 정확하다.</li><li>상관계수가 −0.2다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 시험 SSE가 평균 기준 SST보다 커 R²가 음수가 될 수 있다.</p></details></li>
+        <li><p>시간순 매출 예측의 교차검증으로 가장 적절한 것은?</p><ol class="choices" type="A"><li>미래로 학습해 과거 평가</li><li>모든 행 무작위 혼합만</li><li>과거 학습·뒤 기간 검증의 순차 분할</li><li>검증 생략</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 실제 예측의 시간 방향과 정보 가용성을 보존한다.</p></details></li>
+        <li><p>학습 점수는 매우 높고 검증 점수는 낮은 패턴은?</p><ol class="choices" type="A"><li>과대적합</li><li>과소적합만</li><li>완벽한 일반화</li><li>항상 데이터 누수 없음</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 학습 자료에 민감하게 맞아 새로운 자료로 일반화하지 못하는 높은 분산 패턴이다.</p></details></li>
+        <li><p>검증 점수로 100개 설정을 비교해 최고를 골랐다. 그 점수를 최종 성능이라 쓰면?</p><ol class="choices" type="A"><li>선택에 사용돼 낙관 편향이 있을 수 있다.</li><li>항상 보수적이다.</li><li>시험 집합이 필요 없다.</li><li>자동으로 중첩 CV가 된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 많은 설정 중 검증 우연까지 좋은 것을 골랐을 수 있어 별도 시험 또는 바깥 CV가 필요하다.</p></details></li>
+        <li><p>학습·검증 점수가 모두 낮고 서로 비슷할 때 먼저 검토할 개선은?</p><ol class="choices" type="A"><li>표현력·특징을 늘리거나 규제를 완화한다.</li><li>모형을 더 단순하게만 한다.</li><li>시험 데이터로 튜닝한다.</li><li>학습 표본을 삭제한다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 과소적합의 높은 편향을 줄이는 방향이다. 실제로는 데이터·지표 오류도 함께 확인한다.</p></details></li>
+      </ol>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">혼동행렬과 회귀 지표를 직접 계산한다</h2>
+      <p>표준 라이브러리 예제는 TP·TN·FP·FN, 정확도·정밀도·재현율·특이도·F1과 MAE·MSE·RMSE·R²를 검증한다. <a href="../examples/evaluation_metrics_demo.py" download>실행 파일 내려받기</a></p>
+      <pre><code>precision = tp / (tp + fp)
+recall = tp / (tp + fn)
+specificity = tn / (tn + fp)
+f1 = 2 * precision * recall / (precision + recall)</code></pre>
+      <p class="muted">scikit-learn의 <code>scoring</code>은 높을수록 좋은 관례를 써 손실 지표를 음수로 노출할 수 있다. 이름이 <code>neg_mean_squared_error</code>라면 부호 의미를 확인한다.</p>
+    </section>
+
+    <section class="panel finish" aria-labelledby="finish-title"><p class="eyebrow">마무리</p><h2 id="finish-title">45초 평가 설명</h2><p>“운영 모집단·오류 비용 → 출력과 지표 → 구조를 보존한 검증 → 기준모형 → 오류·격차 진단 → 데이터·모형·정책 개선 → 독립 시험” 순서로 말한다.</p></section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <p class="eyebrow">근거와 추가 학습</p><h2 id="sources-title">이 단원을 만든 자료</h2>
+      <ul class="sources">
+        <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">DATAQ 빅데이터분석기사 시험 주요내용</a> — 공식 출제범위</li>
+        <li><a href="https://scikit-learn.org/stable/modules/model_evaluation.html">scikit-learn 모형 평가</a> — 분류·회귀·군집 지표와 scoring</li>
+        <li><a href="https://scikit-learn.org/stable/modules/cross_validation.html">scikit-learn 교차검증</a> — 평가 분할과 교차검증 전략</li>
+        <li><a href="https://scikit-learn.org/stable/modules/learning_curve.html">scikit-learn 학습·검증곡선</a> — 편향·분산 진단</li>
+        <li><a href="https://scikit-learn.org/stable/modules/calibration.html">scikit-learn 확률 보정</a> — 보정곡선과 독립 보정 자료</li>
+        <li><a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_tuned_decision_threshold.html">scikit-learn 분류 임계값 조정</a> — 업무 지표에 따른 행동 경계</li>
+      </ul>
+    </section>
+
+    <nav class="bottom-nav" aria-label="단원 이동">
+      <a class="button secondary" href="03-unsupervised-advanced.html">이전 과목: 고급 분석기법</a>
+      <a class="button" href="04-interpretation-utilization.html">다음: 해석과 활용</a>
+    </nav>
+  </main>
+
+  <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+</body>
+</html>
