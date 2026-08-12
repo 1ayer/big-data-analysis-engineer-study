@@ -14,8 +14,8 @@
     <div class="page narrow">
       <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>4과목</span></nav>
       <p class="eyebrow">04-01 · 분석모형 평가 및 개선</p>
-      <h1>점수보다 의사결정에 맞는 평가</h1>
-      <p class="lede">한 지표의 최고점을 찾는 대신 오류 비용·검증 구조·일반화 격차를 보고 개선한다.</p>
+      <h1>좋은 평가는 높은 점수 하나로 끝나지 않아요</h1>
+      <p class="lede">오류 비용과 검증 구조, 학습·검증 성능의 차이를 함께 보고 모형을 개선해 봐요.</p>
       <ul class="tags" aria-label="단원 정보"><li>약 70분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
     </div>
   </header>
@@ -32,8 +32,8 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 분석모형 평가 및 개선</p>
       <h2 id="scope-title">평가지표·교차검증·모형 진단·개선</h2>
-      <p>이 단원은 분석모형의 적합성 평가, 분류·회귀·군집 지표, 교차검증과 모형 비교, 과소·과대적합 진단, 하이퍼파라미터와 임계값 개선을 다룬다.</p>
-      <h3>끝나면 다음을 설명한다</h3>
+      <p>여기서는 분류·회귀·군집 지표부터 교차검증, 과소·과대적합 진단, 하이퍼파라미터와 임계값 조정까지 살펴봐요.</p>
+      <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>혼동행렬에서 정확도·정밀도·재현율·특이도·F1을 계산한다.</li>
         <li>ROC-AUC, PR 곡선, 확률 보정과 임계값 선택의 역할을 구분한다.</li>
@@ -65,7 +65,7 @@
         <li><strong>6. 불확실성</strong><span>폴드·집단·기간별 변동</span></li>
       </ol>
       <p>평가 지표는 모형 속성이 아니라 의사결정의 대리변수다. 암 진단에서는 놓친 환자(FN), 스팸 필터에서는 정상 메일 차단(FP), 수요예측에서는 대형 오차의 재고비용이 다르다. 목표를 먼저 정하지 않으면 같은 모형도 지표마다 순위가 바뀐다.</p>
-      <aside class="callout compact"><strong>이해 포인트:</strong> 경기의 승리 조건을 정하지 않고 선수 순위를 매길 수 없는 것처럼, 모형도 어떤 오류를 비싸게 볼지 정하기 전에는 “최고”가 없다.</aside>
+      <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> 경기의 승리 조건 없이 선수 순위를 매길 수 없듯이, 어떤 오류가 더 중요한지 정하기 전에는 “최고의 모형”도 정할 수 없어요.</aside>
       <div class="table-wrap" tabindex="0" aria-label="평가 설계 점검표">
         <table>
           <thead><tr><th scope="col">질문</th><th scope="col">잘못된 지름길</th><th scope="col">확인 방법</th></tr></thead>
@@ -233,7 +233,7 @@
     </section>
 
     <section id="recall" aria-labelledby="recall-title">
-      <p class="eyebrow">9분 · 폐쇄형 회상</p><h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <p class="eyebrow">9분 · 답을 보지 않고 떠올리기</p><h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
         <details><summary>1. FP와 FN은?</summary><p>FP는 실제 음성을 양성으로 잘못 경보, FN은 실제 양성을 음성으로 놓친 경우다.</p></details>
         <details><summary>2. 정밀도와 재현율 공식은?</summary><p>정밀도=TP/(TP+FP), 재현율=TP/(TP+FN)이다.</p></details>
@@ -254,7 +254,7 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">선택지 변별 15문제</h2>
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>TP=40, TN=50, FP=10, FN=20일 때 정확도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.75</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (40+50)/120=0.75다.</p></details></li>
         <li><p>같은 혼동행렬에서 정밀도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.80</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> TP/(TP+FP)=40/50=0.80이다.</p></details></li>
@@ -275,7 +275,7 @@
     </section>
 
     <section id="practice" aria-labelledby="practice-title">
-      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">혼동행렬과 회귀 지표를 직접 계산한다</h2>
+      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">혼동행렬과 회귀 지표를 직접 계산해 봐요</h2>
       <p>표준 라이브러리 예제는 TP·TN·FP·FN, 정확도·정밀도·재현율·특이도·F1과 MAE·MSE·RMSE·R²를 검증한다. <a href="../examples/evaluation_metrics_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>precision = tp / (tp + fp)
 recall = tp / (tp + fn)
@@ -305,5 +305,6 @@ f1 = 2 * precision * recall / (precision + recall)</code></pre>
   </main>
 
   <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+  <script src="../study.js" defer></script>
 </body>
 </html>

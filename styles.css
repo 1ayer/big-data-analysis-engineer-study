@@ -31,6 +31,22 @@ body {
   line-height: 1.75;
 }
 
+body.has-study-tools {
+  padding-bottom: 5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 a {
   color: var(--accent-dark);
   text-decoration-thickness: 0.08em;
@@ -560,6 +576,146 @@ details p {
   padding: 0.7rem 0 0;
 }
 
+.card-save-button {
+  display: block;
+  margin: 0.7rem 0 0.8rem auto;
+  padding: 0.38rem 0.7rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  color: var(--accent-dark);
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.card-save-button:hover,
+.card-save-button.is-saved {
+  color: white;
+  background: var(--accent-dark);
+}
+
+.card-tray {
+  position: fixed;
+  z-index: 40;
+  right: 1rem;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.card-tray button {
+  padding: 0.72rem 1rem;
+  border: 0;
+  border-radius: 999px;
+  color: white;
+  background: var(--accent-dark);
+  box-shadow: 0 8px 24px rgb(23 33 27 / 24%);
+  font: inherit;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.card-dialog {
+  width: min(680px, calc(100% - 1.5rem));
+  max-height: min(80vh, 760px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 24px 80px rgb(23 33 27 / 35%);
+}
+
+.card-dialog::backdrop {
+  background: rgb(10 30 23 / 55%);
+}
+
+.card-dialog > p,
+.card-dialog-header,
+.saved-card-list,
+.card-dialog-actions {
+  margin: 0;
+  padding-inline: clamp(1rem, 4vw, 1.75rem);
+}
+
+.card-dialog > p {
+  color: var(--muted);
+}
+
+.card-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.4rem;
+}
+
+.card-dialog-close {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  color: var(--ink);
+  background: transparent;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.saved-card-list {
+  overflow-y: auto;
+  max-height: 48vh;
+  margin-block: 1rem;
+}
+
+.saved-card {
+  padding-block: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.saved-card-meta {
+  margin-bottom: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.saved-card-front {
+  margin-bottom: 0.6rem;
+  font-weight: 700;
+  white-space: pre-line;
+}
+
+.saved-card-actions,
+.card-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.saved-card-actions button {
+  padding: 0;
+  border: 0;
+  color: var(--accent-dark);
+  background: transparent;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.card-dialog-actions {
+  padding-block: 1rem max(1rem, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.card-dialog-actions .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.card-storage-warning {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--warning);
+}
+
 .sources li {
   margin-bottom: 0.65rem;
 }
@@ -610,6 +766,16 @@ footer p {
   .steps li {
     grid-template-columns: 4rem 1fr;
   }
+
+  .card-tray {
+    right: 0.75rem;
+    bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .card-dialog-actions .button {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 @media print {
@@ -626,8 +792,15 @@ footer p {
   .top-nav,
   .chapter-nav,
   .bottom-nav,
-  .skip-link {
+  .skip-link,
+  .card-save-button,
+  .card-tray,
+  .card-dialog {
     display: none;
+  }
+
+  body.has-study-tools {
+    padding-bottom: 0;
   }
 
   .hero,

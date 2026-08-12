@@ -15,6 +15,7 @@ class PageParser(HTMLParser):
         self.ids = set()
         self.duplicate_ids = set()
         self.hrefs = []
+        self.scripts = []
         self.lang = None
         self.has_title = False
         self.in_title = False
@@ -45,6 +46,8 @@ class PageParser(HTMLParser):
             self.hrefs.append(href)
             if self.section == "sources" and urlsplit(href).scheme in {"http", "https"}:
                 self.source_links += 1
+        if tag == "script" and values.get("src"):
+            self.scripts.append(values["src"])
         if tag == "section" and element_id:
             self.section = element_id
         if tag == "details" and self.section == "recall":
@@ -95,6 +98,8 @@ def check():
             errors.append(f"{label}: viewport meta가 필요합니다")
         if page.duplicate_ids:
             errors.append(f"{label}: 중복 id {sorted(page.duplicate_ids)}")
+        if not any(urlsplit(src).path.endswith("study.js") for src in page.scripts):
+            errors.append(f"{label}: 카드 저장 스크립트 연결이 필요합니다")
 
         if path.parent.name == "chapters":
             if page.recall_count < 8:
@@ -125,6 +130,14 @@ def check():
                 if unquote(parts.fragment) not in target_page.ids:
                     errors.append(f"{label}: 없는 앵커 {href}")
 
+        for src in page.scripts:
+            parts = urlsplit(src)
+            if parts.scheme or parts.netloc:
+                continue
+            target = (path.parent / unquote(parts.path)).resolve()
+            if not target.exists():
+                errors.append(f"{label}: 없는 스크립트 {src}")
+
     css = (ROOT / "styles.css").read_text(encoding="utf-8")
     if css.count("{") != css.count("}"):
         errors.append("styles.css: 중괄호 수가 맞지 않습니다")
@@ -134,13 +147,15 @@ def check():
         ("overflow-x: auto", "가로 넘침 처리"),
         ("@media print", "인쇄 레이아웃"),
         ("details > *:not(summary)", "인쇄 답안 펼침"),
+        (".card-save-button", "카드 후보 버튼"),
+        (".card-dialog", "저장 카드 목록"),
     ):
         if token not in css:
             errors.append(f"styles.css: {label} 규칙이 필요합니다")
 
     if errors:
         raise SystemExit("\n".join(errors))
-    print(f"교재 검사 통과: HTML {len(pages)}개, 내부 링크·단원 계약·CSS 확인")
+    print(f"교재 검사 통과: HTML {len(pages)}개, 내부 링크·단원 계약·카드 도구·CSS 확인")
 
 
 if __name__ == "__main__":

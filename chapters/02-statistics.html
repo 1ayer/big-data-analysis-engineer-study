@@ -14,8 +14,8 @@
     <div class="page narrow">
       <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>2과목</span></nav>
       <p class="eyebrow">02-03 · 통계기법 이해</p>
-      <h1>표본으로 모집단을 판단하는 법</h1>
-      <p class="lede">확률과 표본분포를 다리로 삼아 점추정·신뢰구간·가설검정을 하나의 흐름으로 연결한다.</p>
+      <h1>표본으로 모집단을 어떻게 판단할까요?</h1>
+      <p class="lede">확률과 표본분포를 바탕으로 점추정, 신뢰구간, 가설검정이 어떻게 이어지는지 살펴봐요.</p>
       <ul class="tags" aria-label="단원 정보"><li>약 65분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
     </div>
   </header>
@@ -32,8 +32,8 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 통계기법 이해</p>
       <h2 id="scope-title">확률·표본분포·추정·검정</h2>
-      <p>이 단원은 확률 법칙과 대표 분포, 표본추출, 표본분포와 중심극한정리, 점·구간추정, 가설검정과 주요 모수·비모수 검정을 다룬다.</p>
-      <h3>끝나면 다음을 설명한다</h3>
+      <p>여기서는 확률 법칙과 대표 분포부터 표본추출, 중심극한정리, 추정, 가설검정과 주요 검정법까지 살펴봐요.</p>
+      <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>조건부확률·독립·베이즈 정리를 식과 사례로 구분한다.</li>
         <li>변수와 사건 구조에 맞는 대표 확률분포를 고른다.</li>
@@ -67,7 +67,7 @@
         <p><strong>배반</strong>은 동시에 일어날 수 없어 P(A∩B)=0인 관계다. <strong>독립</strong>은 한 사건의 발생이 다른 사건 확률을 바꾸지 않아 P(A|B)=P(A), 곧 P(A∩B)=P(A)P(B)인 관계다. 확률이 양수인 두 배반사건은 동시에 일어나지 못하므로 오히려 독립이 아니다.</p>
         <div class="formula">P(A|B) = P(B|A)P(A) / P(B)</div>
         <p>베이즈 정리는 원인 A가 결과 B를 만들 확률 P(B|A)와 사전확률 P(A)를 이용해 결과 B를 본 뒤 원인 A일 확률 P(A|B)를 갱신한다. 희귀 질환 검사는 민감도·특이도가 높아도 유병률이 낮으면 양성예측도가 생각보다 낮을 수 있다.</p>
-        <aside class="callout compact"><strong>이해 포인트:</strong> “질환이면 양성”과 “양성이면 질환”은 조건의 방향이 반대다. 베이즈 정리는 이 방향을 뒤집을 때 전체 양성 중 진짜 환자가 차지하는 비율을 다시 계산한다.</aside>
+        <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> “질환이면 양성”과 “양성이면 질환”은 조건의 방향이 달라요. 베이즈 정리는 방향을 뒤집을 때 전체 양성 중 실제 환자의 비율을 다시 계산합니다.</aside>
       </article>
 
       <article class="concept">
@@ -141,7 +141,7 @@
           <div><span>비율의 표준오차</span><strong>SE(p̂)=√[p(1−p)/n]</strong></div>
           <div><span>표본 4배</span><strong>SE는 1/2배</strong></div>
         </div>
-        <aside class="callout compact"><strong>이해 포인트:</strong> 표준편차는 개별 관측값의 퍼짐, 표준오차는 반복 표본에서 추정량의 퍼짐이다. 데이터가 네 배면 정보가 네 배여도 오차는 제곱근 법칙 때문에 절반이 된다.</aside>
+        <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> 표준편차는 개별 관측값의 퍼짐이고, 표준오차는 반복해서 표본을 뽑을 때 추정량이 얼마나 달라지는지를 나타내요. 표본 수가 네 배가 되면 표준오차는 절반이 됩니다.</aside>
       </article>
 
       <article class="concept">
@@ -180,7 +180,7 @@
           </table>
         </div>
         <p>다른 조건이 같을 때 α를 매우 낮추면 거짓 양성은 줄지만 실제 효과를 놓치는 β가 커질 수 있다. 검정력은 효과가 클수록, 표본이 많을수록, 변동이 작을수록 대체로 커진다. 단측검정은 방향을 사전에 정했을 때 그 방향의 검정력이 높지만 반대 방향 효과를 기각 근거로 쓰지 못한다.</p>
-        <aside class="callout compact"><strong>이해 포인트:</strong> 화재경보에서 1종 오류는 불이 없는데 경보, 2종 오류는 불이 있는데 침묵이다. 어느 오류가 더 비싼지는 문제마다 다르므로 α와 표본 수는 비용을 반영해 정한다.</aside>
+        <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> 화재경보로 보면 1종 오류는 불이 없는데 경보가 울리는 경우, 2종 오류는 불이 있는데 울리지 않는 경우예요. 어느 오류가 더 큰 문제인지는 상황마다 다릅니다.</aside>
       </article>
 
       <article class="concept">
@@ -221,7 +221,7 @@
     </section>
 
     <section id="recall" aria-labelledby="recall-title">
-      <p class="eyebrow">9분 · 폐쇄형 회상</p><h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <p class="eyebrow">9분 · 답을 보지 않고 떠올리기</p><h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
         <details><summary>1. 배반과 독립의 차이는?</summary><p>배반은 교집합 확률이 0이고, 독립은 한 사건이 다른 사건 확률을 바꾸지 않아 교집합이 확률의 곱이다.</p></details>
         <details><summary>2. 조건부확률 공식은?</summary><p>P(A|B)=P(A∩B)/P(B), 단 P(B)&gt;0이다.</p></details>
@@ -242,7 +242,7 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">선택지 변별 15문제</h2>
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>P(A)=0.5, P(B)=0.4, P(A∩B)=0.2일 때 A와 B의 관계는?</p><ol class="choices" type="A"><li>배반</li><li>독립</li><li>항상 종속</li><li>판단 불가</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 0.5×0.4=0.2이므로 독립이다. 교집합이 0이 아니어서 배반은 아니다.</p></details></li>
         <li><p>P(A)=0.6, P(B)=0.5, P(A∩B)=0.3일 때 P(A∪B)는?</p><ol class="choices" type="A"><li>0.3</li><li>0.5</li><li>0.8</li><li>1.1</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 0.6+0.5−0.3=0.8이다. 교집합을 빼 중복 계산을 제거한다.</p></details></li>
@@ -263,7 +263,7 @@
     </section>
 
     <section id="practice" aria-labelledby="practice-title">
-      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">이항확률·표준오차·근사 신뢰구간을 확인한다</h2>
+      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">이항확률·표준오차·근사 신뢰구간을 계산해 봐요</h2>
       <p>표준 라이브러리 예제는 이항 PMF의 합이 1인지, 표본 크기와 표준오차의 제곱근 관계, 정규근사 구간을 <code>assert</code>로 확인한다. <a href="../examples/statistics_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>from math import comb, sqrt
 
@@ -299,5 +299,6 @@ standard_error = sample_sd / sqrt(sample_size)</code></pre>
   </main>
 
   <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+  <script src="../study.js" defer></script>
 </body>
 </html>

@@ -17,7 +17,7 @@
       </nav>
       <p class="eyebrow">02-01 · 데이터 전처리</p>
       <h1>결측·이상값에서 변환·축소까지</h1>
-      <p class="lede">값을 지우는 기술이 아니라, 분석 가능한 의미와 평가 경계를 보존하는 의사결정이다.</p>
+      <p class="lede">전처리는 값을 무작정 지우는 일이 아니에요. 데이터의 의미와 올바른 평가 경계를 지키는 판단에 가깝습니다.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 50분</li><li>회상 12개</li><li>문제 12개</li><li>Python 연결</li>
       </ul>
@@ -36,8 +36,8 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 데이터 전처리</p>
       <h2 id="scope-title">정제·통합·변환·축소</h2>
-      <p>이 단원은 데이터 정제, 결측값과 이상값 처리, 데이터 통합, 데이터 변환, 불균형 처리와 차원 축소를 한 흐름으로 다룬다.</p>
-      <h3>끝나면 다음을 설명한다</h3>
+      <p>여기서는 데이터 정제와 결측값·이상값 처리부터 통합, 변환, 불균형 처리와 차원 축소까지 한 흐름으로 살펴봐요.</p>
+      <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>결측 원인과 분석 목적을 보고 삭제·대체·표시 전략을 고른다.</li>
         <li>통계적 이상값과 업무적으로 불가능한 오류를 구분한다.</li>
@@ -69,8 +69,8 @@
         <li><strong>6. 검증</strong><span>누수 차단, 전후 품질 기록</span></li>
       </ol>
       <aside class="callout compact">
-        <strong>이해 포인트:</strong> 전처리는 얼룩을 지우는 세탁이 아니다. 어떤 관측을 남기고 어떤 정보를
-        새 표현으로 바꿀지 결정하는 분석의 일부다. 처리 전 원본, 처리 규칙, 영향받은 행 수를 남겨야 되돌리고 설명할 수 있다.
+        <strong>여기서 많이 헷갈려요:</strong> 전처리는 얼룩을 지우듯 나쁜 값을 모두 없애는 작업이 아니에요. 어떤 관측을 남기고 어떤 정보를
+        새 표현으로 바꿀지 결정하는 분석의 일부예요. 처리 전 원본, 처리 규칙, 영향받은 행 수를 남겨야 되돌리고 설명할 수 있습니다.
       </aside>
     </section>
 
@@ -121,7 +121,7 @@
             </tbody>
           </table>
         </div>
-        <aside class="callout compact"><strong>이해 포인트:</strong> 평균 대체는 빈칸을 평균에 쌓으므로 중심은 안정돼 보여도 값들이 평균 주위로 인위적으로 모인다. 그래서 변동성과 변수 사이 관계가 약해질 수 있다.</aside>
+        <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> 평균 대체를 하면 값들이 평균 주위로 인위적으로 모여요. 중심은 안정돼 보여도 변동성과 변수 사이 관계는 약해질 수 있습니다.</aside>
       </article>
 
       <article class="concept">
@@ -228,8 +228,8 @@
     </section>
 
     <section id="recall" aria-labelledby="recall-title">
-      <p class="eyebrow">7분 · 폐쇄형 회상</p>
-      <h2 id="recall-title">답을 말한 뒤 펼치기</h2>
+      <p class="eyebrow">7분 · 답을 보지 않고 떠올리기</p>
+      <h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
         <details><summary>1. 데이터 품질의 다섯 점검 축은?</summary><p>완전성, 유효성, 일관성, 유일성, 적시성이다.</p></details>
         <details><summary>2. NaN을 동등 비교 대신 전용 함수로 확인하는 이유는?</summary><p>NaN은 일반 숫자와 달리 자기 자신과도 같지 않은 비교 의미를 가지므로 <code>isna</code>·<code>isnan</code> 등을 써야 한다.</p></details>
@@ -248,7 +248,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">12분 · 자체 제작 문제</p>
-      <h2 id="quiz-title">선택지 변별 12문제</h2>
+      <h2 id="quiz-title">12문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li><p>필수 고객 ID가 비어 있는 문제와 가장 직접적으로 관련된 품질 축은?</p><ol class="choices" type="A"><li>완전성</li><li>적시성</li><li>유일성</li><li>정밀도</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 필요한 값의 존재 여부는 완전성이다. 적시성은 갱신 시점, 유일성은 중복, 정밀도는 측정 세밀도와 관련한다.</p></details></li>
         <li><p>결측값 처리에 대한 설명으로 가장 타당한 것은?</p><ol class="choices" type="A"><li>모든 결측은 행 삭제가 최선이다.</li><li>평균 대체는 원래 분산을 항상 보존한다.</li><li>원인과 비율, 변수 역할을 보고 방법을 정한다.</li><li>MNAR는 관측된 다른 변수만으로 완전히 설명된다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 목적과 결측 메커니즘을 함께 본다. A는 편향·표본손실, B는 분산 축소 위험, D는 MAR에 가까운 설명이다.</p></details></li>
@@ -267,7 +267,7 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">5분+ · Python 연결</p>
-      <h2 id="practice-title">중앙값 대체·z 점수·IQR을 계산한다</h2>
+      <h2 id="practice-title">중앙값 대체·z 점수·IQR을 직접 계산해 봐요</h2>
       <p>표준 라이브러리 예제는 학습 자료에서만 중앙값과 경계를 계산하고, 원본 목록을 바꾸지 않았는지까지 확인한다. <a href="../examples/preprocessing_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>from statistics import mean, median, stdev
 
@@ -302,5 +302,6 @@ z_scores = [(x - mean(filled)) / stdev(filled) for x in filled]</code></pre>
   </main>
 
   <footer><div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div></footer>
+  <script src="../study.js" defer></script>
 </body>
 </html>

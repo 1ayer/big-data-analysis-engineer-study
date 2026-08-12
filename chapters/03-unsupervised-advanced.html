@@ -17,7 +17,7 @@
       </nav>
       <p class="eyebrow">03-04 · 분석기법 적용</p>
       <h1>연관성·군집·고급 분석기법</h1>
-      <p class="lede">정답표가 없는 구조를 찾고, 데이터 형태에 맞는 확장 기법을 고른다.</p>
+      <p class="lede">정답표가 없을 때 어떤 구조를 찾을 수 있는지, 데이터 형태에 따라 어떤 기법을 고를지 살펴봐요.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 55분</li>
         <li>회상 15개</li>
@@ -47,9 +47,9 @@
       <h2 id="scope-title">비지도 구조와 데이터별 확장</h2>
       <p>
         연관성분석과 군집분석을 먼저 익힌 뒤, 범주형·다변량·시계열·베이지안·딥러닝·비정형·앙상블·
-        비모수 분석을 ‘언제 무엇을 쓰는가’ 중심으로 연결한다.
+        비모수 분석을 언제, 어떤 데이터에 쓰는지를 중심으로 살펴봐요.
       </p>
-      <h3>끝나면 다음을 설명한다</h3>
+      <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>지지도·신뢰도·향상도를 계산하고 방향성을 해석한다.</li>
         <li>k-means·계층적 군집·DBSCAN의 가정과 결과를 비교한다.</li>
@@ -109,8 +109,8 @@
           </table>
         </div>
         <aside class="callout compact">
-          <strong>이해 포인트:</strong> Y 자체가 매우 흔하면 X가 없어도 Y가 자주 나타난다. 그래서 높은
-          신뢰도만 보고 특별한 규칙이라고 결론 내리지 않고, Y의 기본 빈도를 나눈 향상도를 함께 본다.
+          <strong>여기서 많이 헷갈려요:</strong> Y 자체가 매우 흔하면 X가 없어도 Y가 자주 나타나요. 그래서 높은
+          신뢰도만 보고 특별한 규칙이라고 결론 내리면 안 돼요. Y의 기본 빈도를 나눈 향상도를 함께 봐야 합니다.
         </aside>
       </article>
 
@@ -203,8 +203,8 @@
           가능성을 뜻한다. 다만 실루엣은 볼록한 군집을 선호할 수 있어 알고리즘의 군집 개념과 함께 본다.
         </p>
         <aside class="callout compact">
-          <strong>이해 포인트:</strong> 군집의 “정답”은 알고리즘 밖의 목적에서 온다. 내부 점수가 좋아도
-          마케팅에서 해석·행동할 수 없는 군집이면 쓸모가 작다. 통계적 응집도와 업무적 의미를 함께 본다.
+          <strong>여기서 많이 헷갈려요:</strong> 군집의 “정답”은 알고리즘 밖의 목적에서 나와요. 내부 점수가 좋아도
+          마케팅에서 해석하거나 행동으로 옮길 수 없다면 쓸모가 작아요. 통계적 응집도와 업무적 의미를 함께 봐야 합니다.
         </aside>
       </article>
     </section>
@@ -331,8 +331,8 @@
     </section>
 
     <section id="recall" aria-labelledby="recall-title">
-      <p class="eyebrow">8분 · 폐쇄형 회상</p>
-      <h2 id="recall-title">15개를 말하고 펼치기</h2>
+      <p class="eyebrow">8분 · 답을 보지 않고 떠올리기</p>
+      <h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
         <details><summary>1. 지지도·신뢰도·향상도의 식은?</summary><p>P(X∩Y), P(Y|X), P(Y|X)/P(Y)다.</p></details>
         <details><summary>2. 향상도 1.5는 무엇을 뜻하는가?</summary><p>X가 있을 때 Y가 평소 Y의 출현확률보다 1.5배 자주 나타난다는 뜻이다.</p></details>
@@ -354,7 +354,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">15분 · 자체 제작 문제</p>
-      <h2 id="quiz-title">선택지 변별 15문제</h2>
+      <h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li>
           <p>100건 중 X 25건, Y 40건, 동시 발생 10건일 때 X→Y의 신뢰도는?</p>
@@ -436,7 +436,7 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">3분+ · Python 연결</p>
-      <h2 id="practice-title">연관지표의 분모와 최근접 중심을 확인한다</h2>
+      <h2 id="practice-title">연관지표의 분모와 최근접 중심을 확인해 봐요</h2>
       <p>
         표준 라이브러리 예제는 지지도·신뢰도·향상도를 직접 계산하고, 두 중심 중 가까운 중심을 찾는다.
         <a href="../examples/unsupervised_math_demo.py" download>실행 파일 내려받기</a>
@@ -487,5 +487,6 @@ labels = model.fit_predict(X)</code></pre>
   <footer>
     <div class="page narrow"><p>설명과 문제는 공식·1차 자료를 대조해 새로 작성했다.</p></div>
   </footer>
+  <script src="../study.js" defer></script>
 </body>
 </html>

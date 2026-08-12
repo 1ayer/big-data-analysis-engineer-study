@@ -17,7 +17,7 @@
       </nav>
       <p class="eyebrow">03-02 · 분석기법 적용</p>
       <h1>회귀분석과 로지스틱 회귀분석</h1>
-      <p class="lede">이름보다 목표변수를 먼저 본다. 연속값이면 회귀, 범주면 분류 문제다.</p>
+      <p class="lede">이름에 끌려가지 말고 목표변수부터 보세요. 연속값이면 회귀, 범주면 분류 문제예요.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 35분</li>
         <li>필기 + Python 연결</li>
@@ -41,8 +41,8 @@
   <main id="main" class="page narrow stack">
     <section class="panel objectives" aria-labelledby="objectives-title">
       <p class="eyebrow">공식 범위 · 회귀분석과 로지스틱 회귀분석</p>
-      <h2 id="objectives-title">끝나면 다음을 설명한다</h2>
-      <p>공식 3과목의 회귀분석과 로지스틱 회귀분석을 목표변수·식·손실·계수 해석으로 연결한다.</p>
+      <h2 id="objectives-title">이 단원을 마치면</h2>
+      <p>회귀분석과 로지스틱 회귀분석을 목표변수, 식, 손실함수와 계수 해석을 기준으로 비교해 봐요.</p>
       <ul class="check-list">
         <li>목표변수의 형태로 두 모형을 구분한다.</li>
         <li>선형식이 로지스틱 확률로 바뀌는 과정을 설명한다.</li>
@@ -181,8 +181,8 @@
           로그손실이 크게 증가한다.
         </p>
         <aside class="callout compact">
-          <strong>이해 포인트:</strong> 두 모형은 모두 입력의 선형결합에서 출발하지만 ‘무엇과 비교해
-          오차를 줄이는가’가 다르다. 선형회귀는 수치 잔차, 로지스틱 회귀는 클래스 확률의 로그손실을 본다.
+          <strong>여기서 많이 헷갈려요:</strong> 두 모형은 모두 입력의 선형결합에서 출발하지만 ‘무엇과 비교해
+          오차를 줄이는가’가 달라요. 선형회귀는 수치 잔차를, 로지스틱 회귀는 클래스 확률의 로그손실을 봅니다.
         </aside>
       </article>
 
@@ -200,8 +200,8 @@
     </section>
 
     <section id="recall" aria-labelledby="recall-title">
-      <p class="eyebrow">5분 · 폐쇄형 회상</p>
-      <h2 id="recall-title">먼저 말하고 펼치기</h2>
+      <p class="eyebrow">5분 · 답을 보지 않고 떠올리기</p>
+      <h2 id="recall-title">먼저 답해 보고 펼쳐 보세요</h2>
       <div class="details-list">
         <details>
           <summary>1. 두 모형을 고르는 첫 기준은?</summary>
@@ -248,7 +248,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">5분 · 선택지 변별</p>
-      <h2 id="quiz-title">선택지 변별 10문제</h2>
+      <h2 id="quiz-title">10문제로 헷갈리는 선택지를 골라내 봐요</h2>
       <ol class="quiz-list">
         <li>
           <p>고객의 다음 달 구매금액을 예측하는 데 가장 직접적으로 맞는 모형은?</p>
@@ -328,9 +328,9 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">2분+ · Python 연결</p>
-      <h2 id="practice-title">같은 선형식, 다른 출력</h2>
+      <h2 id="practice-title">같은 선형식이 어떻게 다른 출력이 되는지 확인해 봐요</h2>
       <p>
-        아래 예제는 표준 라이브러리만 사용해 선형 예측과 시그모이드 변환을 직접 확인한다.
+        아래 예제에서는 표준 라이브러리만 사용해 선형 예측과 시그모이드 변환을 직접 확인해요.
         <a href="../examples/regression_demo.py" download>실행 파일 내려받기</a>
       </p>
       <pre><code>from math import exp
@@ -395,5 +395,6 @@ probability = clf.predict_proba(X_test)[:, 1]</code></pre>
       <p>설명과 문제는 공개 자료를 대조해 새로 작성했다. 시험 공지는 반드시 공식 사이트에서 다시 확인한다.</p>
     </div>
   </footer>
+  <script src="../study.js" defer></script>
 </body>
 </html>
