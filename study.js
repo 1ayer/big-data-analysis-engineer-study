@@ -11,25 +11,25 @@
   const EXAM_DATE = "2026-09-05";
   const REVIEW_INTERVALS = [1, 3, 7, 14];
   const STUDY_UNITS = [
-    { id: "day-01", date: "2026-08-13", phase: "3과목", title: "분석모형 설계와 데이터 분할", path: "chapters/03-model-design.html" },
-    { id: "day-02", date: "2026-08-14", phase: "3과목", title: "회귀·로지스틱 회귀", path: "chapters/03-regression.html" },
-    { id: "day-03", date: "2026-08-15", phase: "3과목", title: "의사결정나무·신경망·SVM", path: "chapters/03-classification.html" },
-    { id: "day-04", date: "2026-08-16", phase: "3과목", title: "연관성·군집·고급 분석기법", path: "chapters/03-unsupervised-advanced.html" },
+    { id: "day-01", date: "2026-08-13", phase: "3과목", title: "분석모형 설계와 데이터 분할", path: "chapters/03-model-design.html", spaced: true },
+    { id: "day-02", date: "2026-08-14", phase: "3과목", title: "회귀·로지스틱 회귀", path: "chapters/03-regression.html", spaced: true },
+    { id: "day-03", date: "2026-08-15", phase: "3과목", title: "의사결정나무·신경망·SVM", path: "chapters/03-classification.html", spaced: true },
+    { id: "day-04", date: "2026-08-16", phase: "3과목", title: "연관성·군집·고급 분석기법", path: "chapters/03-unsupervised-advanced.html", spaced: true },
     { id: "day-05", date: "2026-08-17", phase: "3과목", title: "모델링 판단 집중훈련", path: "review/modeling-challenge.html" },
-    { id: "day-06", date: "2026-08-18", phase: "3과목", title: "3과목 개념 연결 복습", path: "review/quick-review.html" },
+    { id: "day-06", date: "2026-08-18", phase: "3과목", title: "3과목 개념 연결 복습", path: "review/quick-review.html", anchor: "subject-3" },
     { id: "day-07", date: "2026-08-19", phase: "3과목", title: "모델링 오개념 적용", path: "review/misconception-lab.html" },
-    { id: "day-08", date: "2026-08-20", phase: "2과목", title: "데이터 전처리", path: "chapters/02-preprocessing.html" },
-    { id: "day-09", date: "2026-08-21", phase: "2과목", title: "데이터 탐색", path: "chapters/02-exploration.html" },
-    { id: "day-10", date: "2026-08-22", phase: "2과목", title: "통계기법 이해", path: "chapters/02-statistics.html" },
+    { id: "day-08", date: "2026-08-20", phase: "2과목", title: "데이터 전처리", path: "chapters/02-preprocessing.html", spaced: true },
+    { id: "day-09", date: "2026-08-21", phase: "2과목", title: "데이터 탐색", path: "chapters/02-exploration.html", spaced: true },
+    { id: "day-10", date: "2026-08-22", phase: "2과목", title: "통계기법 이해", path: "chapters/02-statistics.html", spaced: true },
     { id: "day-11", date: "2026-08-23", phase: "2과목", title: "공식과 기준집단 훈련", path: "review/formula-drills.html" },
     { id: "day-12", date: "2026-08-24", phase: "2과목", title: "필기에서 실기로 잇는 파이프라인", path: "practice/practical-pipeline.html" },
-    { id: "day-13", date: "2026-08-25", phase: "4과목", title: "분석모형 평가와 개선", path: "chapters/04-evaluation-improvement.html" },
-    { id: "day-14", date: "2026-08-26", phase: "4과목", title: "분석결과 해석과 활용", path: "chapters/04-interpretation-utilization.html" },
-    { id: "day-15", date: "2026-08-27", phase: "4과목", title: "평가·해석 연결 복습", path: "review/quick-review.html" },
-    { id: "day-16", date: "2026-08-28", phase: "1과목", title: "빅데이터의 이해", path: "chapters/01-bigdata-understanding.html" },
-    { id: "day-17", date: "2026-08-29", phase: "1과목", title: "데이터분석 계획", path: "chapters/01-analysis-planning.html" },
-    { id: "day-18", date: "2026-08-30", phase: "1과목", title: "데이터 수집 및 저장 계획", path: "chapters/01-collection-storage.html" },
-    { id: "day-19", date: "2026-08-31", phase: "최종복습", title: "개념 연결 지도와 직전요약", path: "review/quick-review.html" },
+    { id: "day-13", date: "2026-08-25", phase: "4과목", title: "분석모형 평가와 개선", path: "chapters/04-evaluation-improvement.html", spaced: true },
+    { id: "day-14", date: "2026-08-26", phase: "4과목", title: "분석결과 해석과 활용", path: "chapters/04-interpretation-utilization.html", spaced: true },
+    { id: "day-15", date: "2026-08-27", phase: "4과목", title: "평가·해석 연결 복습", path: "review/quick-review.html", anchor: "subject-4" },
+    { id: "day-16", date: "2026-08-28", phase: "1과목", title: "빅데이터의 이해", path: "chapters/01-bigdata-understanding.html", spaced: true },
+    { id: "day-17", date: "2026-08-29", phase: "1과목", title: "데이터분석 계획", path: "chapters/01-analysis-planning.html", spaced: true },
+    { id: "day-18", date: "2026-08-30", phase: "1과목", title: "데이터 수집 및 저장 계획", path: "chapters/01-collection-storage.html", spaced: true },
+    { id: "day-19", date: "2026-08-31", phase: "최종복습", title: "개념 연결 지도와 직전요약", path: "review/quick-review.html", anchor: "use" },
     { id: "day-20", date: "2026-09-01", phase: "최종복습", title: "80문항 모의고사", path: "review/mock-exam.html" },
     { id: "day-21", date: "2026-09-02", phase: "최종복습", title: "틀린 7문제 오개념 교정", path: "review/misconception-lab.html" },
     { id: "day-22", date: "2026-09-03", phase: "최종복습", title: "3과목 취약점 재검증", path: "review/modeling-challenge.html" },
@@ -141,6 +141,8 @@
     if (!entry.sessions.length) return entry.plannedDate;
     const last = entry.sessions[entry.sessions.length - 1];
     if (last.result === "review") return addDays(last.date, 1);
+    const unit = STUDY_UNITS.find((item) => item.id === entry.id);
+    if (unit && !unit.spaced) return null;
     const successCount = explanationStreak(entry);
     return addDays(last.date, REVIEW_INTERVALS[Math.min(successCount - 1, REVIEW_INTERVALS.length - 1)]);
   }
@@ -149,18 +151,22 @@
     if (!entry.sessions.length) return "미시작";
     const last = entry.sessions[entry.sessions.length - 1];
     if (last.result === "review") return "다시 복습 필요";
-    if (nextReviewDate(entry) <= today) return "복습 예정";
+    const reviewDate = nextReviewDate(entry);
+    if (!reviewDate) return "완료";
+    if (reviewDate <= today) return "복습 예정";
     if (explanationStreak(entry) >= 3) return "설명 가능";
     return "학습 중";
   }
 
   function dueStudyEntries(entries, today = localDateString()) {
-    return entries.filter(({ entry }) => entry.sessions.length && nextReviewDate(entry) <= today)
-      .sort((a, b) => nextReviewDate(a.entry).localeCompare(nextReviewDate(b.entry)));
+    return entries.filter(({ entry }) => {
+      const reviewDate = nextReviewDate(entry);
+      return entry.sessions.length && reviewDate && reviewDate <= today;
+    }).sort((a, b) => nextReviewDate(a.entry).localeCompare(nextReviewDate(b.entry)));
   }
 
   function studyUnitHref(unit) {
-    return `${unit.path}?unit=${encodeURIComponent(unit.id)}`;
+    return `${unit.path}?unit=${encodeURIComponent(unit.id)}${unit.anchor ? `#${unit.anchor}` : ""}`;
   }
 
   function selectCurrentUnit(units, records, today = localDateString(), preferredId = "") {
@@ -543,7 +549,8 @@
     button.addEventListener("click", () => toggleCard(candidate));
     buttons.set(candidate.id, button);
     element.classList.add("card-candidate");
-    if (element.matches("details")) element.before(button);
+    if (element.matches("details")) directChild(element, "summary")?.after(button);
+    else if (element.matches("li")) directChild(element, "details")?.append(button);
     else element.insertBefore(button, element.firstChild);
   }
 
@@ -634,7 +641,10 @@
     reader.addEventListener("load", () => {
       try {
         const backup = parseStudyBackup(String(reader.result));
-        if (!root.confirm("현재 카드·오개념·학습 기록을 백업 파일 내용으로 교체할까요?")) return;
+        const date = new Date(backup.exportedAt);
+        const exportedAt = Number.isNaN(date.getTime()) ? "시각 정보 없음" : date.toLocaleString("ko-KR");
+        const summary = `백업: ${exportedAt}\n카드 ${backup.cards.length}개 · 오개념 ${backup.misconceptions.length}개 · 학습 기록 ${backup.progress.length}개\n\n현재 데이터를 이 내용으로 교체할까요?`;
+        if (!root.confirm(summary)) return;
         replaceStoredStudyData(storage, backup);
         root.alert("학습 데이터를 복원했습니다. 페이지를 새로 불러옵니다.");
         root.location.reload();
@@ -716,7 +726,7 @@
     const clear = document.createElement("button");
     clear.type = "button";
     clear.className = "button secondary";
-    clear.textContent = "모두 지우기";
+    clear.textContent = "카드 모두 지우기";
     clear.addEventListener("click", () => {
       if (cards.length === 0 || !root.confirm("저장한 카드 후보를 모두 지울까요?")) return;
       if (!writeCards([])) return;
@@ -735,18 +745,25 @@
 
   function studyRecordPanel(unit) {
     const entry = unitEntry(unit);
+    let criterion = "핵심 내용을 화면 없이 설명하고 문제를 푼 뒤 현재 상태를 선택한다.";
+    if (unit.path === "review/quick-review.html") criterion = "해당 과목의 제목만 보고 구분 기준을 설명한 뒤 현재 상태를 선택한다.";
+    else if (unit.path === "review/misconception-lab.html") criterion = "오개념의 적용 경계와 교정 규칙을 작성한 뒤 현재 상태를 선택한다.";
+    else if (unit.path === "practice/practical-pipeline.html") criterion = "예제를 실행하고 점검 질문에 답한 뒤 현재 상태를 선택한다.";
+    else if (unit.path === "review/exam-guide.html") criterion = "시험 일정·준비물·당일 행동을 확인한 뒤 현재 상태를 선택한다.";
+    else if (!unit.path.startsWith("chapters/")) criterion = "문제를 풀고 각 선택의 근거를 확인한 뒤 현재 상태를 선택한다.";
     const section = document.createElement("section");
     section.className = "panel study-record";
     section.setAttribute("aria-labelledby", "study-record-title");
     section.innerHTML = `
       <p class="eyebrow">학습 기록</p>
-      <h2 id="study-record-title">회상과 문제까지 끝낸 뒤 기록</h2>
+      <h2 id="study-record-title">학습 기준을 충족한 뒤 기록</h2>
       <p class="muted">기록 대상: <strong>${escapeHtml(unit.title)}</strong></p>
-      <p>페이지를 읽은 것만으로 완료하지 않는다. 핵심 내용을 화면 없이 설명하고 문제를 푼 뒤 현재 상태를 선택한다.</p>
+      <p>페이지를 읽은 것만으로 완료하지 않는다. ${escapeHtml(criterion)}</p>
       <label>학습일 <input type="date" value="${localDateString()}" data-study-session-date></label>
       <div class="study-record-actions">
         <button class="button secondary" type="button" data-study-result="review">다시 복습 필요</button>
-        <button class="button" type="button" data-study-result="explain">이번 회상: 설명 가능</button>
+        <button class="button" type="button" data-study-result="explain">학습 기준 충족</button>
+        <a class="button secondary" href="../index.html" data-study-home hidden>학습 홈으로</a>
       </div>
       <p class="muted" data-study-record-status aria-live="polite"></p>`;
     const status = section.querySelector("[data-study-record-status]");
@@ -754,10 +771,12 @@
     function render() {
       const current = unitEntry(unit);
       const last = current.sessions[current.sessions.length - 1];
+      const reviewDate = nextReviewDate(current);
       const history = current.sessions.map((session) => `${session.date} ${session.result === "explain" ? "설명 가능" : "다시 복습"}`).join(" · ");
       status.textContent = last
-        ? `현재: ${progressStatus(current)} · 다음 복습 ${nextReviewDate(current)} · 기록 ${history}`
+        ? `현재: ${progressStatus(current)}${reviewDate ? ` · 다음 복습 ${reviewDate}` : ""} · 기록 ${history}`
         : `현재: 미시작 · 권장일 ${current.plannedDate}`;
+      section.querySelector("[data-study-home]").hidden = !last;
     }
 
     section.querySelectorAll("[data-study-result]").forEach((button) => {
@@ -819,7 +838,6 @@
         .sort((a, b) => a.entry.plannedDate.localeCompare(b.entry.plannedDate));
       const scheduled = entries.filter(({ entry }) => !entry.sessions.length && entry.plannedDate >= today)
         .sort((a, b) => a.entry.plannedDate.localeCompare(b.entry.plannedDate));
-      const active = due[0] || overdue[0] || scheduled[0];
       const complete = entries.filter(({ entry }) => entry.sessions.length).length;
       summary.innerHTML = `
         <article><strong>${complete}/23</strong><span>학습 기록 있음</span></article>
@@ -827,13 +845,19 @@
         <article><strong>${overdue.length}</strong><span>미학습 지연</span></article>`;
       const focus = dashboard.querySelector("[data-study-focus]");
       focus.replaceChildren();
-      if (active) {
-        const label = active.entry.sessions.length ? "오늘 복습" : active.entry.plannedDate < today ? "밀린 학습" : "다음 학습";
+      const focusEntries = [
+        due[0] && { ...due[0], label: `오늘 복습 (${due.length})` },
+        overdue[0] && { ...overdue[0], label: `밀린 학습 (${overdue.length})` },
+        scheduled[0] && { ...scheduled[0], label: scheduled[0].entry.plannedDate === today ? "오늘 학습" : "다음 학습" },
+      ].filter(Boolean);
+      if (focusEntries.length) {
+        focusEntries.forEach(({ unit, label }) => {
         const link = document.createElement("a");
         link.className = "button";
-        link.href = studyUnitHref(active.unit);
-        link.textContent = `${label}: ${active.unit.title}`;
+        link.href = studyUnitHref(unit);
+        link.textContent = `${label}: ${unit.title}`;
         focus.append(link);
+        });
       } else {
         focus.textContent = "23일 계획의 학습 기록이 모두 있습니다. 복습 예정일을 확인하세요.";
       }
@@ -848,7 +872,8 @@
         link.textContent = unit.title;
         const meta = document.createElement("span");
         const last = entry.sessions[entry.sessions.length - 1];
-        meta.textContent = `${unit.phase} · ${progressStatus(entry, today)}${last ? ` · 최근 ${last.date} · 다음 ${nextReviewDate(entry)}` : ""}`;
+        const reviewDate = nextReviewDate(entry);
+        meta.textContent = `${unit.phase} · ${progressStatus(entry, today)}${last ? ` · 최근 ${last.date}${reviewDate ? ` · 다음 ${reviewDate}` : ""}` : ""}`;
         main.append(link, meta);
         const label = document.createElement("label");
         label.textContent = "계획일 ";

@@ -1,5 +1,6 @@
 """정적 교재의 HTML 구조와 내부 링크를 검사한다."""
 
+from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -30,6 +31,9 @@ class PageParser(HTMLParser):
         self.misconception_fields = 0
         self.data_attrs = set()
         self.text_parts = []
+        self.quiz_answers = []
+        self.quiz_subject = None
+        self.in_quiz_answer = False
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
@@ -67,8 +71,12 @@ class PageParser(HTMLParser):
             if parent_tag == "ol" and "quiz-list" in parent_attrs.get("class", "").split():
                 self.quiz_count += 1
                 subject = values.get("data-subject")
+                values["_quiz_item"] = True
+                self.quiz_subject = subject
                 if subject:
                     self.quiz_by_subject[subject] = self.quiz_by_subject.get(subject, 0) + 1
+        if tag == "strong" and self.section == "quiz":
+            self.in_quiz_answer = True
         if tag not in VOID_TAGS:
             self.stack.append(frame)
 
@@ -77,6 +85,10 @@ class PageParser(HTMLParser):
             self.in_title = False
         while self.stack:
             opened_tag, attrs = self.stack.pop()
+            if opened_tag == "strong":
+                self.in_quiz_answer = False
+            if attrs.get("_quiz_item"):
+                self.quiz_subject = None
             if opened_tag == "section" and attrs.get("id") == self.section:
                 self.section = None
             if opened_tag == tag:
@@ -87,6 +99,8 @@ class PageParser(HTMLParser):
             self.text_parts.append(data.strip())
         if self.in_title and data.strip():
             self.has_title = True
+        if self.in_quiz_answer and data.strip()[:2] in {"A.", "B.", "C.", "D."}:
+            self.quiz_answers.append((self.quiz_subject, data.strip()[0]))
 
 
 def parse_page(path):
@@ -137,6 +151,10 @@ def check():
             }
             if not timer_attrs.issubset(page.data_attrs):
                 errors.append(f"{label}: 120분 타이머 연결 속성이 모두 필요합니다")
+            for subject in ("1", "2", "3", "4"):
+                answer_counts = Counter(answer for item_subject, answer in page.quiz_answers if item_subject == subject)
+                if answer_counts != Counter({answer: 5 for answer in "ABCD"}):
+                    errors.append(f"{label}: {subject}과목 정답 위치는 A~D 각 5개여야 합니다({dict(answer_counts)})")
 
         text = " ".join(page.text_parts)
         if path.name == "index.html" and "data-study-dashboard" not in page.data_attrs:
@@ -157,6 +175,10 @@ def check():
         expected_quizzes = {"modeling-challenge.html": 20, "formula-drills.html": 15}
         if path.name in expected_quizzes and page.quiz_count != expected_quizzes[path.name]:
             errors.append(f"{label}: 문제 {page.quiz_count}개(정확히 {expected_quizzes[path.name]}개 필요)")
+        if path.name == "modeling-challenge.html":
+            answer_counts = Counter(answer for _, answer in page.quiz_answers)
+            if answer_counts != Counter({answer: 5 for answer in "ABCD"}):
+                errors.append(f"{label}: 정답 위치는 A~D 각 5개여야 합니다({dict(answer_counts)})")
 
         if path.name == "misconception-lab.html":
             if page.misconception_slots != 7:

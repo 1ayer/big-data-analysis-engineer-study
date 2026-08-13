@@ -85,6 +85,11 @@ assert.equal(progressStatus(progress[0], "2026-08-13"), "학습 중");
 assert.equal(nextReviewDate(progress[0]), "2026-08-14");
 progress = recordStudySession(progress, "day-01", "2026-08-13", "2026-08-14", "explain");
 assert.equal(nextReviewDate(progress[0]), "2026-08-17");
+const oneOffDone = recordStudySession([], "day-05", "2026-08-17", "2026-08-17", "explain")[0];
+assert.equal(nextReviewDate(oneOffDone), null, "훈련·요약·안내는 성공 시 자동 간격복습을 만들지 않는다");
+assert.equal(progressStatus(oneOffDone, "2026-08-18"), "완료");
+const oneOffRetry = recordStudySession([], "day-05", "2026-08-17", "2026-08-17", "review")[0];
+assert.equal(nextReviewDate(oneOffRetry), "2026-08-18", "일회성 자료도 복습 필요로 판단하면 다음 날 다시 본다");
 const resetProgress = parseProgress(JSON.stringify([{
   id: "day-02",
   plannedDate: "2026-08-14",
@@ -120,12 +125,14 @@ const repeatedUnits = STUDY_UNITS.filter((unit) => unit.path === "review/quick-r
 assert.equal(selectCurrentUnit(repeatedUnits, [], "2026-08-18").id, "day-06");
 const firstReview = [{ id: "day-06", plannedDate: "2026-08-18", sessions: [{ date: "2026-08-18", result: "explain" }] }];
 assert.equal(selectCurrentUnit(repeatedUnits, firstReview, "2026-08-18").id, "day-15");
-assert.equal(selectCurrentUnit(repeatedUnits, firstReview, "2026-08-19").id, "day-06");
+assert.equal(selectCurrentUnit(repeatedUnits, firstReview, "2026-08-19").id, "day-15");
 assert.equal(selectCurrentUnit(repeatedUnits, [], "2026-08-13", "day-15").id, "day-15");
-assert.equal(studyUnitHref(repeatedUnits[1]), "review/quick-review.html?unit=day-15");
+assert.equal(studyUnitHref(repeatedUnits[1]), "review/quick-review.html?unit=day-15#subject-4");
+assert.equal(studyUnitHref(repeatedUnits[0]), "review/quick-review.html?unit=day-06#subject-3");
+assert.equal(studyUnitHref(repeatedUnits[2]), "review/quick-review.html?unit=day-19#use");
 const competingReviews = [
-  { id: "day-06", plannedDate: "2026-08-18", sessions: [{ date: "2026-08-29", result: "explain" }] },
-  { id: "day-15", plannedDate: "2026-08-27", sessions: [{ date: "2026-08-27", result: "explain" }] },
+  { id: "day-06", plannedDate: "2026-08-18", sessions: [{ date: "2026-08-29", result: "review" }] },
+  { id: "day-15", plannedDate: "2026-08-27", sessions: [{ date: "2026-08-27", result: "review" }] },
 ];
 const due = dueStudyEntries(repeatedUnits.map((unit) => ({ unit, entry: competingReviews.find((item) => item.id === unit.id) || { id: unit.id, plannedDate: unit.date, sessions: [] } })), "2026-08-31");
 assert.equal(due[0].unit.id, "day-15");
