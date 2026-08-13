@@ -12,10 +12,10 @@
 
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>4과목</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>4과목</span></nav>
       <p class="eyebrow">04-01 · 분석모형 평가 및 개선</p>
-      <h1>좋은 평가는 높은 점수 하나로 끝나지 않아요</h1>
-      <p class="lede">오류 비용과 검증 구조, 학습·검증 성능의 차이를 함께 보고 모형을 개선해 봐요.</p>
+      <h1>분석모형 평가와 개선</h1>
+      <p class="lede">평가는 단일 점수가 아니라 오류 비용·검증 구조·학습과 검증 성능의 차이를 함께 해석해 개선 방향을 정하는 과정이다.</p>
       <ul class="tags" aria-label="단원 정보"><li>약 85분</li><li>회상 18개</li><li>문제 18개</li><li>Python 연결</li></ul>
     </div>
   </header>
@@ -32,7 +32,7 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 분석모형 평가 및 개선</p>
       <h2 id="scope-title">평가지표·교차검증·모형 진단·개선</h2>
-      <p>여기서는 분류·회귀·군집 지표부터 교차검증, 과소·과대적합 진단, 하이퍼파라미터와 임계값 조정까지 살펴봐요.</p>
+      <p>분류·회귀·군집 지표, 교차검증, 과소·과대적합 진단, 하이퍼파라미터와 임계값 조정을 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>혼동행렬에서 정확도·정밀도·재현율·특이도·F1을 계산한다.</li>
@@ -66,7 +66,7 @@
         <li><strong>6. 불확실성</strong><span>폴드·집단·기간별 변동</span></li>
       </ol>
       <p>평가 지표는 모형 속성이 아니라 의사결정의 대리변수다. 암 진단에서는 놓친 환자(FN), 스팸 필터에서는 정상 메일 차단(FP), 수요예측에서는 대형 오차의 재고비용이 다르다. 목표를 먼저 정하지 않으면 같은 모형도 지표마다 순위가 바뀐다.</p>
-      <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> 경기의 승리 조건 없이 선수 순위를 매길 수 없듯이, 어떤 오류가 더 중요한지 정하기 전에는 “최고의 모형”도 정할 수 없어요.</aside>
+      <aside class="callout compact"><strong>평가 전제 · 오류 비용:</strong> 경기의 승리 조건 없이 선수 순위를 매길 수 없듯이, 어떤 오류가 더 중요한지 정하기 전에는 “최고의 모형”도 정할 수 없다.</aside>
       <div class="table-wrap" tabindex="0" aria-label="평가 설계 점검표">
         <table>
           <thead><tr><th scope="col">질문</th><th scope="col">잘못된 지름길</th><th scope="col">확인 방법</th></tr></thead>
@@ -244,7 +244,7 @@
       <article class="concept">
         <h3>2. 적합도와 일반화 성능을 같은 말로 쓰지 않는다</h3>
         <p>적합도 검정은 관측 빈도와 특정 이론 분포의 기대 빈도가 맞는지처럼 <strong>자료가 가정한 모형과 양립하는지</strong>를 묻는다. 회귀에서는 잔차·가정 진단과 R² 같은 적합 요약을 볼 수 있지만, R² 자체는 모든 의미의 “적합도 검정”이 아니다. 반면 교차검증·시험 MAE나 AUC는 새 자료에서의 <strong>예측 일반화</strong>를 본다.</p>
-        <div class="callout"><h4>둘 다 필요할 수 있어요</h4><p>설명·추론이 목표면 계수 불확실성과 가정이 중요하고, 예측이 목표면 독립 자료의 성능이 우선이에요. 학습 자료에 잘 맞는다는 사실만으로 어느 쪽도 자동 충족되지 않습니다.</p></div>
+        <div class="callout"><h4>해석 범위 · 추론과 예측 평가는 답하는 질문이 다르다</h4><p>설명·추론이 목표면 계수 불확실성과 가정이 중요하고, 예측이 목표면 독립 자료의 성능이 우선이다. 학습 자료에 잘 맞는다는 사실만으로 어느 쪽도 자동 충족되지 않는다.</p></div>
       </article>
 
       <article class="concept">
@@ -288,7 +288,7 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">18분 · 자체 제작 문제</p><h2 id="quiz-title">18문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">18분 · 자체 제작 문제</p><h2 id="quiz-title">18문제로 평가 기준과 검증 경계 확인하기</h2>
       <ol class="quiz-list">
         <li><p>TP=40, TN=50, FP=10, FN=20일 때 정확도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.75</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (40+50)/120=0.75다.</p></details></li>
         <li><p>같은 혼동행렬에서 정밀도는?</p><ol class="choices" type="A"><li>0.50</li><li>0.67</li><li>0.80</li><li>0.90</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> TP/(TP+FP)=40/50=0.80이다.</p></details></li>
@@ -312,7 +312,7 @@
     </section>
 
     <section id="practice" aria-labelledby="practice-title">
-      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">혼동행렬과 회귀 지표를 직접 계산해 봐요</h2>
+      <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">혼동행렬과 회귀 지표 계산</h2>
       <p>표준 라이브러리 예제는 TP·TN·FP·FN, 정확도·정밀도·재현율·특이도·F1과 MAE·MSE·RMSE·R²를 검증한다. <a href="../examples/evaluation_metrics_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>precision = tp / (tp + fp)
 recall = tp / (tp + fn)
@@ -322,6 +322,16 @@ f1 = 2 * precision * recall / (precision + recall)</code></pre>
     </section>
 
     <section class="panel finish" aria-labelledby="finish-title"><p class="eyebrow">마무리</p><h2 id="finish-title">45초 평가 설명</h2><p>“운영 모집단·오류 비용 → 출력과 지표 → 구조를 보존한 검증 → 기준모형 → 오류·격차 진단 → 데이터·모형·정책 개선 → 독립 시험” 순서로 말한다.</p></section>
+
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>전제</strong><span><a href="03-model-design.html#split">학습·검증·시험 데이터의 역할</a></span></li>
+        <li><strong>적용</strong><span><a href="03-classification.html#tree">나무 복잡도와 과대적합 통제</a></span></li>
+        <li><strong>비교</strong><span><a href="03-regression.html#compare">회귀·분류 출력과 손실함수</a></span></li>
+        <li><strong>평가</strong><span><a href="04-interpretation-utilization.html#monitor">배포 뒤 성능·드리프트 감시</a></span></li>
+      </ul>
+    </aside>
 
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 추가 학습</p><h2 id="sources-title">이 단원을 만든 자료</h2>

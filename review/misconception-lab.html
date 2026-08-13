@@ -3,39 +3,50 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="빅데이터분석기사에서 틀린 7문제를 직접 기록하고 오개념 교정 규칙과 Anki 카드 후보로 바꾸는 학습지">
-  <title>틀린 7문제 오개념 교정실</title>
+  <meta name="description" content="틀린 7문제에서 실제로 적용한 규칙과 정답의 경계를 복원하고 Anki 카드 후보로 저장하는 개인 오개념 기록 도구">
+  <title>오답 규칙을 복원하는 오개념 교정실</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
       <p class="eyebrow">개인화 복습 · 7문제</p>
-      <h1>부주의가 아니라면, 틀린 규칙을 찾아야 해요</h1>
-      <p class="lede">실제 틀린 문제를 그대로 옮겨 적고, 내가 적용한 규칙과 정답을 가르는 조건을 비교하세요. 입력 내용은 이 브라우저에 자동 저장됩니다.</p>
+      <h1>오답 규칙 복원과 적용 경계 교정</h1>
+      <p class="lede">이번에 틀린 7문제는 부주의가 아니라 개념 적용 오류로 다룬다. 문제의 결정 조건과 내가 쓴 규칙, 그 규칙이 성립하는 경계를 나란히 기록하세요. 입력 내용은 현재 브라우저에 자동 저장된다.</p>
       <ul class="tags" aria-label="자료 정보"><li>빈칸 7개</li><li>자동 저장</li><li>Anki 변환</li></ul>
     </div>
   </header>
 
-  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#method">교정법</a><a href="#lab">7문제 기록</a><a href="#actions">저장·변환</a></div></nav>
+  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#method">교정 순서</a><a href="#related">관련 개념</a><a href="#lab">7문제 기록</a><a href="#actions">저장·변환</a></div></nav>
 
   <main id="main" class="page narrow stack">
     <section id="method" class="panel objectives" aria-labelledby="method-title">
-      <p class="eyebrow">오개념 교정법</p><h2 id="method-title">정답 문장보다 경계 조건을 남겨요</h2>
+      <p class="eyebrow">오개념 교정 순서</p><h2 id="method-title">정답보다 내가 적용한 규칙을 먼저 복원하세요</h2>
       <ol class="steps">
-        <li><strong>복원</strong><span>문제의 핵심 조건과 내가 고른 답을 적어요.</span></li>
-        <li><strong>대조</strong><span>정답 근거와 오답이 되는 반례를 분리해요.</span></li>
-        <li><strong>진단</strong><span>용어 혼동, 공식 분모, 가정 누락, 적용 경계 중 어디서 틀렸는지 찾아요.</span></li>
-        <li><strong>규칙</strong><span>다음 문제에서 쓸 수 있는 “A이면 B, 단 C는 예외” 문장으로 고쳐요.</span></li>
+        <li><strong>조건 복원</strong><span>정답을 가른 목표변수·자료 구조·비교 기준을 적으세요.</span></li>
+        <li><strong>내 규칙 복원</strong><span>답을 고를 때 사용한 정의·공식·가정을 한 문장으로 적으세요.</span></li>
+        <li><strong>경계 대조</strong><span>그 규칙이 성립하는 조건과 오답이 되는 반례를 나누세요.</span></li>
+        <li><strong>규칙 교정</strong><span>“A이면 B다. 단, C에서는 D와 구분한다” 형태로 다시 쓰세요.</span></li>
       </ol>
-      <p>실제 7문제의 내용은 알 수 없으므로 빈칸을 임의로 채우지 않았어요. 문제 원문을 전부 복사하기 어렵다면 핵심 조건만 자기 말로 요약해도 됩니다.</p>
+      <p>이 페이지는 실제 기출문제를 제공하는 자료가 아니라 사용자가 자신의 오답을 복원하는 개인 기록 도구다. 문제 원문 전체보다 정답을 가르는 조건을 자기 말로 요약하세요.</p>
+    </section>
+
+    <section id="related" class="panel" aria-labelledby="related-title">
+      <p class="eyebrow">관련 개념</p><h2 id="related-title">오류 유형에 맞는 상세 설명 찾기</h2>
+      <ul class="sources">
+        <li><a href="../chapters/03-model-design.html#map"><strong>전제 · 문제 유형과 분석 모형</strong></a> — 목표변수와 필요한 출력부터 잘못 분류했는지 확인한다.</li>
+        <li><a href="../chapters/03-model-design.html#split"><strong>적용 · 분할 단위와 데이터 누수</strong></a> — 예측 시점과 학습·평가의 경계를 빠뜨렸는지 확인한다.</li>
+        <li><a href="../chapters/02-statistics.html#testing"><strong>전제 · 가설검정의 조건과 해석</strong></a> — 가정·유의수준·p값의 역할을 서로 바꾸지 않았는지 확인한다.</li>
+        <li><a href="../chapters/04-evaluation-improvement.html#classification"><strong>비교 · 분류지표의 기준집단</strong></a> — 정밀도·재현율·특이도의 분모를 구분한다.</li>
+        <li><a href="../chapters/04-evaluation-improvement.html#validation"><strong>평가 · 검증과 최종 시험의 역할</strong></a> — 모형 선택과 최종 성능 확인에 같은 자료를 쓰지 않았는지 확인한다.</li>
+      </ul>
     </section>
 
     <section id="lab" data-misconception-lab aria-labelledby="lab-title">
-      <p class="eyebrow">내가 틀린 문제</p><h2 id="lab-title">7개의 교정 기록</h2>
-      <p class="muted">입력할 때마다 현재 브라우저에 저장됩니다. 다른 기기와 자동 동기화되지는 않아요.</p>
+      <p class="eyebrow">내가 틀린 문제</p><h2 id="lab-title">실제 오답 7개의 교정 기록</h2>
+      <p class="muted">입력 내용은 현재 브라우저에 자동 저장된다. 다른 기기와는 자동으로 동기화되지 않는다.</p>
 
       <article id="mistake-1" class="misconception-slot" data-misconception-slot="1">
         <h3>틀린 문제 1</h3>
@@ -95,10 +106,10 @@
     </section>
 
     <section id="actions" class="panel finish" aria-labelledby="actions-title">
-      <p class="eyebrow">저장과 변환</p><h2 id="actions-title">완성한 기록을 카드 후보로 옮겨요</h2>
-      <p><strong>문제의 핵심 조건·정답과 근거·교정 규칙</strong>을 모두 작성한 기록만 카드로 바뀝니다. 같은 번호를 다시 변환하면 기존 후보를 최신 내용으로 고칩니다.</p>
+      <p class="eyebrow">저장과 변환</p><h2 id="actions-title">완성한 교정 규칙만 카드 후보로 저장하세요</h2>
+      <p><strong>문제의 핵심 조건·정답과 근거·교정 규칙</strong>을 모두 작성한 기록만 카드로 바뀐다. 같은 번호를 다시 변환하면 기존 후보가 최신 내용으로 교체된다.</p>
       <div class="lab-actions"><button class="button" type="button" data-misconception-save-cards>완성한 기록을 카드로 저장</button><button class="button secondary" type="button" data-misconception-clear>7개 기록 지우기</button></div>
-      <p class="muted" data-misconception-status aria-live="polite">아직 입력하지 않았어요.</p>
+      <p class="muted" data-misconception-status aria-live="polite">아직 기록이 없다.</p>
     </section>
 
     <nav class="bottom-nav" aria-label="교재 이동"><a href="formula-drills.html">← 공식훈련</a><a href="mock-exam.html">80문항 모의고사 →</a></nav>

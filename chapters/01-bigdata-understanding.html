@@ -12,10 +12,10 @@
 
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>1과목</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>1과목</span></nav>
       <p class="eyebrow">01-01 · 빅데이터의 이해</p>
-      <h1>빅데이터는 크기만으로 정해지지 않아요</h1>
-      <p class="lede">데이터의 크기만 외우기보다 특성, 처리 방식, 얻을 수 있는 가치와 위험을 함께 살펴봐요.</p>
+      <h1>빅데이터의 특성·가치·기술 구조</h1>
+      <p class="lede">빅데이터는 절대 용량이 아니라 데이터의 특성과 기존 방식으로 처리하기 어려운 정도를 함께 보아 판단한다.</p>
       <ul class="tags" aria-label="단원 정보"><li>약 65분</li><li>회상 16개</li><li>문제 16개</li></ul>
     </div>
   </header>
@@ -32,7 +32,7 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 빅데이터의 이해</p>
       <h2 id="scope-title">특성에서 가치와 기술 구조까지</h2>
-      <p>여기서는 빅데이터의 개념과 등장 배경부터 데이터 가치, 분석 유형, 구성 기술과 위험까지 차근차근 살펴봐요.</p>
+      <p>빅데이터의 개념과 등장 배경, 데이터 가치, 분석 유형, 구성 기술과 위험을 연결해 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>빅데이터를 단순히 “용량이 큰 데이터”라고만 정의하면 부족한 이유를 설명한다.</li>
@@ -45,7 +45,7 @@
     </section>
 
     <section aria-labelledby="precheck-title">
-      <p class="eyebrow">4분 · 사전 점검</p><h2 id="precheck-title">익숙한 단어를 정확하게 만들기</h2>
+      <p class="eyebrow">4분 · 사전 점검</p><h2 id="precheck-title">정의와 경계부터 확인하기</h2>
       <ol class="questions">
         <li>1TB 파일 하나는 언제나 빅데이터인가?</li>
         <li>3V와 5V 중 어느 쪽만 정답인가?</li>
@@ -70,7 +70,7 @@
         <h3>1. 절대 크기보다 기존 체계의 한계가 중요하다</h3>
         <p>NIST는 빅데이터를 주로 규모·다양성·속도 및 변동성의 특성을 가지며, 효율적인 저장·조작·분석을 위해 확장 가능한 아키텍처가 필요한 광범위한 데이터셋으로 설명한다. 따라서 파일 크기만으로 판정하지 않는다. 작은 센서 이벤트라도 초저지연 처리가 필요하면 속도가 문제이고, 수많은 문서·영상·로그가 섞이면 다양성이 문제다.</p>
         <div class="callout">
-          <h4>여기서 많이 헷갈려요 · “빅”은 상대적이에요</h4>
+          <h4>구분 기준 · “빅”은 처리 맥락에 따라 달라진다</h4>
           <p>어제의 대용량은 오늘 한 대의 컴퓨터에서 처리될 수 있다. 시험에서는 숫자 기준을 찾기보다 <strong>현재 도구로 감당하기 어려운 특성</strong>과 <strong>확장 가능한 처리 필요성</strong>을 함께 찾는다.</p>
         </div>
       </article>
@@ -171,7 +171,7 @@
         <h3>2. 빅데이터와 AI는 겹치지만 같은 말은 아니다</h3>
         <p><strong>인공지능(AI)</strong>은 지각·추론·학습처럼 지능적 작업을 수행하는 시스템을 넓게 가리킨다. <strong>머신러닝(ML)</strong>은 데이터에서 규칙을 학습하는 AI의 한 접근이고, <strong>딥러닝(DL)</strong>은 여러 층의 신경망을 사용하는 머신러닝의 한 갈래다. 관계는 보통 <strong>AI ⊃ ML ⊃ DL</strong>로 기억하면 된다.</p>
         <p>빅데이터 플랫폼은 수집·저장·처리·품질·접근을 다루는 데이터 생애주기 체계다. 이 데이터로 AI를 학습할 수 있지만, 모든 빅데이터 분석이 AI인 것은 아니며 모든 AI가 대규모 데이터만 요구하는 것도 아니다. 데이터가 많아도 목표와 대표성, 라벨 품질이 나쁘면 학습 결과도 나빠진다.</p>
-        <div class="callout"><h4>문제에서 이렇게 가려내요</h4><p>“대규모 데이터를 저장했다”는 사실만으로 AI를 구축했다고 할 수 없다. 반대로 규칙 기반 추론도 넓은 의미의 AI에 포함될 수 있으므로 AI와 머신러닝을 완전히 같은 말로 보지 않는다.</p></div>
+        <div class="callout"><h4>시험에서 묻는 경계 · 빅데이터와 AI</h4><p>“대규모 데이터를 저장했다”는 사실만으로 AI를 구축했다고 할 수 없다. 반대로 규칙 기반 추론도 넓은 의미의 AI에 포함될 수 있으므로 AI와 머신러닝을 완전히 같은 말로 보지 않는다.</p></div>
       </article>
     </section>
 
@@ -246,7 +246,7 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">16분 · 자체 제작 문제</p><h2 id="quiz-title">16문제로 과장된 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">16분 · 자체 제작 문제</p><h2 id="quiz-title">16문제로 정의의 경계를 확인하기</h2>
       <ol class="quiz-list">
         <li><p>빅데이터에 대한 설명으로 가장 적절한 것은?</p><ol type="A"><li>정해진 용량 기준을 넘는 모든 파일이다.</li><li>비정형 데이터만을 뜻한다.</li><li>데이터 특성 때문에 확장 가능한 저장·처리·분석 구조가 필요한 경우다.</li><li>분산 저장된 데이터는 크기와 관계없이 모두 빅데이터다.</li></ol><details><summary>정답과 해설</summary><p><strong>C.</strong> 절대 크기나 형식 하나가 아니라 규모·다양성·속도·변동성 등의 특성과 필요한 처리 구조를 함께 본다.</p></details></li>
         <li><p>다음 중 속도(Velocity)의 문제에 가장 가까운 것은?</p><ol type="A"><li>영상과 표를 함께 저장한다.</li><li>결제 이상을 수 초 안에 탐지해야 한다.</li><li>누적 로그가 수 PB에 이르렀다.</li><li>측정값에 오류가 많다.</li></ol><details><summary>정답과 해설</summary><p><strong>B.</strong> 생성·유입·처리와 응답의 시간 요구다. A는 다양성, C는 규모, D는 신뢰성에 가깝다.</p></details></li>
@@ -267,6 +267,16 @@
       </ol>
     </section>
 
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>적용</strong><span><a href="01-analysis-planning.html#problem">업무 목표를 분석 문제로 바꾸는 기준</a></span></li>
+        <li><strong>적용</strong><span><a href="01-collection-storage.html#storage">처리 요구에 맞는 저장 기술 선택</a></span></li>
+        <li><strong>평가</strong><span><a href="04-evaluation-improvement.html#design">업무 목표를 오류 비용과 지표로 번역하는 법</a></span></li>
+        <li><strong>비교</strong><span><a href="04-interpretation-utilization.html#value">데이터 가치와 실제 업무 효용의 차이</a></span></li>
+      </ul>
+    </aside>
+
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식·1차 자료</h2>
       <ul class="sources">
@@ -279,7 +289,7 @@
       <p class="source-note">설명은 위 자료를 토대로 새로 작성했다. V의 개수처럼 문헌별 표현이 다른 내용은 하나의 절대 목록으로 단정하지 않았다.</p>
     </section>
 
-    <nav class="bottom-nav" aria-label="다음 단원"><a href="../index.html">← 교재 홈</a><a href="01-analysis-planning.html">다음: 분석계획 →</a></nav>
+    <nav class="bottom-nav" aria-label="다음 단원"><a href="../index.html">← 학습 홈</a><a href="01-analysis-planning.html">다음: 분석계획 →</a></nav>
   </main>
 
   <footer><div class="page narrow"><p>1과목 · 빅데이터의 이해</p></div></footer>

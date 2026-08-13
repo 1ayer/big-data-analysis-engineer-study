@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="빅데이터분석기사 제13회 준비를 위한 모바일 우선 전체 학습 교재">
-  <title>빅데이터분석기사 학습 교재</title>
+  <meta name="description" content="빅데이터분석기사 제13회 필기 준비를 위한 학습 계획·개념 연결·문제 풀이 자료">
+  <title>빅데이터분석기사 학습</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,249 +12,292 @@
 
   <header class="hero">
     <div class="page">
-      <p class="eyebrow">빅데이터분석기사 제13회 · 모바일 학습 교재</p>
-      <h1>읽은 내용을 내 것으로 만드는 교재</h1>
+      <p class="eyebrow">제13회 필기 · 2026년 9월 5일</p>
+      <h1>빅데이터분석기사 학습</h1>
       <p class="lede">
-        공식 출제범위를 따라 개념을 이해하고, 직접 떠올려 보고, 문제와 Python 예제로 확인해 보세요.
+        진단 결과를 기준으로 3과목부터 보강한다. 개념을 연결해 이해하고, 회상과 문제 풀이로 확인한다.
       </p>
-      <p class="status"><strong>완성:</strong> 12개 단원 · 회상 172개 · 단원문제 172개 · 종합문제 115개 · 실기 파이프라인</p>
+      <p class="status"><strong>구성:</strong> 12개 단원 · 회상 172개 · 단원문제 172개 · 종합문제 115개 · 실기 연결</p>
     </div>
   </header>
 
-  <nav class="top-nav" aria-label="교재 탐색">
+  <nav class="top-nav" aria-label="학습 자료 탐색">
     <div class="page nav-links">
-      <a href="#chapters">단원</a>
+      <a href="#dashboard">학습 현황</a>
+      <a href="#chapters">과목별 단원</a>
       <a href="#supplements">집중훈련</a>
-      <a href="#scope">범위 지도</a>
-      <a href="#method">사용법</a>
-      <a href="#cards">카드 저장</a>
+      <a href="review/quick-review.html">개념 연결</a>
+      <a href="review/exam-guide.html">시험 안내</a>
+      <a href="#cards">저장·백업</a>
     </div>
   </nav>
 
   <main id="main" class="page stack">
+    <section id="dashboard" class="study-dashboard" aria-labelledby="dashboard-title" data-study-dashboard>
+      <div class="dashboard-heading">
+        <div>
+          <p class="eyebrow">개인 학습 현황</p>
+          <h2 id="dashboard-title">필기시험 <span data-exam-dday>계산 중</span></h2>
+        </div>
+        <a class="button secondary" href="review/exam-guide.html">일정·준비물 확인</a>
+      </div>
+
+      <div class="score-grid" aria-label="진단 점수와 목표">
+        <article><strong>46/80</strong><span>현재 진단</span></article>
+        <article><strong>48/80</strong><span>공식 최저점 환산</span></article>
+        <article><strong>60/80</strong><span>개인 안전 목표</span></article>
+        <article class="risk"><strong>3과목 8/20</strong><span>과락 기준선</span></article>
+      </div>
+      <p class="source-note">48/80과 과목별 8/20은 문항당 1.25점이라는 공식 배점에서 계산한 환산값이다. 실제 기준은 총점 60점 이상이면서 각 과목 40점 이상이다.</p>
+
+      <div class="dashboard-summary" data-study-summary aria-live="polite">
+        <article><strong>0/23</strong><span>학습 기록 있음</span></article>
+        <article><strong>0</strong><span>복습할 항목</span></article>
+        <article><strong>0</strong><span>미학습 지연</span></article>
+      </div>
+      <p class="dashboard-focus" data-study-focus>오늘 학습을 계산 중이다.</p>
+
+      <details class="study-plan-disclosure">
+        <summary>23일 권장 계획과 날짜 조정</summary>
+        <p>취약한 3과목부터 시작해 <strong>3과목 → 2과목 → 4과목 → 1과목 → 최종복습</strong> 순서로 진행한다. 계획일은 여기서 바꿀 수 있다.</p>
+        <ol class="study-plan" data-study-plan></ol>
+      </details>
+      <p class="source-note">학습 기록과 변경한 날짜는 현재 브라우저에 저장된다. 기기를 바꾸기 전에는 화면 아래 <strong>저장한 카드</strong>에서 전체 JSON 백업을 내려받는다.</p>
+    </section>
+
     <section class="panel diagnosis" aria-labelledby="diagnosis-title">
       <div>
-        <p class="eyebrow">시작점</p>
-        <h2 id="diagnosis-title">3과목 8/20 — 과락 경계</h2>
+        <p class="eyebrow">진단 해석</p>
+        <h2 id="diagnosis-title">두 문항보다 과목별 여유가 먼저다</h2>
       </div>
       <p>
-        모든 내용을 같은 비중으로 볼 필요는 없어요. 먼저 모형을 고르는 기준과 헷갈리는 개념부터
-        잡고, 바로 관련 문제로 확인해 보세요.
+        총점은 합격 최저 환산점보다 2문항 부족하지만, 3과목은 8/20으로 과락 기준선에 정확히 걸쳐 있다.
+        표시 없이 틀린 7문제도 부주의가 아니므로, 모형 선택 기준과 오개념을 먼저 교정한 뒤 다른 과목으로 넓힌다.
       </p>
     </section>
 
     <section id="chapters" aria-labelledby="chapters-title">
-      <p class="eyebrow">완성 과목</p>
+      <p class="eyebrow">공식 범위 목차</p>
       <h2 id="chapters-title">1과목 · 빅데이터 분석기획</h2>
+      <p class="source-note">아래 목차는 공식 과목 순서다. 실제 학습은 위 23일 계획의 우선순위를 따른다.</p>
       <div class="chapter-grid">
         <article class="chapter-card">
           <div>
             <p class="chapter-number">01-01</p>
             <h3>빅데이터의 이해</h3>
-            <p>빅데이터의 특성·가치·분석 유형을 익히고 NIST 참조 아키텍처의 역할까지 살펴봐요.</p>
+            <p>빅데이터의 특성·가치·분석 유형과 NIST 참조 아키텍처의 역할을 구분한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 65분</li><li>회상 16개</li><li>문제 16개</li>
             </ul>
           </div>
-          <a class="button" href="chapters/01-bigdata-understanding.html">단원 시작하기</a>
+          <a class="button" href="chapters/01-bigdata-understanding.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">01-02</p>
             <h3>데이터분석 계획</h3>
-            <p>업무 질문을 분석 과제로 바꾸고 방법론, 우선순위, 실행계획과 거버넌스로 이어가요.</p>
+            <p>업무 질문을 분석 과제로 바꾸고 방법론·우선순위·실행계획·거버넌스를 연결한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 65분</li><li>회상 12개</li><li>문제 12개</li>
             </ul>
           </div>
-          <a class="button" href="chapters/01-analysis-planning.html">단원 시작하기</a>
+          <a class="button" href="chapters/01-analysis-planning.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">01-03</p>
             <h3>데이터 수집 및 저장 계획</h3>
-            <p>수집·품질·법적 근거를 먼저 확인하고 ETL/ELT, 저장소, HDFS와 MapReduce를 익혀요.</p>
+            <p>수집·품질·법적 근거와 ETL/ELT, 저장소, HDFS·MapReduce의 선택 기준을 다룬다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 90분</li><li>회상 17개</li><li>문제 17개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/01-collection-storage.html">단원 시작하기</a>
+          <a class="button" href="chapters/01-collection-storage.html">단원 학습</a>
         </article>
       </div>
     </section>
 
     <section aria-labelledby="exploration-chapters-title">
-      <p class="eyebrow">완성 과목</p>
+      <p class="eyebrow">공식 범위 목차</p>
       <h2 id="exploration-chapters-title">2과목 · 빅데이터 탐색</h2>
       <div class="chapter-grid">
         <article class="chapter-card">
           <div>
             <p class="chapter-number">02-01</p>
             <h3>데이터 전처리</h3>
-            <p>결측값과 이상값의 원인을 살핀 뒤 통합·변환·인코딩·축소와 누수 방지까지 배워요.</p>
+            <p>결측값·이상값의 원인과 통합·변환·인코딩·축소, 누수 방지의 적용 순서를 다룬다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 60분</li><li>회상 14개</li><li>문제 14개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/02-preprocessing.html">단원 시작하기</a>
+          <a class="button" href="chapters/02-preprocessing.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">02-02</p>
             <h3>데이터 탐색</h3>
-            <p>측정척도에 맞게 분포를 읽고, 시각화와 상관관계가 말해 주는 범위를 구분해요.</p>
+            <p>측정척도에 맞춰 분포를 읽고 시각화와 상관관계의 해석 범위를 구분한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 60분</li><li>회상 15개</li><li>문제 15개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/02-exploration.html">단원 시작하기</a>
+          <a class="button" href="chapters/02-exploration.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">02-03</p>
             <h3>통계기법 이해</h3>
-            <p>확률과 표본추출에서 출발해 신뢰구간, 가설검정과 검정 선택까지 이어가요.</p>
+            <p>확률·표본추출에서 신뢰구간·가설검정·검정 선택으로 이어지는 기준을 정리한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 65분</li><li>회상 15개</li><li>문제 15개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/02-statistics.html">단원 시작하기</a>
+          <a class="button" href="chapters/02-statistics.html">단원 학습</a>
         </article>
       </div>
     </section>
 
     <section aria-labelledby="modeling-chapters-title">
-      <p class="eyebrow">완성 과목</p>
+      <p class="eyebrow">공식 범위 목차</p>
       <h2 id="modeling-chapters-title">3과목 · 빅데이터 모델링</h2>
       <div class="chapter-grid">
         <article class="chapter-card">
           <div>
             <p class="chapter-number">03-01</p>
             <h3>분석모형 설계와 데이터 분할</h3>
-            <p>문제를 정의하고 모형과 분석 환경을 고른 뒤 학습·검증·시험 분할까지 설계해요.</p>
+            <p>문제 정의에서 모형·분석 환경 선택과 학습·검증·시험 분할까지 설계한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 35분</li><li>회상 10개</li><li>문제 10개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/03-model-design.html">단원 시작하기</a>
+          <a class="button" href="chapters/03-model-design.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">03-02</p>
             <h3>회귀분석과 로지스틱 회귀분석</h3>
-            <p>목표변수로 모형을 고르고 선형식, 시그모이드, 오즈와 규제의 관계를 구분해요.</p>
+            <p>목표변수에 맞춰 모형을 고르고 선형식·시그모이드·오즈·규제의 관계를 구분한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 35분</li><li>회상 10개</li><li>문제 10개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/03-regression.html">단원 시작하기</a>
+          <a class="button" href="chapters/03-regression.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">03-03</p>
             <h3>의사결정나무·신경망·SVM</h3>
-            <p>불순도 분할, 층과 역전파, 마진과 커널을 모형이 만드는 경계 관점에서 비교해요.</p>
+            <p>불순도 분할, 층과 역전파, 마진과 커널을 결정 경계 관점에서 비교한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 45분</li><li>회상 12개</li><li>문제 12개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/03-classification.html">단원 시작하기</a>
+          <a class="button" href="chapters/03-classification.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">03-04</p>
             <h3>연관성·군집·고급 분석기법</h3>
-            <p>연관지표와 세 가지 군집법을 익히고 PCA, 시계열, 베이지안, 앙상블과 비모수 기법을 살펴봐요.</p>
+            <p>연관지표·군집법과 PCA·시계열·베이지안·앙상블·비모수 기법의 적용 경계를 다룬다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 55분</li><li>회상 15개</li><li>문제 15개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/03-unsupervised-advanced.html">단원 시작하기</a>
+          <a class="button" href="chapters/03-unsupervised-advanced.html">단원 학습</a>
         </article>
       </div>
     </section>
 
     <section aria-labelledby="results-chapters-title">
-      <p class="eyebrow">완성 과목</p>
+      <p class="eyebrow">공식 범위 목차</p>
       <h2 id="results-chapters-title">4과목 · 빅데이터 결과해석</h2>
       <div class="chapter-grid">
         <article class="chapter-card">
           <div>
             <p class="chapter-number">04-01</p>
             <h3>분석모형 평가와 개선</h3>
-            <p>분류·회귀·군집 지표를 계산하고 교차검증, 과적합 진단과 모형 개선을 익혀요.</p>
+            <p>분류·회귀·군집 지표와 교차검증·과적합 진단·모형 개선의 관계를 다룬다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 85분</li><li>회상 18개</li><li>문제 18개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/04-evaluation-improvement.html">단원 시작하기</a>
+          <a class="button" href="chapters/04-evaluation-improvement.html">단원 학습</a>
         </article>
 
         <article class="chapter-card">
           <div>
             <p class="chapter-number">04-02</p>
             <h3>분석결과 해석과 활용</h3>
-            <p>계수·중요도·PDP·ICE를 과장 없이 읽고 업무 적용과 드리프트 감시까지 살펴봐요.</p>
+            <p>계수·중요도·PDP·ICE의 해석 한계와 업무 적용·드리프트 감시를 연결한다.</p>
             <ul class="tags" aria-label="단원 특징">
               <li>약 80분</li><li>회상 18개</li><li>문제 18개</li><li>Python</li>
             </ul>
           </div>
-          <a class="button" href="chapters/04-interpretation-utilization.html">단원 시작하기</a>
+          <a class="button" href="chapters/04-interpretation-utilization.html">단원 학습</a>
         </article>
       </div>
     </section>
 
     <section id="supplements" aria-labelledby="supplements-title">
-      <p class="eyebrow">집중 보강</p>
-      <h2 id="supplements-title">약한 부분은 읽기보다 직접 꺼내 보세요</h2>
+      <p class="eyebrow">취약점 보강</p>
+      <h2 id="supplements-title">판단·계산·오개념을 따로 훈련한다</h2>
       <div class="chapter-grid">
         <article class="chapter-card">
-          <div><p class="chapter-number">DRILL-01</p><h3>3과목 모델링 집중훈련</h3><p>목표변수·누수·모형 가정·검증을 한 문제 안에서 연결해 판단해요.</p><ul class="tags" aria-label="자료 특징"><li>20문제</li><li>선택지별 해설</li></ul></div>
-          <a class="button" href="review/modeling-challenge.html">집중훈련 시작</a>
+          <div><p class="chapter-number">DRILL-01</p><h3>3과목 모델링 집중훈련</h3><p>목표변수·누수·모형 가정·평가를 한 문제 안에서 연결해 판단한다.</p><ul class="tags" aria-label="자료 특징"><li>20문제</li><li>선택지별 해설</li></ul></div>
+          <a class="button" href="review/modeling-challenge.html">판단 훈련</a>
         </article>
         <article class="chapter-card">
-          <div><p class="chapter-number">DRILL-02</p><h3>계산기 없는 공식훈련</h3><p>전처리·확률·평가·군집의 공식을 분모와 단위부터 손으로 풀어요.</p><ul class="tags" aria-label="자료 특징"><li>공식표</li><li>15문제</li></ul></div>
-          <a class="button" href="review/formula-drills.html">공식훈련 시작</a>
+          <div><p class="chapter-number">DRILL-02</p><h3>계산기 없는 공식훈련</h3><p>전처리·확률·평가·군집 공식을 분모·기준집단·단위부터 손으로 계산한다.</p><ul class="tags" aria-label="자료 특징"><li>공식표</li><li>15문제</li></ul></div>
+          <a class="button" href="review/formula-drills.html">계산 훈련</a>
         </article>
         <article class="chapter-card">
-          <div><p class="chapter-number">LAB-01</p><h3>틀린 7문제 오개념 교정실</h3><p>실제 오답을 기록하고 다음에 적용할 규칙으로 고친 뒤 Anki 후보로 옮겨요.</p><ul class="tags" aria-label="자료 특징"><li>7개 기록</li><li>자동 저장</li><li>Anki</li></ul></div>
-          <a class="button" href="review/misconception-lab.html">교정 기록 시작</a>
+          <div><p class="chapter-number">LAB-01</p><h3>틀린 7문제 오개념 교정실</h3><p>실제 오답의 잘못된 규칙을 찾아 적용 경계를 고치고 Anki 후보로 남긴다.</p><ul class="tags" aria-label="자료 특징"><li>7개 기록</li><li>자동 저장</li><li>Anki</li></ul></div>
+          <a class="button" href="review/misconception-lab.html">오개념 기록</a>
         </article>
         <article class="chapter-card">
-          <div><p class="chapter-number">PRACTICE-01</p><h3>필기에서 실기로 잇는 파이프라인</h3><p>CSV 읽기부터 파생변수·모형 비교·독립 평가·예측 저장까지 한 파일로 실행해요.</p><ul class="tags" aria-label="자료 특징"><li>pandas</li><li>scikit-learn</li><li>실행 파일</li></ul></div>
-          <a class="button" href="practice/practical-pipeline.html">실기 흐름 보기</a>
+          <div><p class="chapter-number">PRACTICE-01</p><h3>필기에서 실기로 잇는 파이프라인</h3><p>CSV 읽기부터 파생변수·모형 비교·독립 평가·예측 저장까지 한 파일로 실행한다.</p><ul class="tags" aria-label="자료 특징"><li>pandas</li><li>scikit-learn</li><li>실행 파일</li></ul></div>
+          <a class="button" href="practice/practical-pipeline.html">실기 연결</a>
         </article>
       </div>
     </section>
 
     <section aria-labelledby="review-title">
       <p class="eyebrow">종합복습</p>
-      <h2 id="review-title">직전요약과 80문항</h2>
+      <h2 id="review-title">개념 연결과 실전 점검</h2>
       <div class="chapter-grid">
         <article class="chapter-card">
           <div>
             <p class="chapter-number">REVIEW-01</p>
-            <h3>직전요약과 혼동표</h3>
-            <p>네 과목의 핵심 관계와 자주 뒤집어 외우는 16쌍을 빠르게 다시 확인해요.</p>
+            <h3>개념 연결 지도와 직전요약</h3>
+            <p>네 과목의 핵심 관계를 상세 설명에 연결하고 자주 혼동하는 16쌍을 비교한다.</p>
             <ul class="tags" aria-label="자료 특징"><li>약 45분</li><li>4과목 압축</li><li>혼동표</li></ul>
           </div>
-          <a class="button" href="review/quick-review.html">요약 시작하기</a>
+          <a class="button" href="review/quick-review.html">개념 연결 지도</a>
         </article>
         <article class="chapter-card">
           <div>
             <p class="chapter-number">REVIEW-02</p>
             <h3>자체 제작 80문항 모의고사</h3>
-            <p>과목별 20문항을 풀며 개념·계산·적용 판단을 점검하고 정답 근거까지 확인해요.</p>
-            <ul class="tags" aria-label="자료 특징"><li>80문항</li><li>정답표</li><li>문항별 해설</li></ul>
+            <p>과목별 20문항으로 개념·계산·적용 판단과 선택 근거를 점검한다.</p>
+            <ul class="tags" aria-label="자료 특징"><li>80문항</li><li>120분 타이머</li><li>문항별 해설</li></ul>
           </div>
-          <a class="button" href="review/mock-exam.html">모의고사 시작하기</a>
+          <a class="button" href="review/mock-exam.html">모의고사</a>
+        </article>
+        <article class="chapter-card">
+          <div>
+            <p class="chapter-number">GUIDE-01</p>
+            <h3>제13회 시험 안내</h3>
+            <p>공식 일정·합격 기준·입실 및 퇴실 시간·준비물·실기 환경을 한곳에서 확인한다.</p>
+            <ul class="tags" aria-label="자료 특징"><li>공식 링크</li><li>시험시간</li><li>체크리스트</li></ul>
+          </div>
+          <a class="button" href="review/exam-guide.html">시험 안내</a>
         </article>
       </div>
     </section>
@@ -331,39 +374,37 @@
       <p class="eyebrow">한 단원 사용법</p>
       <h2 id="method-title">25분 학습 루프</h2>
       <ol class="steps">
-        <li><strong>3분</strong><span>사전 질문에 답하며 지금 기억나는 내용을 확인해요.</span></li>
-        <li><strong>10분</strong><span>핵심 관계와 자주 나오는 함정을 읽어요.</span></li>
-        <li><strong>5분</strong><span>화면을 가리고 회상 질문에 답해 보세요.</span></li>
-        <li><strong>5분</strong><span>객관식 문제에서 틀린 선택지를 골라내요.</span></li>
-        <li><strong>2분+</strong><span>필요한 단원만 Python 예제로 직접 확인해요.</span></li>
+        <li><strong>3분</strong><span>사전 질문에 답해 현재 기억을 확인하세요.</span></li>
+        <li><strong>10분</strong><span>핵심 관계와 오해하기 쉬운 경계를 읽으세요.</span></li>
+        <li><strong>5분</strong><span>화면을 가리고 회상 질문에 답하세요.</span></li>
+        <li><strong>5분</strong><span>객관식 문제를 풀고 선택 근거를 확인하세요.</span></li>
+        <li><strong>2분+</strong><span>필요한 단원은 Python 예제로 검증하세요.</span></li>
       </ol>
+      <p class="source-note">학습 완료는 페이지 열람이 아니라 회상과 문제 풀이 뒤에 판단한다. 각 페이지 아래에서 실제 학습일과 현재 상태를 기록한다. 회상과 간격 복습의 근거는 <a href="https://doi.org/10.1111/j.1467-9280.2006.01693.x">Roediger &amp; Karpicke(2006)</a>, <a href="https://pubmed.ncbi.nlm.nih.gov/19076480/">Cepeda 등(2008)</a>을 참고했다. 1·3·7·14일 간격은 이 사이트의 단순 시작 규칙이며 공식 권고가 아니다.</p>
     </section>
 
     <section id="cards" class="panel" aria-labelledby="cards-title">
-      <p class="eyebrow">Anki 카드 후보</p>
-      <h2 id="cards-title">외우고 싶은 내용은 별표로 모아 두세요</h2>
-      <p>개념 설명, 회상 질문, 문제에 붙은 <strong>☆ 카드 후보</strong>를 누르면 이 브라우저에 저장돼요. 화면 아래의 <strong>저장한 카드</strong>에서 다시 보거나 Anki용 TSV 파일로 내보낼 수 있습니다.</p>
-      <p class="source-note">저장 내용은 계정에 동기화되지 않아요. 브라우저 데이터 삭제나 기기 변경 전에 TSV 파일을 내려받아 두세요.</p>
+      <p class="eyebrow">카드와 학습 데이터</p>
+      <h2 id="cards-title">필요한 것만 저장하고 전체 기록을 백업한다</h2>
+      <p>개념·회상·문제의 <strong>☆ 카드 후보</strong>를 누르면 현재 브라우저에 모인다. 화면 아래 <strong>저장한 카드</strong>에서 Anki용 TSV를 만들거나 카드·오개념·학습 기록을 하나의 JSON 파일로 백업할 수 있다.</p>
+      <p class="source-note">계정 동기화 기능은 없다. 브라우저 데이터를 지우거나 기기를 바꾸기 전에 JSON 백업을 내려받는다. 복원은 파일 전체로 교체하며, 형식이 잘못된 파일은 적용하지 않는다.</p>
     </section>
 
     <section aria-labelledby="roadmap-title">
-      <p class="eyebrow">완성 상태</p>
-      <h2 id="roadmap-title">설치 없이 바로 공부할 수 있어요</h2>
-      <article class="panel"><h3>모바일에서도 그대로 열려요</h3><p>별도 앱이나 설치 없이 12개 단원, 직전요약, 115개 종합문제와 오개념 교정실을 볼 수 있어요. 표는 좌우로 밀어 보고, 회상 답과 문제 해설은 필요할 때만 펼쳐 보세요.</p></article>
+      <p class="eyebrow">열람 환경</p>
+      <h2 id="roadmap-title">설치 없는 모바일 우선 구성</h2>
+      <article class="panel"><h3>브라우저에서 바로 사용</h3><p>12개 단원, 개념 연결 지도, 종합문제 115개와 오개념 교정실을 별도 앱 없이 사용할 수 있다. 넓은 표는 가로로 스크롤하고, 회상 답과 문제 해설은 필요할 때 펼친다.</p></article>
     </section>
 
-    <aside class="callout" aria-label="교재 제작 원칙">
-      <h2>이 교재의 원칙</h2>
-      <p>
-        공개 자료의 문장을 그대로 모아 붙이지 않았어요. 공식 범위와 1차 자료를 대조해 설명과 문제를 새로 쓰고,
-        확인에 쓴 링크는 각 단원 끝에 남겼습니다.
-      </p>
+    <aside class="callout" aria-label="자료 구분 원칙">
+      <h2>공식 사실·재구성 설명·자체 연습의 구분</h2>
+      <p><strong>시험 일정과 기준</strong>은 DATAQ 공식 안내에 연결한다. <strong>개념 설명</strong>은 공식 범위와 1차 자료를 대조한 뒤 학습 목적에 맞게 재구성했다. <strong>문제와 훈련</strong>은 이 교재를 위해 새로 만든 자료이며 실제 기출문제가 아니다.</p>
     </aside>
   </main>
 
   <footer>
     <div class="page">
-      <p>전체 교재 보강본 · 2026-08-13</p>
+      <p>빅데이터분석기사 제13회 학습 자료 · 기준일 2026-08-13</p>
     </div>
   </footer>
   <script src="study.js" defer></script>

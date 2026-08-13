@@ -11,40 +11,56 @@
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>필기·실기 연결</span></nav>
-      <p class="eyebrow">실행 예제 · pandas + scikit-learn</p>
-      <h1>한 파일로 전체 분석 흐름을 실행해 봐요</h1>
-      <p class="lede">CSV 읽기부터 품질 점검, 분할, 파생변수, 전처리, 모형 비교, 독립 평가와 예측 저장까지 필기 개념을 코드의 경계에 연결합니다.</p>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>필기·실기 연결</span></nav>
+      <p class="eyebrow">자체 실행 예제 · pandas + scikit-learn</p>
+      <h1>한 파일로 실행하는 분류 분석 흐름</h1>
+      <p class="lede">CSV 읽기부터 품질 점검, 분할, 파생변수, 전처리, 모형 비교, 독립 평가와 예측 저장까지 필기 개념을 코드의 경계에 연결한다.</p>
       <ul class="tags" aria-label="자료 정보"><li>분류</li><li>누수 방지</li><li>실행 파일</li></ul>
     </div>
   </header>
 
-  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#run">실행</a><a href="#flow">전체 흐름</a><a href="#code">핵심 코드</a><a href="#checks">점검</a><a href="#sources">출처</a></div></nav>
+  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#run">로컬 실행</a><a href="#environment">공식 환경</a><a href="#flow">전체 흐름</a><a href="#code">핵심 코드</a><a href="#checks">점검</a><a href="#sources">출처</a></div></nav>
 
   <main id="main" class="page narrow stack">
     <section id="run" class="panel objectives" aria-labelledby="run-title">
-      <p class="eyebrow">먼저 실행</p><h2 id="run-title">내장 유방암 자료로 재현해요</h2>
-      <p>예제는 scikit-learn 내장 자료를 임시 CSV로 저장하고 다시 읽습니다. 인터넷에서 데이터를 따로 내려받지 않으며, 악성 종양을 양성 클래스 1로 바꿔 평가 방향을 분명히 했습니다.</p>
+      <p class="eyebrow">자체 실행 예제</p><h2 id="run-title">내장 유방암 자료로 재현한다</h2>
+      <p>예제는 scikit-learn 내장 자료를 임시 CSV로 저장하고 다시 읽는다. 인터넷에서 데이터를 따로 내려받지 않으며, 악성 종양을 양성 클래스 1로 바꿔 평가 방향을 분명히 했다.</p>
       <pre><code>python -m pip install pandas scikit-learn
 python examples/practical_pipeline.py
 
 # 원하는 위치에 예측 저장
 python examples/practical_pipeline.py --output predictions.csv</code></pre>
       <p><a class="button secondary" href="../examples/practical_pipeline.py" download>실행 파일 내려받기</a></p>
-      <p class="muted">실제 시험 환경의 패키지와 버전은 해당 회차의 공식 안내를 따르세요. 이 예제는 학습용 흐름이며 의료 판단에 쓰는 모형이 아닙니다.</p>
+      <p class="muted"><code>pip install</code> 명령은 로컬 연습용이다. 실제 시험에서는 제공 패키지만 사용할 수 있으며 추가 설치는 허용되지 않는다. 이 예제는 학습용 흐름이며 의료 판단에 쓰는 모형이 아니다.</p>
+    </section>
+
+    <section id="environment" aria-labelledby="environment-title">
+      <p class="eyebrow">DATAQ 공식 체험환경</p><h2 id="environment-title">코드보다 먼저 실행 조건에 적응한다</h2>
+      <ul class="check-list">
+        <li>시험은 Chrome 기반 CBT 환경에서 진행된다.</li>
+        <li>문제마다 R 또는 Python을 선택할 수 있다.</li>
+        <li>한 줄 실행, 자동완성, 단축키와 그래프 기능은 제공되지 않는다.</li>
+        <li>코드 실행 시간은 1분으로 제한된다.</li>
+        <li>시험 환경에 제공된 패키지만 사용할 수 있고 추가 패키지를 설치할 수 없다.</li>
+        <li>제2유형 CSV는 문제에서 요구한 파일명·열·행·인덱스 조건을 정확히 맞춘다.</li>
+        <li>패키지와 버전을 포함한 환경은 회차별로 달라질 수 있으므로 응시 회차의 공식 안내를 다시 확인한다.</li>
+      </ul>
+      <p><a class="button" href="https://dataq.goorm.io/exam/3/%EC%B2%B4%ED%97%98%ED%95%98%EA%B8%B0/quiz/1">공식 실기 체험환경 열기</a> <a class="button secondary" href="https://kr.object.gov-ncloudstorage.com/dataq/dataq-10th/%5BK-DATA%5D%20%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EA%B8%B0%EC%82%AC%20%EC%8B%A4%EA%B8%B0%20%EC%B2%B4%ED%97%98%ED%99%98%EA%B2%BD%20%EA%B0%80%EC%9D%B4%EB%93%9C_250605.pdf">체험환경 가이드(PDF)</a></p>
+      <aside class="warning"><h3>체험 문제의 용도</h3><p>체험 문제는 CBT 조작과 실행 환경을 확인하기 위한 자료다. 실제 시험의 문항 유형·난도·출제 경향을 보장하지 않는다.</p></aside>
     </section>
 
     <section id="flow" aria-labelledby="flow-title">
       <p class="eyebrow">전체 흐름</p><h2 id="flow-title">각 단계가 다음 단계의 경계를 만든다</h2>
-      <article class="concept"><h3>1. 읽기와 품질 점검</h3><p><code>pd.read_csv</code> 뒤에 목표값이 0·1인지 확인하고, 연습을 위해 일부 <code>mean area</code> 값에 만든 결측은 파이프라인 안에서 처리합니다. 자료형·행 수·결측·중복·목표 분포는 모형보다 먼저 확인할 항목입니다.</p></article>
-      <article class="concept"><h3>2. 분할과 파생변수</h3><p>반지름/둘레 비율과 고정 경계의 질감 구간을 만듭니다. 두 변수 모두 한 행의 현재 입력만 사용해 미래 정보나 전체 자료의 통계량을 보지 않습니다. 그 뒤 목표 비율을 보존한 학습·시험 분할로 최종 평가 자료를 봉인합니다.</p></article>
-      <article class="concept"><h3>3. 전처리 파이프라인</h3><p>수치형은 중앙값 대체와 표준화, 범주형은 최빈값 대체와 원-핫 인코딩을 적용합니다. <code>ColumnTransformer</code>와 <code>Pipeline</code>으로 묶었기 때문에 교차검증의 각 학습 폴드에서만 대체값·평균·범주 목록을 학습합니다.</p></article>
-      <article class="concept"><h3>4. 기준모형과 후보 비교</h3><p>해석 가능한 로지스틱 회귀를 기준선으로 두고 랜덤 포레스트와 비교합니다. 학습 자료 안의 5-fold 층화 교차검증 ROC-AUC로 후보를 고르며, 최종 시험 자료는 이 선택에 쓰지 않습니다.</p></article>
-      <article class="concept"><h3>5. 독립 평가와 저장</h3><p>선택이 끝난 모형을 전체 학습 자료에 적합하고 시험 ROC-AUC·F1을 한 번 계산합니다. 행 ID, 실제값, 예측값, 악성 확률을 CSV로 저장해 후속 검토가 가능하게 합니다.</p></article>
+      <p class="muted">다음 흐름은 공식 출제범위를 바탕으로 재구성한 자체 연습이며, 실제 시험 풀이 절차를 그대로 재현한 것이 아니다.</p>
+      <article class="concept"><h3>1. 읽기와 품질 점검</h3><p><code>pd.read_csv</code> 뒤에 목표값이 0·1인지 확인하고, 연습을 위해 일부 <code>mean area</code> 값에 만든 결측은 파이프라인 안에서 처리한다. 자료형·행 수·결측·중복·목표 분포는 모형보다 먼저 확인할 항목이다.</p></article>
+      <article class="concept"><h3>2. 분할과 파생변수</h3><p>반지름/둘레 비율과 고정 경계의 질감 구간을 만든다. 두 변수 모두 한 행의 현재 입력만 사용해 미래 정보나 전체 자료의 통계량을 보지 않는다. 그 뒤 목표 비율을 보존한 학습·시험 분할로 최종 평가 자료를 봉인한다.</p></article>
+      <article class="concept"><h3>3. 전처리 파이프라인</h3><p>수치형은 중앙값 대체와 표준화, 범주형은 최빈값 대체와 원-핫 인코딩을 적용한다. <code>ColumnTransformer</code>와 <code>Pipeline</code>으로 묶었기 때문에 교차검증의 각 학습 폴드에서만 대체값·평균·범주 목록을 학습한다.</p></article>
+      <article class="concept"><h3>4. 기준모형과 후보 비교</h3><p>해석 가능한 로지스틱 회귀를 기준선으로 두고 랜덤 포레스트와 비교한다. 학습 자료 안의 5-fold 층화 교차검증 ROC-AUC로 후보를 고르며, 최종 시험 자료는 이 선택에 쓰지 않는다.</p></article>
+      <article class="concept"><h3>5. 독립 평가와 저장</h3><p>선택이 끝난 모형을 전체 학습 자료에 적합하고 시험 ROC-AUC·F1을 한 번 계산한다. 행 ID, 실제값, 예측값, 악성 확률을 CSV로 저장해 후속 검토가 가능하게 한다.</p></article>
     </section>
 
     <section id="code" aria-labelledby="code-title">
-      <p class="eyebrow">핵심 코드</p><h2 id="code-title">누수 방지는 파이프라인의 위치로 드러나요</h2>
+      <p class="eyebrow">핵심 코드</p><h2 id="code-title">누수 방지는 파이프라인의 위치로 드러난다</h2>
       <pre><code>numeric = Pipeline([
     ("impute", SimpleImputer(strategy="median")),
     ("scale", StandardScaler()),
@@ -64,31 +80,33 @@ cv_auc = cross_val_score(
     cv=StratifiedKFold(5, shuffle=True, random_state=42),
     scoring="roc_auc",
 ).mean()</code></pre>
-      <p>전체 자료를 먼저 <code>fit_transform</code>한 뒤 교차검증하는 코드보다 길지만, 평가 폴드가 중앙값과 스케일에 들어가지 않는다는 계약이 코드 구조에 남습니다.</p>
+      <p>전체 자료를 먼저 <code>fit_transform</code>한 뒤 교차검증하는 코드보다 길지만, 평가 폴드가 중앙값과 스케일에 들어가지 않는다는 계약이 코드 구조에 남는다.</p>
     </section>
 
     <section id="checks" aria-labelledby="checks-title">
-      <p class="eyebrow">실행 뒤 질문</p><h2 id="checks-title">점수보다 먼저 네 가지를 설명해 보세요</h2>
+      <p class="eyebrow">실행 뒤 질문</p><h2 id="checks-title">점수보다 먼저 네 가지를 설명한다</h2>
       <ol class="questions">
         <li>악성을 양성 1로 바꾼 이유와 F1의 양성 방향은 무엇인가?</li>
         <li>시험 자료가 모형 선택이나 전처리 기준에 들어가지 않은 근거는 어디에 있는가?</li>
         <li>로지스틱 회귀와 랜덤 포레스트의 교차검증 점수 차이가 작다면 무엇을 더 비교할 것인가?</li>
         <li>0.5 임계값을 바꾸려면 어떤 오류비용과 처리 용량이 필요한가?</li>
       </ol>
-      <aside class="warning"><h3>점수가 높아도 의료 모형이 되는 것은 아니에요</h3><p>내장 자료의 임의 분할 점수는 코드 흐름을 확인하는 값입니다. 실제 적용에는 외부 검증, 모집단·측정 차이, 보정, 하위집단 성능, 임상적 유용성과 안전 검토가 더 필요합니다.</p></aside>
+      <aside class="warning"><h3>점수가 높아도 의료 모형이 되는 것은 아니다</h3><p>내장 자료의 임의 분할 점수는 코드 흐름을 확인하는 값이다. 실제 적용에는 외부 검증, 모집단·측정 차이, 보정, 하위집단 성능, 임상적 유용성과 안전 검토가 더 필요하다.</p></aside>
     </section>
 
     <section id="sources" aria-labelledby="sources-title">
-      <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식 문서</h2>
+      <p class="eyebrow">근거와 더 읽을 거리</p><h2 id="sources-title">공식 자료와 실행 문서</h2>
       <ul class="sources">
         <li><a href="https://www.dataq.or.kr/www/sub/a_07.do">DATAQ · 빅데이터분석기사 출제범위</a> — 분석 실무의 수집·가공·모형·평가·저장 범위.</li>
+        <li><a href="https://dataq.goorm.io/exam/3/%EC%B2%B4%ED%97%98%ED%95%98%EA%B8%B0/quiz/1">DATAQ · 실기 체험환경</a> — Chrome 기반 CBT 조작과 실행 환경.</li>
+        <li><a href="https://kr.object.gov-ncloudstorage.com/dataq/dataq-10th/%5BK-DATA%5D%20%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EA%B8%B0%EC%82%AC%20%EC%8B%A4%EA%B8%B0%20%EC%B2%B4%ED%97%98%ED%99%98%EA%B2%BD%20%EA%B0%80%EC%9D%B4%EB%93%9C_250605.pdf">DATAQ · 실기 체험환경 가이드(PDF)</a> — 언어 선택·실행 제한·제출 조건.</li>
         <li><a href="https://pandas.pydata.org/pandas-docs/stable/reference/io.html">pandas · Input/output</a> — CSV 읽기와 저장.</li>
         <li><a href="https://scikit-learn.org/stable/common_pitfalls.html">scikit-learn · Common pitfalls</a> — 전처리 누수와 파이프라인.</li>
         <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html">scikit-learn · Breast cancer dataset</a> — 예제 자료의 변수와 목표 정의.</li>
       </ul>
     </section>
 
-    <nav class="bottom-nav" aria-label="교재 이동"><a href="../index.html">← 교재 홈</a><a href="../review/modeling-challenge.html">모델링 집중훈련 →</a></nav>
+    <nav class="bottom-nav" aria-label="교재 이동"><a href="../index.html">← 학습 홈</a><a href="../review/modeling-challenge.html">모델링 집중훈련 →</a></nav>
   </main>
   <footer><div class="page narrow"><p>빅데이터분석기사 · 필기와 실기를 잇는 파이프라인</p></div></footer>
   <script src="../study.js" defer></script>

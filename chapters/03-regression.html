@@ -13,11 +13,11 @@
   <header class="chapter-hero">
     <div class="page narrow">
       <nav class="breadcrumb" aria-label="현재 위치">
-        <a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>3과목</span>
+        <a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>3과목</span>
       </nav>
       <p class="eyebrow">03-02 · 분석기법 적용</p>
       <h1>회귀분석과 로지스틱 회귀분석</h1>
-      <p class="lede">이름에 끌려가지 말고 목표변수부터 보세요. 연속값이면 회귀, 범주면 분류 문제예요.</p>
+      <p class="lede">모형 이름보다 목표변수의 형태가 우선이다. 연속값 예측은 회귀, 범주 예측은 분류 문제로 구분한다.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 35분</li>
         <li>필기 + Python 연결</li>
@@ -41,8 +41,8 @@
   <main id="main" class="page narrow stack">
     <section class="panel objectives" aria-labelledby="objectives-title">
       <p class="eyebrow">공식 범위 · 회귀분석과 로지스틱 회귀분석</p>
-      <h2 id="objectives-title">이 단원을 마치면</h2>
-      <p>회귀분석과 로지스틱 회귀분석을 목표변수, 식, 손실함수와 계수 해석을 기준으로 비교해 봐요.</p>
+      <h2 id="objectives-title">목표변수·식·손실함수·계수 해석</h2>
+      <p>회귀분석과 로지스틱 회귀분석을 목표변수, 식, 손실함수와 계수 해석을 기준으로 비교한다.</p>
       <ul class="check-list">
         <li>목표변수의 형태로 두 모형을 구분한다.</li>
         <li>선형식이 로지스틱 확률로 바뀌는 과정을 설명한다.</li>
@@ -53,7 +53,7 @@
 
     <section id="precheck" aria-labelledby="precheck-title">
       <p class="eyebrow">3분 · 사전 점검</p>
-      <h2 id="precheck-title">읽기 전에 답해보기</h2>
+      <h2 id="precheck-title">목표변수부터 구분하기</h2>
       <ol class="questions">
         <li>아파트 가격을 예측할 때와 대출 연체 여부를 예측할 때 각각 어떤 모형을 고를까?</li>
         <li>로지스틱 회귀는 이름에 ‘회귀’가 있는데 왜 분류 모형일까?</li>
@@ -118,7 +118,7 @@
           <var>β<sub>j</sub></var>만큼 변한다. 이 직접적인 단위 해석이 선형회귀의 장점이다.
         </p>
         <aside class="callout compact">
-          <strong>함정:</strong> ‘선형’은 설명변수의 모양이 반드시 직선이라는 뜻이 아니라
+          <strong>시험에서 묻는 경계:</strong> ‘선형’은 설명변수의 모양이 반드시 직선이라는 뜻이 아니라
           <strong>미지의 계수에 대해 선형</strong>이라는 뜻이다. <var>x</var><sup>2</sup>을 변수로 넣어도
           계수가 선형으로 결합되면 선형모형이다.
         </aside>
@@ -181,8 +181,8 @@
           로그손실이 크게 증가한다.
         </p>
         <aside class="callout compact">
-          <strong>여기서 많이 헷갈려요:</strong> 두 모형은 모두 입력의 선형결합에서 출발하지만 ‘무엇과 비교해
-          오차를 줄이는가’가 달라요. 선형회귀는 수치 잔차를, 로지스틱 회귀는 클래스 확률의 로그손실을 봅니다.
+          <strong>구분 기준 · 두 회귀모형:</strong> 두 모형은 모두 입력의 선형결합에서 출발하지만 ‘무엇과 비교해
+          오차를 줄이는가’가 다르다. 선형회귀는 수치 잔차를, 로지스틱 회귀는 클래스 확률의 로그손실을 본다.
         </aside>
       </article>
 
@@ -248,7 +248,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">5분 · 선택지 변별</p>
-      <h2 id="quiz-title">10문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <h2 id="quiz-title">10문제로 두 회귀모형 구분하기</h2>
       <ol class="quiz-list">
         <li>
           <p>고객의 다음 달 구매금액을 예측하는 데 가장 직접적으로 맞는 모형은?</p>
@@ -328,9 +328,9 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">2분+ · Python 연결</p>
-      <h2 id="practice-title">같은 선형식이 어떻게 다른 출력이 되는지 확인해 봐요</h2>
+      <h2 id="practice-title">같은 선형식에서 연속값·확률 출력 비교</h2>
       <p>
-        아래 예제에서는 표준 라이브러리만 사용해 선형 예측과 시그모이드 변환을 직접 확인해요.
+        아래 예제는 표준 라이브러리만 사용해 선형 예측과 시그모이드 변환을 계산한다.
         <a href="../examples/regression_demo.py" download>실행 파일 내려받기</a>
       </p>
       <pre><code>from math import exp
@@ -365,6 +365,17 @@ probability = clf.predict_proba(X_test)[:, 1]</code></pre>
         막힌 부분만 위로 돌아가 다시 확인한다.
       </p>
     </section>
+
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>전제</strong><span><a href="03-model-design.html#split">학습·검증·시험 데이터 분할</a></span></li>
+        <li><strong>적용</strong><span><a href="02-preprocessing.html#transform">표준화·인코딩과 규제 회귀</a></span></li>
+        <li><strong>비교</strong><span><a href="03-classification.html#compare">분류 경계를 만드는 세 가지 방식</a></span></li>
+        <li><strong>평가</strong><span><a href="04-evaluation-improvement.html#other-metrics">회귀 오차 지표와 벌점 모양</a></span></li>
+        <li><strong>평가</strong><span><a href="04-evaluation-improvement.html#inference-fusion">계수 유의성과 예측성능의 차이</a></span></li>
+      </ul>
+    </aside>
 
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 추가 학습</p>

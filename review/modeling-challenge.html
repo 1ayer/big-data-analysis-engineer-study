@@ -3,37 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="빅데이터분석기사 3과목의 모형 선택, 누수, 회귀, 분류, 군집과 앙상블을 연결한 종합문제 20개">
-  <title>3과목 모델링 집중훈련 20문제</title>
+  <meta name="description" content="목표변수, 분할 경계, 모형 가정, 평가 순서로 푸는 빅데이터분석기사 3과목 자체 제작 연습문제 20개">
+  <title>모델링 판단 훈련 20문제</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
       <p class="eyebrow">집중훈련 · 3과목</p>
-      <h1>모형 이름보다 선택 근거를 묻는 20문제</h1>
-      <p class="lede">목표변수, 자료 구조, 누수 경계와 평가지표를 한꺼번에 판단해 보세요. 계산보다 “왜 이 선택인가”를 말하는 훈련입니다.</p>
+      <h1>목표변수에서 평가까지, 모델링 판단 20문제</h1>
+      <p class="lede">각 문항을 목표변수 → 분할 경계 → 모형 가정 → 평가 순서로 풀어 보세요. 모형 이름을 외우는 대신 선택 근거를 복원하도록 구성한 자체 제작 연습문제다.</p>
       <ul class="tags" aria-label="자료 정보"><li>20문제</li><li>약 35분</li><li>선택지별 해설</li></ul>
     </div>
   </header>
 
-  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#use">사용법</a><a href="#quiz">20문제</a><a href="#check">복습법</a><a href="#sources">출처</a></div></nav>
+  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#use">판단 순서</a><a href="#quiz">20문제</a><a href="#check">오답 교정</a><a href="#related">관련 개념</a><a href="#sources">출처</a></div></nav>
 
   <main id="main" class="page narrow stack">
     <section id="use" class="panel objectives" aria-labelledby="use-title">
-      <p class="eyebrow">사용법</p><h2 id="use-title">정답보다 판단 순서를 먼저 적으세요</h2>
+      <p class="eyebrow">풀이 순서</p><h2 id="use-title">네 단계로 선택 근거를 확인하세요</h2>
       <ol class="steps">
-        <li><strong>출력</strong><span>연속값·범주·확률·군집 중 무엇이 필요한지 정해요.</span></li>
-        <li><strong>경계</strong><span>한 사람·장비·시간의 정보가 분할을 넘는지 확인해요.</span></li>
-        <li><strong>가정</strong><span>거리·선형성·밀도·독립성 등 후보 모형의 조건을 찾아요.</span></li>
-        <li><strong>검증</strong><span>업무 오류비용에 맞는 지표와 독립 평가 구조를 골라요.</span></li>
+        <li><strong>목표변수</strong><span>필요한 출력이 연속값·범주·확률·군집 중 무엇인지 정하세요.</span></li>
+        <li><strong>분할 경계</strong><span>같은 사람·장비·시간의 정보가 학습과 평가에 함께 들어가는지 확인하세요.</span></li>
+        <li><strong>모형 가정</strong><span>거리·선형성·밀도·독립성 등 후보 모형이 기대하는 조건을 찾으세요.</span></li>
+        <li><strong>평가</strong><span>업무의 오류비용에 맞는 지표를 고르고 독립 평가가 유지되는지 확인하세요.</span></li>
       </ol>
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">3과목 · 종합 적용</p><h2 id="quiz-title">20문제로 모델링 판단을 연결해 봐요</h2>
+      <p class="eyebrow">자체 제작 연습문제 · 3과목</p><h2 id="quiz-title">판단 순서를 적용하는 20문제</h2>
+      <p>공식 출제범위의 개념을 연결해 만든 연습문제이며 실제 기출문제가 아니다. 답을 고르기 전에 네 단계의 근거를 한 줄로 적어 보세요.</p>
       <ol class="quiz-list">
         <li><p>다음 달 고객별 지출액을 예측하려 한다. 가장 먼저 분류할 문제와 평가 설계는?</p><ol class="choices" type="A"><li>연속 목표의 회귀, 시간 기준 이후 자료로 평가</li><li>범주 목표의 분류, 전체 자료로 학습 점수만 계산</li><li>정답 없는 군집, 고객 ID로 거리 계산</li><li>연관규칙, 지지도가 가장 큰 규칙만 선택</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 지출액은 연속 목표라 회귀가 출발점이며 미래 적용을 흉내 낸 시간 분할이 자연스럽다. B는 문제 유형과 평가가 모두 틀리고, C·D는 요구 출력과 다르다.</p></details></li>
         <li><p>한 환자에게 여러 방문 기록이 있다. 행을 무작위로 나눠 질병 분류를 평가할 때의 핵심 위험은?</p><ol class="choices" type="A"><li>같은 환자 정보가 학습과 검증에 함께 들어가는 그룹 누수</li><li>검증 자료가 너무 오래된 시계열 누수만 발생</li><li>목표변수가 자동으로 연속형이 됨</li><li>교차검증을 하면 언제나 해결됨</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 환자 고유 특성을 외운 모형이 새 환자 성능처럼 보일 수 있어 환자 단위 그룹 분할을 쓴다. D는 어떤 교차검증인지가 중요하다.</p></details></li>
@@ -59,8 +60,20 @@
     </section>
 
     <section id="check" class="panel finish" aria-labelledby="check-title">
-      <p class="eyebrow">채점 뒤</p><h2 id="check-title">틀린 문제는 모형명이 아니라 경계 문장으로 고쳐요</h2>
-      <p>“이 문제의 출력은 ___이고, 분할 단위는 ___이며, ___ 정보는 예측 시점에 없어서 쓰면 안 된다”를 한 문장으로 적어 보세요. 반복해서 헷갈린 문항은 별표로 Anki 후보에 저장하면 됩니다.</p>
+      <p class="eyebrow">채점 뒤</p><h2 id="check-title">오답은 판단이 끊긴 단계에서 고친다</h2>
+      <p>틀린 문항마다 “목표변수는 ___, 분할 단위는 ___, 모형의 핵심 가정은 ___, 평가 기준은 ___”를 채워 보세요. 예측 시점에 알 수 없는 정보가 있다면 그 경계도 덧붙이세요. 반복해서 헷갈린 문항은 별표로 Anki 후보에 저장하세요.</p>
+    </section>
+
+    <section id="related" class="panel" aria-labelledby="related-title">
+      <p class="eyebrow">관련 개념</p><h2 id="related-title">판단이 막힌 단계로 돌아가기</h2>
+      <ul class="sources">
+        <li><a href="../chapters/03-model-design.html#map"><strong>전제 · 문제 유형과 모형 연결</strong></a> — 목표변수와 필요한 출력에서 후보 모형을 좁힌다.</li>
+        <li><a href="../chapters/03-model-design.html#split"><strong>전제 · 데이터 분할과 누수 경계</strong></a> — 시간·그룹·전처리 단위가 평가를 오염시키는지 확인한다.</li>
+        <li><a href="../chapters/03-regression.html#compare"><strong>비교 · 회귀 모형의 선택 기준</strong></a> — 연속 목표와 선형성·규제 가정을 함께 본다.</li>
+        <li><a href="../chapters/03-classification.html#compare"><strong>비교 · 분류 경계를 만드는 방식</strong></a> — 나무·신경망·SVM의 경계와 조건을 구분한다.</li>
+        <li><a href="../chapters/03-unsupervised-advanced.html#clustering"><strong>적용 · 거리와 밀도 기반 군집</strong></a> — 스케일·이상값·군집 모양에 맞는 방법을 고른다.</li>
+        <li><a href="../chapters/04-evaluation-improvement.html#design"><strong>평가 · 오류비용과 지표 선택</strong></a> — 업무 목표를 측정 가능한 평가 기준으로 바꾼다.</li>
+      </ul>
     </section>
 
     <section id="sources" aria-labelledby="sources-title">

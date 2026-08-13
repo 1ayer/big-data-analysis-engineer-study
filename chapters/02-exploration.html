@@ -12,10 +12,10 @@
 
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>2과목</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>2과목</span></nav>
       <p class="eyebrow">02-02 · 데이터 탐색</p>
-      <h1>요약값 하나만 보고 결론 내리지 마세요</h1>
-      <p class="lede">그래프와 집단별 분포, 변수 사이 관계를 함께 보며 다음에 무엇을 확인할지 찾아봐요.</p>
+      <h1>탐색적 데이터 분석과 변수 관계</h1>
+      <p class="lede">요약값만으로는 분포의 형태를 알 수 없다. 그래프·집단별 분포·변수 관계를 함께 보며 확인할 가설과 반례를 찾는다.</p>
       <ul class="tags" aria-label="단원 정보"><li>약 60분</li><li>회상 15개</li><li>문제 15개</li><li>Python 연결</li></ul>
     </div>
   </header>
@@ -32,7 +32,7 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 데이터 탐색</p>
       <h2 id="scope-title">EDA·기초통계·시각화·변수 관계</h2>
-      <p>여기서는 탐색적 데이터 분석의 목적과 절차부터 변수 유형, 분포 요약, 그래프 선택, 상관관계와 집단 비교까지 살펴봐요.</p>
+      <p>탐색적 데이터 분석의 목적과 절차, 변수 유형, 분포 요약, 그래프 선택, 상관관계와 집단 비교를 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>측정척도와 변수 수에 맞는 요약값·그래프를 선택한다.</li>
@@ -66,7 +66,7 @@
         <li><strong>6. 다음 단계</strong><span>전처리·가설·모형 후보</span></li>
       </ol>
       <p>탐색적 데이터 분석(EDA)은 계산표 하나가 아니라 데이터의 구조를 드러내고, 이상 현상을 찾고, 모형 가정을 점검하고, 단순한 설명 후보를 만드는 접근이다. 그래프를 중심에 두되 숫자 요약과 업무 맥락을 함께 사용한다.</p>
-      <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> EDA는 답을 확정하는 단계가 아니라 다음 질문을 만드는 단계예요. 흥미로운 패턴을 찾았다면 독립된 자료나 추론 절차로 다시 확인해야 합니다.</aside>
+      <aside class="callout compact"><strong>해석 범위:</strong> EDA는 답을 확정하는 단계가 아니라 다음 질문을 만드는 단계다. 흥미로운 패턴은 독립된 자료나 추론 절차로 다시 확인해야 한다.</aside>
     </section>
 
     <section id="univariate" aria-labelledby="univariate-title">
@@ -182,7 +182,7 @@
             </tbody>
           </table>
         </div>
-        <aside class="callout compact"><strong>여기서 많이 헷갈려요:</strong> x가 늘 때 y도 늘지만 증가 폭이 곡선이라면 스피어만은 1에 가깝고 피어슨은 더 작을 수 있어요. 하나는 순서가 함께 오르는지, 다른 하나는 직선에 얼마나 가까운지를 보기 때문입니다.</aside>
+        <aside class="callout compact"><strong>구분 기준 · 피어슨과 스피어만:</strong> x가 늘 때 y도 늘지만 증가 폭이 곡선이라면 스피어만은 1에 가깝고 피어슨은 더 작을 수 있다. 하나는 순서가 함께 오르는지, 다른 하나는 직선에 얼마나 가까운지를 보기 때문이다.</aside>
       </article>
 
       <article class="concept">
@@ -254,7 +254,7 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <p class="eyebrow">15분 · 자체 제작 문제</p><h2 id="quiz-title">15문제로 탐색 결과의 해석 범위 확인하기</h2>
       <ol class="quiz-list">
         <li><p>순서는 있지만 등급 사이 간격이 같다고 보장하지 않는 척도는?</p><ol class="choices" type="A"><li>명목</li><li>서열</li><li>등간</li><li>비율</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 서열척도는 순위만 보장한다. 명목은 순서가 없고 등간·비율은 동일 간격까지 갖는다.</p></details></li>
         <li><p>섭씨 온도가 등간척도인 주된 이유는?</p><ol class="choices" type="A"><li>순서가 없다.</li><li>0도가 온도의 완전한 부재다.</li><li>간격은 같지만 절대 0이 아니다.</li><li>명목 범주이기 때문이다.</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 온도 차이는 해석할 수 있지만 섭씨 0은 열에너지의 부재가 아니어서 비율 해석이 안 된다.</p></details></li>
@@ -275,7 +275,7 @@
     </section>
 
     <section id="practice" aria-labelledby="practice-title">
-      <p class="eyebrow">5분+ · Python 연결</p><h2 id="practice-title">중심·산포·상관을 직접 계산해 봐요</h2>
+      <p class="eyebrow">5분+ · Python 연결</p><h2 id="practice-title">중심·산포·상관 계산</h2>
       <p>표준 라이브러리 예제는 평균·중앙값·표본분산·사분위수·공분산·피어슨 상관을 확인한다. <a href="../examples/exploration_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>from statistics import mean, median, quantiles, stdev, variance
 
@@ -286,6 +286,16 @@ spread = variance(values), stdev(values), q3 - q1</code></pre>
     </section>
 
     <section class="panel finish" aria-labelledby="finish-title"><p class="eyebrow">마무리</p><h2 id="finish-title">30초 EDA 설명</h2><p>“변수 척도 확인 → 단변량 중심·산포·형태 → 결측·이상 후보 → 변수·집단 관계 → 그래프로 반례 확인 → 다음 가설” 순서로 말한다.</p></section>
+
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>전제</strong><span><a href="02-preprocessing.html#quality">결측·이상·중복의 처리 기준</a></span></li>
+        <li><strong>평가</strong><span><a href="02-statistics.html#testing">탐색 패턴을 확인하는 가설검정</a></span></li>
+        <li><strong>적용</strong><span><a href="03-unsupervised-advanced.html#clustering">거리와 분포를 이용한 군집분석</a></span></li>
+        <li><strong>평가</strong><span><a href="04-interpretation-utilization.html#communicate">질문에 맞는 결과 시각화와 보고</a></span></li>
+      </ul>
+    </aside>
 
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 추가 학습</p><h2 id="sources-title">이 단원을 만든 자료</h2>

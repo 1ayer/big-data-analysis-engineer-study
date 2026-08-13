@@ -13,11 +13,11 @@
   <header class="chapter-hero">
     <div class="page narrow">
       <nav class="breadcrumb" aria-label="현재 위치">
-        <a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>3과목</span>
+        <a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>3과목</span>
       </nav>
       <p class="eyebrow">03-04 · 분석기법 적용</p>
       <h1>연관성·군집·고급 분석기법</h1>
-      <p class="lede">정답표가 없을 때 어떤 구조를 찾을 수 있는지, 데이터 형태에 따라 어떤 기법을 고를지 살펴봐요.</p>
+      <p class="lede">정답표가 없는 데이터에서는 연관·군집·차원 구조를 찾고, 데이터 형태와 분석 목적에 따라 기법을 선택한다.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 55분</li>
         <li>회상 15개</li>
@@ -47,7 +47,7 @@
       <h2 id="scope-title">비지도 구조와 데이터별 확장</h2>
       <p>
         연관성분석과 군집분석을 먼저 익힌 뒤, 범주형·다변량·시계열·베이지안·딥러닝·비정형·앙상블·
-        비모수 분석을 언제, 어떤 데이터에 쓰는지를 중심으로 살펴봐요.
+        비모수 분석을 언제, 어떤 데이터에 쓰는지를 중심으로 다룬다.
       </p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
@@ -109,8 +109,8 @@
           </table>
         </div>
         <aside class="callout compact">
-          <strong>여기서 많이 헷갈려요:</strong> Y 자체가 매우 흔하면 X가 없어도 Y가 자주 나타나요. 그래서 높은
-          신뢰도만 보고 특별한 규칙이라고 결론 내리면 안 돼요. Y의 기본 빈도를 나눈 향상도를 함께 봐야 합니다.
+          <strong>해석 범위 · 신뢰도:</strong> Y 자체가 매우 흔하면 X가 없어도 Y가 자주 나타난다. 그래서 높은
+          신뢰도만 보고 특별한 규칙이라고 결론 내리면 안 된다. Y의 기본 빈도를 나눈 향상도를 함께 보아야 한다.
         </aside>
       </article>
 
@@ -203,8 +203,8 @@
           가능성을 뜻한다. 다만 실루엣은 볼록한 군집을 선호할 수 있어 알고리즘의 군집 개념과 함께 본다.
         </p>
         <aside class="callout compact">
-          <strong>여기서 많이 헷갈려요:</strong> 군집의 “정답”은 알고리즘 밖의 목적에서 나와요. 내부 점수가 좋아도
-          마케팅에서 해석하거나 행동으로 옮길 수 없다면 쓸모가 작아요. 통계적 응집도와 업무적 의미를 함께 봐야 합니다.
+          <strong>평가 기준 · 군집의 유용성:</strong> 군집의 “정답”은 알고리즘 밖의 목적에서 나온다. 내부 점수가 좋아도
+          마케팅에서 해석하거나 행동으로 옮길 수 없다면 쓸모가 작다. 통계적 응집도와 업무적 의미를 함께 보아야 한다.
         </aside>
       </article>
     </section>
@@ -354,7 +354,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">15분 · 자체 제작 문제</p>
-      <h2 id="quiz-title">15문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <h2 id="quiz-title">15문제로 비지도 기법의 가정 확인하기</h2>
       <ol class="quiz-list">
         <li>
           <p>100건 중 X 25건, Y 40건, 동시 발생 10건일 때 X→Y의 신뢰도는?</p>
@@ -436,7 +436,7 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">3분+ · Python 연결</p>
-      <h2 id="practice-title">연관지표의 분모와 최근접 중심을 확인해 봐요</h2>
+      <h2 id="practice-title">연관지표의 분모와 최근접 중심 계산</h2>
       <p>
         표준 라이브러리 예제는 지지도·신뢰도·향상도를 직접 계산하고, 두 중심 중 가까운 중심을 찾는다.
         <a href="../examples/unsupervised_math_demo.py" download>실행 파일 내려받기</a>
@@ -458,6 +458,16 @@ labels = model.fit_predict(X)</code></pre>
       <h2 id="finish-title">한 장 지도 다시 그리기</h2>
       <p>“거래 규칙 → 거리·밀도 군집 → 데이터 형태별 고급기법” 순서로 각 기법의 입력·목표·핵심 가정을 말한다.</p>
     </section>
+
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>전제</strong><span><a href="02-exploration.html#relations">상관과 변수 관계 탐색</a></span></li>
+        <li><strong>적용</strong><span><a href="02-preprocessing.html#transform">척도 변환과 차원 축소</a></span></li>
+        <li><strong>비교</strong><span><a href="03-classification.html#compare">정답이 있는 분류와 결정경계</a></span></li>
+        <li><strong>평가</strong><span><a href="04-evaluation-improvement.html#other-metrics">군집 내부지표와 업무 유용성</a></span></li>
+      </ul>
+    </aside>
 
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 추가 학습</p>

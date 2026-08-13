@@ -28,9 +28,12 @@ class PageParser(HTMLParser):
         self.source_links = 0
         self.misconception_slots = 0
         self.misconception_fields = 0
+        self.data_attrs = set()
+        self.text_parts = []
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        self.data_attrs.update(key for key in values if key.startswith("data-"))
         frame = (tag, values)
         if tag == "html":
             self.lang = values.get("lang")
@@ -80,6 +83,8 @@ class PageParser(HTMLParser):
                 break
 
     def handle_data(self, data):
+        if data.strip():
+            self.text_parts.append(data.strip())
         if self.in_title and data.strip():
             self.has_title = True
 
@@ -95,8 +100,8 @@ def check():
     parsed = {path: parse_page(path) for path in pages}
     errors = []
 
-    if len(pages) != 19:
-        errors.append(f"HTML {len(pages)}개(보강본은 정확히 19개 필요)")
+    if len(pages) != 20:
+        errors.append(f"HTML {len(pages)}개(학습 사이트는 정확히 20개 필요)")
 
     for path, page in parsed.items():
         label = path.relative_to(ROOT)
@@ -126,6 +131,28 @@ def check():
                 count = page.quiz_by_subject.get(subject, 0)
                 if count != 20:
                     errors.append(f"{label}: {subject}과목 {count}개(정확히 20개 필요)")
+            timer_attrs = {
+                "data-mock-timer", "data-mock-timer-display", "data-mock-timer-start",
+                "data-mock-timer-pause", "data-mock-timer-reset", "data-mock-timer-status",
+            }
+            if not timer_attrs.issubset(page.data_attrs):
+                errors.append(f"{label}: 120분 타이머 연결 속성이 모두 필요합니다")
+
+        text = " ".join(page.text_parts)
+        if path.name == "index.html" and "data-study-dashboard" not in page.data_attrs:
+            errors.append(f"{label}: 학습 현황 대시보드가 필요합니다")
+
+        if path.name == "exam-guide.html":
+            if page.source_links < 5:
+                errors.append(f"{label}: 공식 시험 자료 링크 {page.source_links}개(최소 5개)")
+            for value in ("09:30", "10:00~12:00", "11:00부터", "10:00~13:00", "11:30부터", "10:30부터"):
+                if value not in text:
+                    errors.append(f"{label}: 시험시간 정보 {value}가 필요합니다")
+
+        if path.name == "practical-pipeline.html":
+            for value in ("Chrome 기반 CBT", "실행 시간은 1분", "추가 패키지를 설치할 수 없다", "출제 경향을 보장하지 않는다"):
+                if value not in text:
+                    errors.append(f"{label}: 공식 실기 환경 안내 '{value}'가 필요합니다")
 
         expected_quizzes = {"modeling-challenge.html": 20, "formula-drills.html": 15}
         if path.name in expected_quizzes and page.quiz_count != expected_quizzes[path.name]:
@@ -170,6 +197,9 @@ def check():
         (".card-save-button", "카드 후보 버튼"),
         (".card-dialog", "저장 카드 목록"),
         (".misconception-slot", "오개념 교정 기록"),
+        (".study-dashboard", "학습 현황 대시보드"),
+        (".study-record", "학습일 기록"),
+        ("[data-mock-timer-display]", "모의고사 타이머"),
     ):
         if token not in css:
             errors.append(f"styles.css: {label} 규칙이 필요합니다")
@@ -182,6 +212,16 @@ def check():
         for token in ("Pipeline", "ColumnTransformer", "train_test_split", "cross_val_score", "to_csv"):
             if token not in code:
                 errors.append(f"examples/practical_pipeline.py: {token} 단계가 필요합니다")
+
+    study_script = (ROOT / "study.js").read_text(encoding="utf-8")
+    for token, label in (
+        ("bigdata-study-data-v1", "통합 학습 기록 저장"),
+        ("localDateString", "현지 날짜 처리"),
+        ("makeStudyBackup", "통합 JSON 백업"),
+        ("setupMockTimer", "120분 타이머 동작"),
+    ):
+        if token not in study_script:
+            errors.append(f"study.js: {label} 구현이 필요합니다")
 
     if errors:
         raise SystemExit("\n".join(errors))

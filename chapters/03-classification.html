@@ -13,11 +13,11 @@
   <header class="chapter-hero">
     <div class="page narrow">
       <nav class="breadcrumb" aria-label="현재 위치">
-        <a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>3과목</span>
+        <a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>3과목</span>
       </nav>
       <p class="eyebrow">03-03 · 분석기법 적용</p>
       <h1>의사결정나무·신경망·SVM</h1>
-      <p class="lede">나무는 공간을 나누고, 신경망은 표현을 쌓으며, SVM은 경계의 여백을 넓혀요. 세 모형의 차이를 그림처럼 떠올려 봅시다.</p>
+      <p class="lede">나무는 공간을 분할하고, 신경망은 표현을 층으로 학습하며, SVM은 결정경계의 여백을 최대화한다.</p>
       <ul class="tags" aria-label="단원 정보">
         <li>약 45분</li>
         <li>회상 12개</li>
@@ -46,7 +46,7 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 분석기법 적용</p>
       <h2 id="scope-title">세 분류기의 원리와 선택 기준</h2>
-      <p>여기서는 의사결정나무, 인공신경망, 서포트벡터머신의 구조와 주요 하이퍼파라미터, 장단점을 비교해 봐요.</p>
+      <p>의사결정나무, 인공신경망, 서포트벡터머신의 구조와 주요 하이퍼파라미터, 장단점을 비교한다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>지니 불순도와 엔트로피가 순수한 노드에서 어떻게 변하는지 말한다.</li>
@@ -83,8 +83,8 @@
         </table>
       </div>
       <aside class="callout compact">
-        <strong>여기서 많이 헷갈려요:</strong> 세 모형을 이름만 외우기보다 “어떤 경계를 만들고, 그 복잡성을
-        무엇으로 조절하는가?”로 묶으면 하이퍼파라미터도 자연스럽게 연결돼요.
+        <strong>구분 기준 · 결정경계:</strong> 세 모형을 이름만 외우기보다 “어떤 경계를 만들고, 그 복잡성을
+        무엇으로 조절하는가?”로 묶으면 하이퍼파라미터도 자연스럽게 연결된다.
       </aside>
     </section>
 
@@ -171,8 +171,8 @@
           </table>
         </div>
         <aside class="callout compact">
-          <strong>여기서 많이 헷갈려요:</strong> 활성화가 모두 항등함수라면 연속된 선형변환은 결국 하나의
-          선형변환으로 합쳐져요. 비선형 활성화가 있어야 층을 쌓아 복잡한 경계를 표현할 수 있습니다.
+          <strong>오해하기 쉬운 지점 · 활성화함수:</strong> 활성화가 모두 항등함수라면 연속된 선형변환은 결국 하나의
+          선형변환으로 합쳐진다. 비선형 활성화가 있어야 층을 쌓아 복잡한 경계를 표현할 수 있다.
         </aside>
       </article>
 
@@ -297,7 +297,7 @@
 
     <section id="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">12분 · 자체 제작 문제</p>
-      <h2 id="quiz-title">12문제로 헷갈리는 선택지를 골라내 봐요</h2>
+      <h2 id="quiz-title">12문제로 분류기 선택 기준 확인하기</h2>
       <ol class="quiz-list">
         <li>
           <p>분류나무의 한 노드에 클래스 A만 존재한다. 지니 불순도는?</p>
@@ -364,7 +364,7 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">3분+ · Python 연결</p>
-      <h2 id="practice-title">공식이 움직이는 방향을 확인해 봐요</h2>
+      <h2 id="practice-title">불순도·활성화·마진의 변화 확인</h2>
       <p>
         표준 라이브러리 예제는 지니·엔트로피, RBF 커널, ReLU를 계산하고 경계값을
         <code>assert</code>한다. <a href="../examples/classification_math_demo.py" download>실행 파일 내려받기</a>
@@ -386,6 +386,16 @@ model.fit(X_train, y_train)</code></pre>
       <h2 id="finish-title">세 문장으로 비교하기</h2>
       <p>각 모형에 대해 “경계 생성 원리 → 복잡성 조절값 → 대표 장단점”을 한 문장씩 말한다.</p>
     </section>
+
+    <aside class="panel compact" aria-labelledby="related-title">
+      <p class="eyebrow">개념 연결</p><h2 id="related-title">함께 볼 개념</h2>
+      <ul class="steps">
+        <li><strong>전제</strong><span><a href="03-model-design.html#map">목표변수와 모형 후보 선정</a></span></li>
+        <li><strong>적용</strong><span><a href="02-preprocessing.html#transform">분류 전 표준화·범주형 인코딩</a></span></li>
+        <li><strong>비교</strong><span><a href="03-regression.html#compare">로지스틱 회귀의 확률 경계</a></span></li>
+        <li><strong>평가</strong><span><a href="04-evaluation-improvement.html#classification">혼동행렬·ROC-AUC·PR 곡선</a></span></li>
+      </ul>
+    </aside>
 
     <section id="sources" aria-labelledby="sources-title">
       <p class="eyebrow">근거와 추가 학습</p>

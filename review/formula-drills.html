@@ -3,38 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="빅데이터분석기사 필기시험의 전처리, 확률, 통계, 평가와 군집 공식을 계산기 없이 연습하는 15문제">
-  <title>계산기 없이 푸는 공식훈련 15문제</title>
+  <meta name="description" content="분모, 기준집단, 단위, 검산 순서로 푸는 빅데이터분석기사 자체 제작 공식 연습문제 15개">
+  <title>분모와 단위로 푸는 공식훈련 15문제</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 건너뛰기</a>
   <header class="chapter-hero">
     <div class="page narrow">
-      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">교재 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
+      <nav class="breadcrumb" aria-label="현재 위치"><a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>종합복습</span></nav>
       <p class="eyebrow">집중훈련 · 공식과 계산</p>
-      <h1>계산기 없이 식의 구조부터 읽어요</h1>
-      <p class="lede">숫자를 넣기 전에 분모와 기준값을 말해 보세요. 시험장에서 손으로 정리할 수 있는 계산만 15개로 묶었습니다.</p>
+      <h1>분모와 단위로 푸는 공식훈련 15문제</h1>
+      <p class="lede">공식 이름을 떠올리는 데서 멈추지 말고 분모가 가리키는 집단과 결과 단위를 먼저 확인하세요. 시험장에서 손으로 검산할 수 있도록 구성한 자체 제작 연습문제다.</p>
       <ul class="tags" aria-label="자료 정보"><li>공식 압축표</li><li>15문제</li><li>계산기 없음</li></ul>
     </div>
   </header>
 
-  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#rules">풀이 규칙</a><a href="#sheet">공식표</a><a href="#quiz">15문제</a><a href="#sources">출처</a></div></nav>
+  <nav class="chapter-nav" aria-label="자료 차례"><div class="page narrow nav-links"><a href="#rules">풀이 순서</a><a href="#sheet">공식표</a><a href="#quiz">15문제</a><a href="#check">오답 검산</a><a href="#related">관련 개념</a><a href="#sources">출처</a></div></nav>
 
   <main id="main" class="page narrow stack">
     <section id="rules" class="panel objectives" aria-labelledby="rules-title">
-      <p class="eyebrow">시험장 루틴</p><h2 id="rules-title">공식 이름 → 분모 → 단위 순으로 확인해요</h2>
+      <p class="eyebrow">시험장 풀이 순서</p><h2 id="rules-title">분모와 기준집단을 먼저 확인하세요</h2>
       <ol class="steps">
-        <li><strong>기호</strong><span>문제가 준 값이 TP인지 FP인지, 평균인지 표준편차인지 표시해요.</span></li>
-        <li><strong>분모</strong><span>“예측 양성 중”, “실제 양성 중”처럼 기준 집단을 말로 써요.</span></li>
-        <li><strong>약분</strong><span>소수로 바꾸기 전에 분수를 줄여 계산을 짧게 해요.</span></li>
-        <li><strong>검산</strong><span>확률·비율이 0~1 범위를 벗어나지 않는지, 단위가 맞는지 봐요.</span></li>
+        <li><strong>대상</strong><span>주어진 값이 TP·FP인지, 평균·표준편차인지 표시하세요.</span></li>
+        <li><strong>기준집단</strong><span>“예측 양성 중”, “실제 양성 중”처럼 분모의 대상을 말로 쓰세요.</span></li>
+        <li><strong>단위</strong><span>비율·확률·원래 목표 단위 중 결과가 무엇으로 나와야 하는지 정하세요.</span></li>
+        <li><strong>검산</strong><span>먼저 약분한 뒤 값의 범위와 단위가 정의에 맞는지 확인하세요.</span></li>
       </ol>
-      <aside class="warning"><h3>계산기 반입은 허용되지 않아요</h3><p>DATAQ 수험자 유의사항 기준으로 계산기를 사용할 수 없습니다. 복잡한 소수 계산보다 공식 선택, 약분과 크기 비교를 먼저 익혀 두세요.</p></aside>
+      <aside class="warning"><h3>계산기는 사용할 수 없다</h3><p>DATAQ 수험자 유의사항은 계산기 사용을 금지한다. 복잡한 소수 계산보다 기준집단을 식으로 옮기고 약분한 뒤 크기를 비교하는 순서를 익혀 두세요.</p></aside>
     </section>
 
     <section id="sheet" aria-labelledby="sheet-title">
-      <p class="eyebrow">공식 압축표</p><h2 id="sheet-title">분모가 뜻하는 집단을 함께 외워요</h2>
+      <p class="eyebrow">공식 압축표</p><h2 id="sheet-title">식과 기준집단을 함께 확인한다</h2>
       <article class="concept">
         <h3>전처리·확률·표본</h3>
         <div class="equation-grid">
@@ -70,7 +70,8 @@
     </section>
 
     <section id="quiz" aria-labelledby="quiz-title">
-      <p class="eyebrow">손계산 15문제</p><h2 id="quiz-title">답을 고른 뒤 한 줄 계산을 확인하세요</h2>
+      <p class="eyebrow">자체 제작 손계산 문제</p><h2 id="quiz-title">분모와 단위를 적고 15문제를 푸세요</h2>
+      <p>공식 출제범위를 바탕으로 만든 연습문제이며 실제 기출문제가 아니다. 답을 고른 뒤 해설의 한 줄 계산과 자신의 기준집단을 대조하세요.</p>
       <ol class="quiz-list">
         <li><p>평균 70, 표준편차 5인 점수에서 80의 z 점수는?</p><ol class="choices" type="A"><li>1</li><li>2</li><li>5</li><li>10</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (80−70)/5=10/5=2다. 평균보다 표준편차 두 배만큼 높다.</p></details></li>
         <li><p>최솟값 20, 최댓값 60일 때 40의 최소-최대 변환값은?</p><ol class="choices" type="A"><li>0.25</li><li>0.5</li><li>0.67</li><li>2</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> (40−20)/(60−20)=20/40=0.5다.</p></details></li>
@@ -88,6 +89,23 @@
         <li><p>한 노드의 클래스 비율이 3/4와 1/4일 때 지니 불순도는?</p><ol class="choices" type="A"><li>0.25</li><li>0.375</li><li>0.5</li><li>0.625</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 1−(3/4)²−(1/4)²=1−9/16−1/16=6/16=0.375다.</p></details></li>
         <li><p>한 점의 군집 내 평균거리 a=2, 가장 가까운 다른 군집 평균거리 b=6일 때 실루엣은?</p><ol class="choices" type="A"><li>−2/3</li><li>1/3</li><li>2/3</li><li>3</li></ol><details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> (6−2)/max(2,6)=4/6=2/3이다. 1에 가까울수록 해당 점이 자기 군집에 더 잘 모였다고 본다.</p></details></li>
       </ol>
+    </section>
+
+    <section id="check" class="panel finish" aria-labelledby="check-title">
+      <p class="eyebrow">채점 뒤</p><h2 id="check-title">계산값보다 잘못 잡은 기준을 기록하세요</h2>
+      <p>오답마다 어떤 값을 분모로 두었는지, 결과가 어떤 단위여야 했는지 적어 보세요. 계산 실수라면 약분과 범위 검산 중 빠진 단계를 표시하세요.</p>
+    </section>
+
+    <section id="related" class="panel" aria-labelledby="related-title">
+      <p class="eyebrow">관련 개념</p><h2 id="related-title">공식의 정의와 적용 범위 확인하기</h2>
+      <ul class="sources">
+        <li><a href="../chapters/02-preprocessing.html#transform"><strong>적용 · 표준화와 최소-최대 변환</strong></a> — 중심·척도와 변환값 범위를 구분한다.</li>
+        <li><a href="../chapters/02-statistics.html#probability"><strong>전제 · 조건부확률과 확률분포</strong></a> — 조건 사건이 분모가 되는 이유를 확인한다.</li>
+        <li><a href="../chapters/02-statistics.html#sampling"><strong>적용 · 표준오차와 신뢰구간</strong></a> — 표본 수와 추정량의 흔들림을 연결한다.</li>
+        <li><a href="../chapters/04-evaluation-improvement.html#classification"><strong>비교 · 정밀도·재현율·특이도</strong></a> — 예측 집단과 실제 집단의 분모를 가른다.</li>
+        <li><a href="../chapters/04-evaluation-improvement.html#other-metrics"><strong>평가 · 회귀와 군집 지표</strong></a> — MAE·RMSE의 단위와 실루엣의 범위를 확인한다.</li>
+        <li><a href="../chapters/03-unsupervised-advanced.html#association"><strong>비교 · 지지도·신뢰도·향상도</strong></a> — 전체 거래, 선행항, 기준확률을 각각 분모로 구분한다.</li>
+      </ul>
     </section>
 
     <section id="sources" aria-labelledby="sources-title">
