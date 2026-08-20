@@ -35,9 +35,9 @@
       <p>분석 문제 정의, 방법론, 과제 우선순위, 프로젝트 계획, 마스터 플랜과 거버넌스의 역할을 구분한다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
-        <li>업무 목표와 분석 목표, 모형 지표와 업무 KPI를 구분한다.</li>
+        <li>업무 목표와 분석 목표, 모형 지표와 핵심성과지표(key performance indicator, KPI)를 구분한다.</li>
         <li>하향식과 상향식 과제 발굴을 상황에 맞춰 결합한다.</li>
-        <li>CRISP-DM 여섯 단계를 반복적 흐름으로 설명한다.</li>
+        <li>산업 간 데이터 마이닝 표준 프로세스(CRISP-DM) 여섯 단계를 반복적 흐름으로 설명한다.</li>
         <li>가치와 실행가능성으로 후보 과제의 우선순위를 판단한다.</li>
         <li>프로젝트 계획과 전사 마스터 플랜·거버넌스의 시간 범위를 구분한다.</li>
       </ul>
@@ -79,7 +79,7 @@
           </table>
         </div>
         <p>좋은 분석 과제 정의에는 분석 단위, 목표변수, 관측창과 예측창, 결과 제공 시점, 사용자, 허용 가능한 오류 비용과 법적·운영 제약이 들어간다. 모형 지표는 업무 성과의 대리 지표일 뿐이다.</p>
-        <div class="callout"><h4>오해하기 쉬운 지점 · 예측 기준시점</h4><p>월요일에 행동해야 하는데 화요일 데이터가 있어야 계산되는 특징은 실제 운영에서 쓸 수 없다. 기준시점에 이용 가능한 정보만 쓰도록 정하면 데이터 누수와 배치 지연을 함께 줄일 수 있다.</p></div>
+        <div class="callout"><h4>오해하기 쉬운 지점 · 예측 기준시점</h4><p>월요일에 행동해야 하는데 화요일 데이터가 있어야 계산되는 특징은 실제 운영에서 쓸 수 없다. 기준시점에 이용 가능한 정보만 쓰도록 정하면 <a href="03-model-design.html#split">데이터 누수(data leakage)</a>와 배치 지연을 함께 줄일 수 있다.</p></div>
       </article>
 
       <article class="concept">
@@ -99,7 +99,8 @@
     </section>
 
     <section id="methodology" aria-labelledby="methodology-title">
-      <p class="eyebrow">핵심 2 · 분석 방법론</p><h2 id="methodology-title">CRISP-DM은 여섯 단계의 반복 구조다</h2>
+      <p class="eyebrow">핵심 2 · 분석 방법론</p><h2 id="methodology-title">산업 간 데이터 마이닝 표준 프로세스(CRISP-DM)는 여섯 단계의 반복 구조다</h2>
+      <p><strong>CRISP-DM(Cross-Industry Standard Process for Data Mining)</strong>은 분석 프로젝트를 업무 이해부터 배포까지 연결하는 방법론이다.</p>
       <ol class="steps">
         <li><strong>1. 업무 이해</strong><span>목표·성공기준·상황·프로젝트 계획을 정한다.</span></li>
         <li><strong>2. 데이터 이해</strong><span>초기 수집·기술·탐색·품질 확인을 한다.</span></li>
@@ -108,10 +109,10 @@
         <li><strong>5. 평가</strong><span>업무 목표와 전체 과정을 검토하고 다음 단계를 결정한다.</span></li>
         <li><strong>6. 배포</strong><span>운영·보고·감시·유지와 최종 검토를 계획한다.</span></li>
       </ol>
-      <p>IBM의 공식 설명처럼 단계 순서는 엄격하지 않다. 데이터 이해 중 목표변수의 품질 문제가 발견되면 업무 이해로 돌아가고, 평가 중 오류 집단이 보이면 데이터 준비나 모델링을 다시 한다. 배포도 단순히 API를 띄우는 행위가 아니라 결과 전달·운영·모니터링을 포함한다.</p>
+      <p>IBM의 공식 설명처럼 단계 순서는 엄격하지 않다. 데이터 이해 중 목표변수의 품질 문제가 발견되면 업무 이해로 돌아가고, 평가 중 오류 집단이 보이면 데이터 준비나 모델링을 다시 한다. 배포도 단순히 <a href="01-collection-storage.html#collect">응용 프로그래밍 인터페이스(application programming interface, API)</a>를 띄우는 행위가 아니라 결과 전달·운영·모니터링을 포함한다.</p>
 
       <article class="concept">
-        <h3>CRISP-DM과 KDD를 구분하는 최소 기준</h3>
+        <h3>CRISP-DM과 데이터베이스 지식발견(KDD)을 구분하는 최소 기준</h3>
         <div class="table-wrap" tabindex="0" aria-label="CRISP-DM과 KDD 비교">
           <table>
             <thead><tr><th scope="col">틀</th><th scope="col">대표 흐름</th><th scope="col">강조</th></tr></thead>
@@ -121,7 +122,7 @@
             </tbody>
           </table>
         </div>
-        <p>명칭보다 경계를 본다. 데이터마이닝은 KDD 전체가 아니라 패턴을 찾는 핵심 단계이고, 모델링도 CRISP-DM 전체가 아니다. 두 방법론 모두 현실에서는 반복한다.</p>
+        <p><strong>KDD(knowledge discovery in databases)</strong>는 데이터베이스에서 유용한 지식을 발견하는 전체 과정이다. 데이터마이닝은 KDD 전체가 아니라 패턴을 찾는 핵심 단계이고, 모델링도 CRISP-DM 전체가 아니다. 두 방법론 모두 현실에서는 반복한다.</p>
       </article>
 
       <aside class="warning" aria-label="방법론 함정">

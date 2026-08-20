@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="EDA, 기술통계, 분포, 상관관계와 시각화를 다루는 빅데이터분석기사 2과목 교재">
+  <meta name="description" content="탐색적 데이터 분석, 기술통계, 분포, 상관관계와 시각화를 다루는 빅데이터분석기사 2과목 교재">
   <title>02-02 데이터 탐색</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -31,12 +31,12 @@
   <main id="main" class="page narrow stack">
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 데이터 탐색</p>
-      <h2 id="scope-title">EDA·기초통계·시각화·변수 관계</h2>
+      <h2 id="scope-title">탐색적 데이터 분석(EDA)·기초통계·시각화·변수 관계</h2>
       <p>탐색적 데이터 분석의 목적과 절차, 변수 유형, 분포 요약, 그래프 선택, 상관관계와 집단 비교를 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>측정척도와 변수 수에 맞는 요약값·그래프를 선택한다.</li>
-        <li>평균·중앙값, 분산·표준편차·IQR의 차이를 계산하고 해석한다.</li>
+        <li>평균·중앙값, 분산·표준편차·사분위 범위(IQR)의 차이를 계산하고 해석한다.</li>
         <li>공분산과 상관계수, 피어슨과 스피어만을 구분한다.</li>
         <li>시공간·다변량·비정형 데이터의 탐색 관점을 구분한다.</li>
         <li>상관관계만으로 인과관계를 주장할 수 없는 이유를 말한다.</li>
@@ -65,7 +65,7 @@
         <li><strong>5. 시각화</strong><span>패턴·이상·가정 확인</span></li>
         <li><strong>6. 다음 단계</strong><span>전처리·가설·모형 후보</span></li>
       </ol>
-      <p>탐색적 데이터 분석(EDA)은 계산표 하나가 아니라 데이터의 구조를 드러내고, 이상 현상을 찾고, 모형 가정을 점검하고, 단순한 설명 후보를 만드는 접근이다. 그래프를 중심에 두되 숫자 요약과 업무 맥락을 함께 사용한다.</p>
+      <p><strong>탐색적 데이터 분석(exploratory data analysis, EDA)</strong>은 계산표 하나가 아니라 데이터의 구조를 드러내고, 이상 현상을 찾고, 모형 가정을 점검하고, 단순한 설명 후보를 만드는 접근이다. 그래프를 중심에 두되 숫자 요약과 업무 맥락을 함께 사용한다.</p>
       <aside class="callout compact"><strong>해석 범위:</strong> EDA는 답을 확정하는 단계가 아니라 다음 질문을 만드는 단계다. 흥미로운 패턴은 독립된 자료나 추론 절차로 다시 확인해야 한다.</aside>
     </section>
 
@@ -96,6 +96,7 @@
           <div><span>중앙값</span><strong>정렬한 가운데 값</strong></div>
           <div><span>최빈값</span><strong>가장 자주 나온 값</strong></div>
         </div>
+        <p><var>x<sub>i</sub></var>는 i번째 값, <var>n</var>은 값의 수, <var>x̄</var>는 산술평균이다.</p>
         <ul>
           <li><strong>평균:</strong> 모든 값을 사용하지만 극단값에 민감하다.</li>
           <li><strong>중앙값:</strong> 순위의 가운데라 극단값에 강건하고 비대칭 자료에 유용하다.</li>
@@ -115,13 +116,13 @@
               <tr><th scope="row">범위</th><td>최댓값−최솟값</td><td>간단하지만 두 극단값에 좌우</td></tr>
               <tr><th scope="row">분산</th><td>평균에서 편차 제곱의 평균</td><td>원자료 단위의 제곱</td></tr>
               <tr><th scope="row">표준편차</th><td>분산의 제곱근</td><td>원자료와 같은 단위</td></tr>
-              <tr><th scope="row">IQR</th><td>Q3−Q1</td><td>가운데 50% 폭, 극단값에 강건</td></tr>
+              <tr><th scope="row">사분위 범위(IQR)</th><td>Q3−Q1</td><td>가운데 50% 폭, 극단값에 강건</td></tr>
               <tr><th scope="row">변동계수</th><td>표준편차/평균</td><td>척도가 다른 양의 비율자료 상대 변동 비교</td></tr>
             </tbody>
           </table>
         </div>
         <div class="formula">표본분산 s² = Σ(xᵢ − x̄)² / (n − 1)</div>
-        <p>모집단 전체의 분산은 보통 분모 N을, 표본으로 모집단 분산을 추정할 때는 자유도 보정을 위해 n−1을 사용한다. Python <code>statistics.pvariance</code>와 <code>variance</code>도 이 차이를 구분한다.</p>
+        <p><strong>사분위 범위(interquartile range, IQR)</strong>는 가운데 50%의 폭이다. 모집단 전체의 분산은 보통 분모 N을, 표본으로 모집단 분산을 추정할 때는 자유도 보정을 위해 n−1을 사용한다. Python <code>statistics.pvariance</code>와 <code>variance</code>도 이 차이를 구분한다.</p>
       </article>
 
       <article class="concept">
@@ -165,12 +166,14 @@
           <div><span>피어슨 상관</span><strong>r = cov(X,Y)/(sₓsᵧ)</strong></div>
           <div><span>범위</span><strong>−1 ≤ r ≤ 1</strong></div>
         </div>
+        <p><code>cov(X,Y)</code>는 X와 Y의 공분산, <var>sₓ</var>와 <var>sᵧ</var>는 각 변수의 표본표준편차, <var>r</var>은 피어슨 상관계수다.</p>
         <p>공분산의 부호는 함께 움직이는 방향을 나타내지만 크기는 두 변수 단위에 의존한다. 피어슨 상관계수는 표준편차로 나눠 단위를 제거한다. +1은 완전한 양의 선형 관계, −1은 완전한 음의 선형 관계, 0은 선형 관계가 없음을 뜻한다.</p>
         <p>상관 0이어도 U자형 같은 강한 비선형 관계가 있을 수 있다. 극단값 하나가 상관의 크기와 방향을 바꿀 수도 있으므로 산점도를 함께 본다.</p>
       </article>
 
       <article class="concept">
-        <h3>3. 피어슨과 스피어만은 포착하는 관계가 다르다</h3>
+        <h3>3. 피어슨 상관과 스피어만 순위상관은 포착하는 관계가 다르다</h3>
+        <p><strong>피어슨 상관계수(Pearson correlation coefficient)</strong>는 수치의 선형 관계를, <strong>스피어만 순위상관(Spearman rank correlation)</strong>은 값의 순위가 함께 오르내리는 단조 관계를 측정한다.</p>
         <div class="table-wrap" tabindex="0" aria-label="피어슨과 스피어만 상관 비교">
           <table>
             <thead><tr><th scope="col">구분</th><th scope="col">피어슨</th><th scope="col">스피어만</th></tr></thead>
@@ -212,7 +215,7 @@
 
       <article class="concept">
         <h3>2. 다변량 탐색은 쌍별 그림과 전체 구조를 왕복한다</h3>
-        <p>산점도 행렬과 상관 열지도는 여러 변수의 쌍별 관계를 빠르게 훑고, 평행좌표는 사례별 다차원 윤곽을 비교한다. 주성분분석(PCA)은 분산이 큰 새 축으로 투영해 군집·이상점 후보를 탐색할 수 있지만 목표값을 쓰지 않으며, 단위가 큰 변수가 축을 지배할 수 있어 스케일을 먼저 점검한다.</p>
+        <p>산점도 행렬과 상관 열지도는 여러 변수의 쌍별 관계를 빠르게 훑고, 평행좌표는 사례별 다차원 윤곽을 비교한다. <a href="03-unsupervised-advanced.html#pca"><strong>주성분분석(principal component analysis, PCA)</strong></a>은 분산이 큰 새 축으로 투영해 군집·이상점 후보를 탐색할 수 있지만 목표값을 쓰지 않으며, 단위가 큰 변수가 축을 지배할 수 있어 스케일을 먼저 점검한다.</p>
         <p>열지도 한 장만으로 관계를 확정하지 않는다. 상관이 높은 쌍은 실제 산점도와 하위집단을 확인하고, 변수 수가 많으면 우연히 큰 상관도 늘어남을 기억한다.</p>
       </article>
 
@@ -222,7 +225,7 @@
           <table>
             <thead><tr><th scope="col">자료</th><th scope="col">초기 탐색</th><th scope="col">주의</th></tr></thead>
             <tbody>
-              <tr><th scope="row">텍스트</th><td>문서 길이, 언어, 빈도, n-gram, TF-IDF</td><td>불용어·형태소·중복·라벨 누수</td></tr>
+              <tr><th scope="row">텍스트</th><td>문서 길이, 언어, 빈도, n-gram, <a href="03-unsupervised-advanced.html#text-features">단어 빈도-역문서 빈도(TF-IDF)</a></td><td>불용어·형태소·중복·라벨 누수</td></tr>
               <tr><th scope="row">이미지</th><td>크기, 채널, 밝기, 흐림, 표본 썸네일</td><td>배경·워터마크가 목표를 대신 설명할 수 있음</td></tr>
               <tr><th scope="row">음성</th><td>길이, 표본률, 음량, 무음 비율, 스펙트럼</td><td>장비·환경·화자 중복과 개인정보</td></tr>
             </tbody>

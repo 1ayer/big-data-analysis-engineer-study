@@ -52,8 +52,8 @@
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>지지도·신뢰도·향상도를 계산하고 방향성을 해석한다.</li>
-        <li>k-means·계층적 군집·DBSCAN의 가정과 결과를 비교한다.</li>
-        <li>PCA의 분산 최대화와 직교 성분, 시계열의 순서 보존을 설명한다.</li>
+        <li>k-평균(k-means)·계층적 군집·밀도기반 공간 군집(DBSCAN)의 가정과 결과를 비교한다.</li>
+        <li>주성분분석(PCA)의 분산 최대화와 직교 성분, 시계열의 순서 보존을 설명한다.</li>
         <li>고급기법을 데이터 형태·목표·가정에 맞춰 구분한다.</li>
       </ul>
     </section>
@@ -61,10 +61,11 @@
     <section id="precheck" aria-labelledby="precheck-title">
       <p class="eyebrow">3분 · 사전 점검</p>
       <h2 id="precheck-title">숫자의 뜻을 먼저 말하기</h2>
+      <p class="source-note">처음 보는 약어는 지금 외우지 않아도 된다. 질문을 읽고 본문에서 정의·가정·선택 기준을 찾아 다시 답한다.</p>
       <ol class="questions">
         <li>A→B의 신뢰도가 높아도 향상도가 1보다 작을 수 있는가?</li>
         <li>k-means가 긴 초승달 모양 군집을 잘 못 찾을 수 있는 이유는?</li>
-        <li>DBSCAN에서 eps가 너무 크면 어떤 결과가 생기기 쉬운가?</li>
+        <li>DBSCAN에서 이웃 반경 엡실론(ε, <code>eps</code>)이 너무 크면 어떤 결과가 생기기 쉬운가?</li>
         <li>PCA의 첫 번째 주성분은 원변수 하나를 고르는 것인가?</li>
         <li>독립 두 집단과 대응 두 집단의 대표 비모수 검정은 각각 무엇인가?</li>
       </ol>
@@ -72,7 +73,7 @@
 
     <section id="association" aria-labelledby="association-title">
       <p class="eyebrow">기법 1</p>
-      <h2 id="association-title">연관성분석: 함께 등장하는 패턴을 규칙으로 만든다</h2>
+      <h2 id="association-title">연관성분석(association analysis): 함께 등장하는 패턴을 규칙으로 만든다</h2>
       <article class="concept">
         <h3>1. 규칙은 선행항 X → 후행항 Y로 표현한다</h3>
         <p>
@@ -81,9 +82,9 @@
           원인이라는 증거가 아니다.
         </p>
         <div class="equation-grid">
-          <div><span>지지도</span><strong>P(X∩Y)</strong></div>
-          <div><span>신뢰도</span><strong>P(Y|X)</strong></div>
-          <div><span>향상도</span><strong>P(Y|X) / P(Y)</strong></div>
+          <div><span>지지도(support)</span><strong>P(X∩Y)</strong></div>
+          <div><span>신뢰도(confidence)</span><strong>P(Y|X)</strong></div>
+          <div><span>향상도(lift)</span><strong>P(Y|X) / P(Y)</strong></div>
         </div>
         <ul>
           <li><strong>지지도:</strong> 전체 거래 중 X와 Y가 함께 등장한 비율로 규칙의 보편성을 본다.</li>
@@ -115,7 +116,7 @@
       </article>
 
       <article class="concept">
-        <h3>3. Apriori는 빈발 항목집합의 하향 폐쇄성을 이용한다</h3>
+        <h3>3. Apriori 알고리즘은 빈발 항목집합의 하향 폐쇄성을 이용한다</h3>
         <p>
           어떤 항목집합이 최소 지지도를 만족하지 못하면 그 집합을 포함하는 더 큰 집합도 만족할 수 없다.
           큰 집합의 출현 횟수는 부분집합보다 많아질 수 없기 때문이다. Apriori는 이 성질로 불필요한 후보를
@@ -135,20 +136,20 @@
 
     <section id="clustering" aria-labelledby="clustering-title">
       <p class="eyebrow">기법 2</p>
-      <h2 id="clustering-title">군집분석: 정답 없이 유사 구조를 찾는다</h2>
+      <h2 id="clustering-title">군집분석(cluster analysis): 정답 없이 유사 구조를 찾는다</h2>
       <div class="table-wrap" tabindex="0" aria-label="대표 군집 알고리즘 비교">
         <table>
           <thead><tr><th scope="col">기법</th><th scope="col">필요 입력</th><th scope="col">잘 맞는 구조</th><th scope="col">대표 약점</th></tr></thead>
           <tbody>
-            <tr><th scope="row">k-means</th><td>군집 수 k</td><td>볼록하고 비슷한 분산의 군집</td><td>초깃값·이상값·비구형 구조</td></tr>
+            <tr><th scope="row">k-평균(k-means)</th><td>군집 수 k</td><td>볼록하고 비슷한 분산의 군집</td><td>초깃값·이상값·비구형 구조</td></tr>
             <tr><th scope="row">계층적 군집</th><td>거리·연결법, 절단 기준</td><td>병합 구조와 덴드로그램</td><td>큰 데이터의 계산량</td></tr>
-            <tr><th scope="row">DBSCAN</th><td>eps, min_samples</td><td>임의 모양·잡음이 있는 군집</td><td>밀도가 크게 다른 군집</td></tr>
+            <tr><th scope="row">밀도기반 공간 군집(DBSCAN)</th><td><code>eps</code>, <code>min_samples</code></td><td>임의 모양·잡음이 있는 군집</td><td>밀도가 크게 다른 군집</td></tr>
           </tbody>
         </table>
       </div>
 
       <article class="concept">
-        <h3>1. k-means는 군집 내 제곱거리를 줄인다</h3>
+        <h3>1. k-평균(k-means)은 군집 내 제곱거리를 줄인다</h3>
         <p class="formula" aria-label="각 표본과 가장 가까운 중심 사이 제곱거리의 합을 최소화">
           Σ<sub>i</sub> min<sub>j</sub> ||x<sub>i</sub> − μ<sub>j</sub>||<sup>2</sup>
         </p>
@@ -159,6 +160,7 @@
           <li><strong>반복</strong><span>중심 이동이 충분히 작아질 때까지 할당과 갱신을 반복한다.</span></li>
         </ol>
         <p>
+          식에서 x<sub>i</sub>는 i번째 표본, μ<sub>j</sub>는 j번째 군집 중심, k는 군집 수다.
           목적함수인 관성(inertia)은 작을수록 군집 안이 조밀하지만, k를 늘리면 대체로 감소하므로 값만
           최소화해 k를 고르면 안 된다. 초기 중심에 따라 지역해가 달라질 수 있어 k-means++ 초기화와
           여러 번 실행을 사용한다. 거리 기반이므로 변수 스케일도 중요하다.
@@ -180,9 +182,11 @@
       </article>
 
       <article class="concept">
-        <h3>3. DBSCAN은 밀도가 높은 점을 연결한다</h3>
+        <h3>3. 밀도기반 공간 군집(DBSCAN)은 밀도가 높은 점을 연결한다</h3>
         <p>
-          반경 eps 안에 충분한 수의 이웃이 있는 점을 핵심점으로 보고, 밀도로 연결된 핵심점과 그 주변점을
+          <strong>DBSCAN(density-based spatial clustering of applications with noise)</strong>은
+          이웃 반경 엡실론(ε, <code>eps</code>) 안에 <code>min_samples</code> 이상의 점이 있는 표본을 핵심점으로 보고,
+          밀도로 연결된 핵심점과 그 주변점을
           군집으로 확장한다. 어느 핵심점에도 충분히 가깝지 않은 점은 잡음으로 남길 수 있고, 군집 수를
           미리 정하지 않아도 된다.
         </p>
@@ -242,26 +246,40 @@
         </p>
       </article>
 
-      <article class="concept">
-        <h3>2. 다변량 분석과 PCA: 함께 변하는 축을 찾는다</h3>
+      <article id="pca" class="concept">
+        <h3>2. 다변량 분석과 주성분분석(PCA): 함께 변하는 축을 찾는다</h3>
         <p>
-          다변량 분석은 여러 변수를 동시에 고려해 상관 구조, 집단 차이, 잠재 차원을 본다. PCA는 원변수의
+          다변량 분석은 여러 변수를 동시에 고려해 상관 구조, 집단 차이, 잠재 차원을 본다.
+          <strong>주성분분석(principal component analysis, PCA)</strong>은 원변수의
           선형결합으로 서로 직교하는 주성분을 만들고, 첫 성분부터 가능한 한 큰 분산을 설명한다. 뒤의
           성분은 앞 성분과 직교하면서 남은 분산을 최대한 설명한다.
         </p>
         <p>
-          PCA는 지도학습의 목표변수와 무관하게 X의 분산을 보존하는 비지도 차원축소다. 따라서 분산이 큰
+          PCA는 <a href="03-model-design.html#problem-types">지도학습</a>의 목표변수와 무관하게 X의 분산을 보존하는 비지도 차원축소다. 따라서 분산이 큰
           방향이 예측에 중요한 방향이라는 보장은 없다. 구현에 따라 중심화는 하되 자동 표준화하지 않을
           수 있으므로 변수 단위 차이를 먼저 확인한다.
         </p>
+        <div class="table-wrap" tabindex="0" aria-label="대표 다변량 분석 비교">
+          <table>
+            <thead><tr><th scope="col">기법</th><th scope="col">핵심 질문</th><th scope="col">구분 기준</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">주성분분석(PCA)</th><td>분산을 많이 보존하는 축은?</td><td>관측변수의 직교 선형결합을 만드는 비지도 차원축소다.</td></tr>
+              <tr><th scope="row">요인분석(factor analysis)</th><td>관측변수의 상관을 설명하는 잠재요인은?</td><td>공통요인과 고유오차로 상관 구조를 설명한다.</td></tr>
+              <tr><th scope="row">선형판별분석(linear discriminant analysis, LDA)</th><td>알려진 집단을 잘 나누는 투영은?</td><td>레이블을 쓰는 지도 기법이며 분포·공분산 가정을 확인한다.</td></tr>
+              <tr><th scope="row">다변량분산분석(multivariate analysis of variance, MANOVA)</th><td>집단별 여러 결과변수의 평균벡터가 다른가?</td><td>여러 종속변수를 함께 검정한다.</td></tr>
+            </tbody>
+          </table>
+        </div>
       </article>
 
-      <article class="concept">
+      <article id="time-series" class="concept">
         <h3>3. 시계열 분석: 순서·의존성·정상성을 본다</h3>
         <p>
-          시계열은 추세, 계절성, 순환, 불규칙 성분으로 나누어 생각할 수 있다. 자기상관함수 ACF는 시차별
-          상관을, 부분자기상관함수 PACF는 더 짧은 시차의 선형 효과를 통제한 직접 연관을 본다. AR은 과거
-          관측값, MA는 과거 오차, ARIMA의 I는 차분을 통한 통합 차수를 나타낸다.
+          시계열은 추세, 계절성, 순환, 불규칙 성분으로 나누어 생각할 수 있다.
+          <strong>자기상관함수(autocorrelation function, ACF)</strong>는 시차별 상관을,
+          <strong>부분자기상관함수(partial autocorrelation function, PACF)</strong>는 더 짧은 시차의 선형 효과를 통제한 직접 연관을 본다.
+          자기회귀(autoregressive, AR)는 과거 관측값, 이동평균(moving average, MA)은 과거 오차를 사용한다.
+          자기회귀 누적 이동평균(autoregressive integrated moving average, ARIMA)의 I는 차분을 통한 통합 차수를 나타낸다.
         </p>
         <p>
           정상 시계열은 시간에 따라 평균·분산·자기공분산 구조가 안정적이라는 가정을 쓴다. 추세·계절성이
@@ -269,43 +287,44 @@
         </p>
       </article>
 
-      <article class="concept">
+      <article id="bayesian" class="concept">
         <h3>4. 베이지안 분석: 사전정보를 데이터로 갱신한다</h3>
         <p class="formula" aria-label="사후확률은 우도 곱하기 사전확률을 증거확률로 나눈 값">
           P(θ|D) = P(D|θ)P(θ) / P(D)
         </p>
         <p>
-          사전분포는 데이터를 보기 전 매개변수 θ에 대한 믿음, 우도는 θ에서 관측 데이터가 나올 가능성,
-          사후분포는 둘을 결합한 갱신 결과다. 데이터가 추가되면 이전 사후분포를 다음 분석의 사전분포로
+          <strong>사전분포(prior distribution)</strong>는 데이터를 보기 전 매개변수 θ에 대한 믿음,
+          <strong>우도(likelihood)</strong>는 θ에서 관측 데이터가 나올 가능성,
+          <strong>사후분포(posterior distribution)</strong>는 둘을 결합한 갱신 결과다. 데이터가 추가되면 이전 사후분포를 다음 분석의 사전분포로
           사용할 수 있다. 나이브 베이즈의 클래스 사후확률도 같은 베이즈 정리를 바탕으로 한다.
         </p>
       </article>
 
-      <article class="concept">
+      <article id="text-features" class="concept">
         <h3>5. 비정형·딥러닝: 숫자 표현을 먼저 만든다</h3>
         <p>
           텍스트·이미지·음성은 길이와 구조가 일정하지 않아 모형이 다룰 수 있는 숫자 특징으로 표현한다.
-          텍스트의 Bag of Words는 토큰 출현을 벡터화하지만 단어 순서를 대부분 잃는다. TF-IDF는 문서 안
-          빈도 TF에 전체 문서에서 드문 정도 IDF를 곱해 흔한 단어의 상대적 영향력을 낮춘다.
+          텍스트의 <strong>단어 모음(bag of words, BoW)</strong>은 토큰 출현을 벡터화하지만 단어 순서를 대부분 잃는다.
+          <strong>단어 빈도-역문서 빈도(term frequency–inverse document frequency, TF-IDF)</strong>는 문서 안
+          단어 빈도(term frequency, TF)에 전체 문서에서 드문 정도인 역문서 빈도(inverse document frequency, IDF)를 곱해 흔한 단어의 상대적 영향력을 낮춘다.
         </p>
         <p>
-          딥러닝은 여러 층에서 표현 자체를 함께 학습한다. 합성곱 신경망은 이미지의 국소 패턴, 순환망과
-          어텐션 기반 모형은 순서 관계를 다루는 데 쓰인다. 표현력이 크다는 이유만으로 작은 표 데이터에서
+          <a href="03-classification.html#network"><strong>딥러닝(deep learning)</strong></a>은 여러 층의 인공신경망에서 표현 자체를 함께 학습한다. <strong>합성곱 신경망(convolutional neural network, CNN)</strong>은 이미지의 국소 패턴을, <strong>순환 신경망(recurrent neural network, RNN)</strong>과 그 변형인 <strong>장단기 메모리(long short-term memory, LSTM)</strong>는 순서 의존성을 다룬다. <strong>어텐션(attention)</strong>은 입력 요소 사이에서 현재 출력에 중요한 관계에 가중치를 두는 방식이다. 표현력이 크다는 이유만으로 작은 표 데이터에서
           항상 전통 모형보다 낫지는 않으며 데이터·계산량·해석 요구를 함께 본다.
         </p>
       </article>
 
-      <article class="concept">
-        <h3>6. 앙상블: 서로 다른 오차를 결합한다</h3>
+      <article id="ensemble" class="concept">
+        <h3>6. 앙상블(ensemble): 서로 다른 오차를 결합한다</h3>
         <div class="table-wrap" tabindex="0" aria-label="앙상블 기법 비교">
           <table>
             <thead><tr><th scope="col">기법</th><th scope="col">학습 방식</th><th scope="col">핵심 효과</th></tr></thead>
             <tbody>
-              <tr><th scope="row">배깅</th><td>무작위 표본에서 여러 모형을 병렬 학습</td><td>평균·투표로 분산 감소</td></tr>
+              <tr><th scope="row">배깅(bagging)</th><td>무작위 표본에서 여러 모형을 병렬 학습</td><td>평균·투표로 분산 감소</td></tr>
               <tr><th scope="row">랜덤 포레스트</th><td>부트스트랩 표본 + 분할마다 무작위 변수</td><td>나무의 상관을 줄여 분산 감소</td></tr>
-              <tr><th scope="row">부스팅</th><td>이전 오차를 보완하도록 약한 학습기를 순차 학습</td><td>편향을 줄이며 강한 모형 구성</td></tr>
-              <tr><th scope="row">보팅</th><td>서로 다른 모형의 클래스·확률 결합</td><td>개별 약점 상쇄</td></tr>
-              <tr><th scope="row">스태킹</th><td>기본 모형 출력을 메타모형의 입력으로 학습</td><td>결합 규칙도 데이터에서 학습</td></tr>
+              <tr><th scope="row">부스팅(boosting)</th><td>이전 오차를 보완하도록 약한 학습기를 순차 학습</td><td>편향을 줄이며 강한 모형 구성</td></tr>
+              <tr><th scope="row">보팅(voting)</th><td>서로 다른 모형의 클래스·확률 결합</td><td>개별 약점 상쇄</td></tr>
+              <tr><th scope="row">스태킹(stacking)</th><td>기본 모형 출력을 메타모형의 입력으로 학습</td><td>결합 규칙도 데이터에서 학습</td></tr>
             </tbody>
           </table>
         </div>
@@ -316,10 +335,10 @@
         </p>
       </article>
 
-      <article class="concept">
-        <h3>7. 비모수 분석: 분포 이름보다 순위와 부호를 활용한다</h3>
+      <article id="nonparametric" class="concept">
+        <h3>7. 비모수 분석(nonparametric analysis): 분포 이름보다 순위와 부호를 활용한다</h3>
         <p>
-          비모수 검정은 특정 모수적 분포 형태에 대한 가정을 줄이고 관측값의 순위 등을 사용한다. 이것이
+          <a href="02-statistics.html#selection"><strong>비모수 검정(nonparametric test)</strong></a>은 특정 모수적 분포 형태에 대한 가정을 줄이고 관측값의 순위 등을 사용한다. 이것이
           “가정이 전혀 없다”는 뜻은 아니다. 독립성, 대응 구조, 분포의 형태 등 각 검정의 가정은 확인한다.
         </p>
         <div class="table-wrap" tabindex="0" aria-label="대표 모수 검정과 비모수 대응">
@@ -377,9 +396,9 @@
           <details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 10/25=0.4다. A는 지지도, B는 X 지지도이며 D는 계산 결과가 아니다.</p></details>
         </li>
         <li>
-          <p>앞 문제에서 X→Y의 향상도는?</p>
-          <ol class="choices" type="A"><li>0.4</li><li>1</li><li>1.5</li><li>2.5</li></ol>
-          <details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 신뢰도 0.4를 P(Y)=0.4로 나누면 1이다. X가 Y 출현을 높이거나 낮추지 않는 수준이다.</p></details>
+          <p>베이지안 분석에서 관측 데이터로 사전분포를 갱신한 결과는?</p>
+          <ol class="choices" type="A"><li>우도</li><li>사후분포</li><li>기대빈도</li><li>지지도</li></ol>
+          <details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 사전분포와 우도를 결합한 갱신 결과가 사후분포다. A는 주어진 모수에서 데이터가 관측될 가능성이고 C·D는 다른 분석의 지표다.</p></details>
         </li>
         <li>
           <p>연관규칙에 대한 옳은 설명은?</p>
@@ -397,9 +416,9 @@
           <details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 중심까지의 제곱거리 합이다. k는 입력이고, C는 완전 연결과 관련되며 D는 정답 레이블이 필요한 값이다.</p></details>
         </li>
         <li>
-          <p>k-means에 가장 불리한 데이터 구조는?</p>
-          <ol class="choices" type="A"><li>비슷한 크기의 구형 군집</li><li>잘 분리된 볼록 군집</li><li>서로 감싸는 초승달 모양 군집</li><li>표준화된 연속형 변수</li></ol>
-          <details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> 중심 거리와 볼록·등방성 가정에 맞지 않는다. A·B는 상대적으로 잘 맞고 D는 거리 비교에 도움을 줄 수 있다.</p></details>
+          <p>딥러닝 구조와 대표 용도의 연결로 옳은 것은?</p>
+          <ol class="choices" type="A"><li>CNN — 교차표 기대빈도 계산</li><li>LSTM — 범주형 독립성 검정</li><li>CNN — 이미지의 국소 패턴 학습</li><li>RNN — 표본분산의 불편추정</li></ol>
+          <details><summary>정답과 선택지 해설</summary><p><strong>C.</strong> CNN은 합성곱으로 국소 패턴을 학습한다. RNN·LSTM은 순서 의존성을 다루며 A·B·D의 통계 계산과 직접 대응하지 않는다.</p></details>
         </li>
         <li>
           <p>계층적 군집에서 두 군집의 가장 가까운 점 사이 거리를 쓰는 연결법은?</p>

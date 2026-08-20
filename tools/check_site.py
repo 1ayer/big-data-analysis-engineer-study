@@ -3,6 +3,7 @@
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
+import re
 from urllib.parse import unquote, urlsplit
 
 
@@ -155,6 +156,11 @@ def check():
                 answer_counts = Counter(answer for item_subject, answer in page.quiz_answers if item_subject == subject)
                 if answer_counts != Counter({answer: 5 for answer in "ABCD"}):
                     errors.append(f"{label}: {subject}과목 정답 위치는 A~D 각 5개여야 합니다({dict(answer_counts)})")
+            answer_rows = re.findall(r'<p><strong>[1-4]과목:</strong>(.*?)</p>', path.read_text(encoding="utf-8"), re.S)
+            answer_key = {int(number): answer for number, answer in re.findall(r"(\d+)\s+([ABCD])", " ".join(answer_rows))}
+            quiz_key = dict(enumerate((answer for _, answer in page.quiz_answers), start=1))
+            if answer_key != quiz_key:
+                errors.append(f"{label}: 전체 정답표가 문항별 정답과 일치해야 합니다")
 
         text = " ".join(page.text_parts)
         if path.name == "index.html" and "data-study-dashboard" not in page.data_attrs:

@@ -42,7 +42,7 @@
     <section class="panel objectives" aria-labelledby="objectives-title">
       <p class="eyebrow">공식 범위 · 회귀분석과 로지스틱 회귀분석</p>
       <h2 id="objectives-title">목표변수·식·손실함수·계수 해석</h2>
-      <p>회귀분석과 로지스틱 회귀분석을 목표변수, 식, 손실함수와 계수 해석을 기준으로 비교한다.</p>
+      <p>선형회귀(linear regression)와 로지스틱 회귀(logistic regression)를 목표변수, 식, 손실함수와 계수 해석을 기준으로 비교한다.</p>
       <ul class="check-list">
         <li>목표변수의 형태로 두 모형을 구분한다.</li>
         <li>선형식이 로지스틱 확률로 바뀌는 과정을 설명한다.</li>
@@ -104,13 +104,15 @@
         </table>
       </div>
 
-      <article class="concept">
-        <h3>1. 선형회귀: 수치를 직접 예측한다</h3>
+      <article id="linear-regression" class="concept">
+        <h3>1. 선형회귀(linear regression): 수치를 직접 예측한다</h3>
         <p class="formula" aria-label="와이 햇은 베타 영 더하기 베타 일 엑스 일부터 베타 피 엑스 피까지의 합">
           ŷ = β<sub>0</sub> + β<sub>1</sub>x<sub>1</sub> + … + β<sub>p</sub>x<sub>p</sub>
         </p>
         <p>
-          관측값 <var>y</var>와 예측값 <var>ŷ</var>의 차이가 잔차다. 보통의 최소제곱 선형회귀는
+          <var>y</var>는 관측한 목표값, <var>ŷ</var>는 예측값, <var>x<sub>j</sub></var>는 j번째 특징,
+          <var>β<sub>0</sub></var>는 절편, <var>β<sub>j</sub></var>는 특징의 계수다.
+          관측값과 예측값의 차이인 <strong>잔차(residual)</strong>를 이용해, 보통의 최소제곱 선형회귀는
           잔차 제곱합 <span class="nowrap">Σ(y − ŷ)<sup>2</sup></span>이 가장 작아지는 계수를 찾는다.
         </p>
         <p>
@@ -124,15 +126,16 @@
         </aside>
       </article>
 
-      <article class="concept">
-        <h3>2. 로지스틱 회귀: 선형식을 확률로 바꾼다</h3>
+      <article id="logistic-regression" class="concept">
+        <h3>2. 로지스틱 회귀(logistic regression): 선형식을 확률로 바꾼다</h3>
         <div class="formula-flow" aria-label="선형식에서 시그모이드를 거쳐 확률을 얻는 흐름">
           <span>z = β<sub>0</sub> + Σβ<sub>j</sub>x<sub>j</sub></span>
           <span aria-hidden="true">→</span>
           <span>p = 1 / (1 + e<sup>−z</sup>)</span>
         </div>
         <p>
-          선형식 <var>z</var>는 음의 무한대부터 양의 무한대까지 갈 수 있다. 시그모이드 함수는 이를
+          선형식 <var>z</var>는 음의 무한대부터 양의 무한대까지 갈 수 있다.
+          <strong>시그모이드함수(sigmoid function)</strong>는 이를
           0과 1 사이의 확률로 눌러 넣는다. 확률에 기준값을 적용하면 최종 범주를 정할 수 있다.
         </p>
         <div class="three-columns key-values">
@@ -146,8 +149,8 @@
         </p>
       </article>
 
-      <article class="concept">
-        <h3>3. 확률 → 오즈 → 로그 오즈</h3>
+      <article id="odds" class="concept">
+        <h3>3. 확률 → 오즈(odds) → 로그 오즈(log-odds)</h3>
         <div class="equation-grid">
           <div><span>확률</span><strong>p</strong></div>
           <div><span>오즈</span><strong>p / (1 − p)</strong></div>
@@ -163,7 +166,7 @@
         </p>
       </article>
 
-      <article class="concept">
+      <article id="regularization" class="concept">
         <h3>4. 적합·가정·규제를 한 흐름으로 본다</h3>
         <p>
           선형회귀의 잔차는 관측값에서 예측값을 뺀 값이다. 잔차 그림은 선형 관계, 등분산성, 독립성,
@@ -171,13 +174,13 @@
           추론과 연결되며, 예측값 자체가 정규분포여야 한다는 뜻은 아니다.
         </p>
         <p>
-          설명변수들이 매우 강하게 선형 결합되면 다중공선성 때문에 개별 계수 추정이 불안정해질 수 있다.
-          Ridge의 L2 벌점은 계수를 함께 줄이고, Lasso의 L1 벌점은 일부 계수를 정확히 0으로 만들 수 있다.
-          규제는 학습오차만 최소화하는 대신 계수 크기에 비용을 더해 복잡성과 분산을 줄이려는 절충이다.
+          설명변수들이 매우 강하게 선형 결합되면 <strong>다중공선성(multicollinearity)</strong> 때문에 개별 계수 추정이 불안정해질 수 있다.
+          릿지회귀(ridge regression)의 L2 벌점은 계수를 함께 줄이고, 라쏘회귀(lasso regression)의 L1 벌점은 일부 계수를 정확히 0으로 만들 수 있다.
+          <strong>규제(regularization)</strong>는 학습오차만 최소화하는 대신 계수 크기에 비용을 더해 복잡성과 분산을 줄이려는 절충이다.
         </p>
         <p>
           로지스틱 회귀는 선형회귀처럼 확률과 관측값의 제곱오차를 맞추는 것이 아니라, 관측 클래스의
-          가능도를 높이도록 로그손실을 최소화한다. 시그모이드 출력이 0 또는 1에 매우 확신했는데 틀리면
+          가능도를 높이도록 <strong>로그손실(log loss), 즉 이진 교차엔트로피(binary cross-entropy)</strong>를 최소화한다. 시그모이드 출력이 0 또는 1에 매우 확신했는데 틀리면
           로그손실이 크게 증가한다.
         </p>
         <aside class="callout compact">
@@ -193,7 +196,7 @@
           <li><strong>확률과 오즈는 다르다:</strong> 확률 0.8의 오즈는 0.8이 아니라 4다.</li>
           <li><strong>작은 C = 강한 규제:</strong> scikit-learn의 <code>C</code>는 규제 강도의 역수다.</li>
           <li><strong>최소제곱은 이상값에 민감:</strong> 큰 잔차를 제곱하므로 영향이 커진다.</li>
-          <li><strong>R²가 높아도 인과는 아님:</strong> 설명·예측 관계만으로 원인효과를 확정할 수 없다.</li>
+          <li><strong><a href="04-evaluation-improvement.html#other-metrics">결정계수(R²)</a>가 높아도 인과는 아님:</strong> 설명·예측 관계만으로 원인효과를 확정할 수 없다.</li>
           <li><strong>다중공선성은 계수 해석 문제:</strong> 예측이 가능해도 개별 계수의 부호·크기가 불안정할 수 있다.</li>
         </ul>
       </aside>

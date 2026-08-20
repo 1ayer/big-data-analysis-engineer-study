@@ -57,10 +57,12 @@
           <li><a href="../chapters/01-bigdata-understanding.html#meaning">빅데이터의 판단 기준</a>은 절대 용량이 아니라 규모·다양성·속도·변동성 등의 특성 때문에 <strong>확장 가능한 아키텍처</strong>가 필요한가이다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#meaning">3V와 추가 V</a>: 3V는 Volume·Variety·Velocity다. Veracity·Value·Variability 등 추가 V는 문헌별로 다르므로 뜻을 판별한다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#meaning">정형·반정형·비정형</a>: 정형은 고정 스키마, 반정형은 키·태그 등 자체 구조, 비정형은 내용에서 별도 특징 추출이 필요하다.</li>
-          <li><a href="../chapters/01-bigdata-understanding.html#value">DIKW</a>: Data → Information → Knowledge → Wisdom. 맥락·패턴 이해·판단이 추가된다.</li>
+          <li><a href="../chapters/01-bigdata-understanding.html#value">데이터·정보·지식·지혜(DIKW)</a>: Data → Information → Knowledge → Wisdom. 맥락·패턴 이해·판단이 추가된다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#value">기술·진단·예측·처방 분석</a>은 “무슨 일 → 왜 → 앞으로 → 무엇을 할지”에 답한다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#organization-ai">AI·머신러닝·딥러닝의 관계</a>: AI ⊃ 머신러닝 ⊃ 딥러닝. 빅데이터 플랫폼은 AI 학습에 쓰일 수 있지만 같은 개념은 아니다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#organization-ai">분석조직 형태</a>: 집중형은 전문성·표준화, 분산형은 현업 실행, 연합형은 둘의 결합에 무게를 둔다.</li>
+          <li><a href="../chapters/01-bigdata-understanding.html#data-industry">데이터 산업 가치사슬</a>: 생성·수집 → 유통·중개 → 구축·가공 → 분석·서비스에서 어떤 가치를 더하는지 본다.</li>
+          <li><a href="../chapters/01-bigdata-understanding.html#architecture">플랫폼 구성요소</a>: HDFS는 분산 저장, YARN은 자원 관리, MapReduce·Spark는 분산 처리, Hive는 질의, Kafka는 이벤트 전달에 초점을 둔다.</li>
           <li><a href="../chapters/01-bigdata-understanding.html#risk">빅데이터의 위험</a>: 데이터가 많아도 대표성·정확성·공정성은 자동 보장되지 않는다.</li>
         </ul>
       </article>
@@ -69,8 +71,8 @@
         <ul>
           <li><a href="../chapters/01-analysis-planning.html#problem">분석 문제 정의</a>: 업무 목표·의사결정 → 분석 단위·목표변수·기준시점·관측창·예측창 → 수용 지표·비용·제약 순으로 구체화한다.</li>
           <li><a href="../chapters/01-analysis-planning.html#problem">하향식과 상향식 발굴</a>: 하향식은 전략·업무 문제, 상향식은 데이터·패턴에서 출발하며 실제 과제는 둘을 반복한다.</li>
-          <li><a href="../chapters/01-analysis-planning.html#methodology">CRISP-DM</a>: 업무 이해 → 데이터 이해 → 준비 → 모델링 → 평가 → 배포. 순서는 엄격하지 않다.</li>
-          <li><a href="../chapters/01-analysis-planning.html#methodology">KDD</a>: 선택 → 전처리 → 변환 → 데이터마이닝 → 해석·평가. 데이터마이닝은 전체 과정의 한 단계다.</li>
+          <li><a href="../chapters/01-analysis-planning.html#methodology">산업 간 데이터 마이닝 표준 프로세스(CRISP-DM)</a>: 업무 이해 → 데이터 이해 → 준비 → 모델링 → 평가 → 배포. 순서는 엄격하지 않다.</li>
+          <li><a href="../chapters/01-analysis-planning.html#methodology">데이터베이스 지식발견(KDD)</a>: 선택 → 전처리 → 변환 → 데이터마이닝 → 해석·평가. 데이터마이닝은 전체 과정의 한 단계다.</li>
           <li><a href="../chapters/01-analysis-planning.html#portfolio">과제 우선순위</a>는 가치·데이터 준비도·기술·조직 실행성·위험을 함께 본다.</li>
           <li><a href="../chapters/01-analysis-planning.html#project">프로젝트 계획</a>은 한 과제, <a href="../chapters/01-analysis-planning.html#governance">마스터 플랜</a>은 포트폴리오와 공통 기반의 중장기 로드맵이다.</li>
         </ul>
@@ -84,8 +86,8 @@
           <li><a href="../chapters/01-collection-storage.html#privacy">가명정보와 처리 근거</a>: 가명정보도 개인정보다. 동의는 수집·이용의 여러 법적 근거 중 하나다.</li>
           <li><a href="../chapters/01-collection-storage.html#privacy">익명처리의 판단</a>: 이름 삭제·마스킹만으로 익명정보가 되지는 않는다. 외부 결합 가능성과 남은 식별 위험을 다시 본다.</li>
           <li><a href="../chapters/01-collection-storage.html#privacy">가명정보 특례</a>: 통계작성·과학적 연구·공익적 기록보존 등에는 법이 정한 조건 아래 특례가 있다.</li>
-          <li><a href="../chapters/01-collection-storage.html#pipeline">ETL과 ELT</a>: ETL은 변환 후 적재, ELT는 적재 후 변환이다. 데이터와 플랫폼 요구에 따라 고른다.</li>
-          <li><a href="../chapters/01-collection-storage.html#distributed">HDFS와 MapReduce</a>: NameNode는 메타데이터, DataNode는 블록을 맡는다. 처리 흐름은 Map → Shuffle·Sort → Reduce다.</li>
+          <li><a href="../chapters/01-collection-storage.html#pipeline">추출·변환·적재(ETL)와 추출·적재·변환(ELT)</a>: 변환이 적재 전인지 후인지 구분한다.</li>
+          <li><a href="../chapters/01-collection-storage.html#distributed">하둡 분산 파일 시스템(HDFS)과 MapReduce</a>: NameNode는 메타데이터, DataNode는 블록을 맡는다. 처리 흐름은 Map → Shuffle·Sort → Reduce다.</li>
         </ul>
       </article>
       <p><a class="button secondary" href="../chapters/01-bigdata-understanding.html#meaning">1과목 개념을 처음부터 연결하기</a></p>
@@ -96,14 +98,14 @@
       <article class="concept">
         <h3>전처리와 탐색</h3>
         <ul>
-          <li><a href="../chapters/02-preprocessing.html#quality">결측 원인과 대체 영향</a>: MCAR·MAR·MNAR 가능성을 검토한다. 평균·중앙값 대치는 분산과 관계를 왜곡할 수 있다.</li>
-          <li><a href="../chapters/02-preprocessing.html#quality">IQR 이상값 경계</a>: Q1 − 1.5×IQR, Q3 + 1.5×IQR. 이상값은 오류가 아니라 희귀한 참값일 수도 있다.</li>
+          <li><a href="../chapters/02-preprocessing.html#quality">결측 원인과 대체 영향</a>: 완전 무작위(MCAR)·무작위(MAR)·비무작위 결측(MNAR) 가능성을 검토한다.</li>
+          <li><a href="../chapters/02-preprocessing.html#quality">사분위 범위(IQR) 이상값 경계</a>: Q1 − 1.5×IQR, Q3 + 1.5×IQR. 이상값은 오류가 아니라 희귀한 참값일 수도 있다.</li>
           <li><a href="../chapters/02-preprocessing.html#transform">표준화와 최소-최대 정규화</a>: z=(x−평균)/표준편차, 정규화=(x−최솟값)/(최댓값−최솟값).</li>
           <li><a href="../chapters/02-preprocessing.html#transform">파생변수의 기준시점</a>: 날짜·비율·집계에는 예측 기준시점 이전 정보만 쓴다. 비율은 분모 0과 단위를 확인한다.</li>
           <li><a href="../chapters/02-exploration.html#univariate">측정척도와 가능한 연산</a>: 명목·순서·등간·비율 척도에 가능한 연산이 다르다. 섭씨 20도는 10도의 두 배라는 의미가 없다.</li>
           <li><a href="../chapters/02-exploration.html#univariate">중심과 산포</a>: 평균은 이상값에 민감하고 중앙값은 강건하다. 분산·표준편차·IQR은 산포를 본다.</li>
           <li><a href="../chapters/02-exploration.html#univariate">왜도와 첨도</a>: 왜도는 비대칭, 첨도는 꼬리와 극단값 경향을 설명한다. <a href="../chapters/02-exploration.html#relations">상관</a>은 인과가 아니다.</li>
-          <li><a href="../chapters/02-exploration.html#advanced-eda">확장 EDA</a>: 시공간은 분모·투영·인접 의존성, 다변량은 스케일·쌍별 관계, 비정형은 내용·메타데이터와 누수를 먼저 본다.</li>
+          <li><a href="../chapters/02-exploration.html#advanced-eda">확장 탐색적 데이터 분석(EDA)</a>: 시공간은 분모·투영·인접 의존성, 다변량은 스케일·쌍별 관계, 비정형은 내용·메타데이터와 누수를 먼저 본다.</li>
         </ul>
       </article>
       <article class="concept">
@@ -143,19 +145,21 @@
           <li><a href="../chapters/03-regression.html#compare">선형회귀와 로지스틱 회귀</a>: 선형회귀는 E(Y|X)의 선형 구조를, 로지스틱 회귀는 로그오즈의 선형 구조를 가정한다.</li>
           <li><a href="../chapters/03-regression.html#compare">로지스틱 회귀계수</a>: exp(β)는 다른 변수가 같을 때 X 1 증가에 따른 오즈비다. 확률이 β만큼 증가한다는 뜻이 아니다.</li>
           <li><a href="../chapters/03-regression.html#compare">Ridge와 Lasso</a>: Ridge(L2)는 제곱계수 벌점으로 축소하고 Lasso(L1)는 절댓값 벌점으로 일부 계수를 0으로 만들 수 있다.</li>
-          <li><a href="../chapters/03-classification.html#tree">나무</a>는 불순도 감소로 분할하고, <a href="../chapters/03-classification.html#svm">SVM</a>은 마진을 최대화하며, <a href="../chapters/03-classification.html#network">신경망</a>은 층·활성화와 역전파로 비선형 관계를 학습한다.</li>
+          <li><a href="../chapters/03-classification.html#tree">의사결정나무</a>는 불순도 감소로 분할하고, <a href="../chapters/03-classification.html#svm">서포트 벡터 머신(SVM)</a>은 마진을 최대화하며, <a href="../chapters/03-classification.html#network">인공신경망</a>은 층·활성화와 역전파로 비선형 관계를 학습한다.</li>
         </ul>
       </article>
       <article class="concept">
         <h3>비지도·고급기법</h3>
         <ul>
           <li><a href="../chapters/03-unsupervised-advanced.html#association">연관규칙 지표</a>: 지지도 P(A∩B), 신뢰도 P(B|A), 향상도 P(B|A)/P(B). 향상도 1은 독립 수준이다.</li>
-          <li><a href="../chapters/03-unsupervised-advanced.html#clustering">k-means</a>는 군집 내 제곱거리를 최소화하고 k를 미리 정하며 이상값·척도·초기값에 민감하다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#clustering">k-평균(k-means)</a>은 군집 내 제곱거리를 최소화하고 k를 미리 정하며 이상값·척도·초기값에 민감하다.</li>
           <li><a href="../chapters/03-unsupervised-advanced.html#clustering">계층 군집</a>은 덴드로그램을 만들며 연결법에 따라 결과가 달라진다.</li>
-          <li><a href="../chapters/03-unsupervised-advanced.html#clustering">DBSCAN</a>은 밀도 기반으로 임의 모양 군집과 잡음을 찾지만 밀도 차이가 크면 어렵다.</li>
-          <li><a href="../chapters/03-unsupervised-advanced.html#advanced">PCA</a>는 분산이 큰 직교 방향으로 선형 투영한다. 지도 레이블을 쓰지 않으므로 예측에 최적인 축을 보장하지 않는다.</li>
-          <li><a href="../chapters/03-unsupervised-advanced.html#advanced">배깅과 부스팅</a>: 배깅은 병렬 학습 결과를 평균·투표해 분산을 낮추고, 부스팅은 앞선 오류를 순차 보완한다.</li>
-          <li><a href="../chapters/03-unsupervised-advanced.html#advanced">시계열 정상성</a>은 평균·분산·자기공분산 구조가 시간에 따라 안정적인 성질을 뜻한다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#clustering">밀도기반 공간 군집(DBSCAN)</a>은 임의 모양 군집과 잡음을 찾지만 밀도 차이가 크면 어렵다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#pca">주성분분석(PCA)</a>은 분산이 큰 직교 방향으로 선형 투영한다. 지도 레이블을 쓰지 않으므로 예측에 최적인 축을 보장하지 않는다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#pca">다변량 기법</a>: PCA는 분산 축, 요인분석은 잠재요인, LDA는 레이블을 이용한 판별 축, MANOVA는 여러 결과변수의 평균벡터 차이를 본다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#text-features">딥러닝 구조</a>: CNN은 국소 패턴, RNN·LSTM은 순서 의존성, 어텐션은 입력 요소 사이의 중요한 관계에 가중치를 둔다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#ensemble">배깅과 부스팅</a>: 배깅은 병렬 학습 결과를 평균·투표해 분산을 낮추고, 부스팅은 앞선 오류를 순차 보완한다.</li>
+          <li><a href="../chapters/03-unsupervised-advanced.html#time-series">시계열 정상성</a>은 평균·분산·자기공분산 구조가 시간에 따라 안정적인 성질을 뜻한다.</li>
         </ul>
       </article>
       <div class="table-wrap" tabindex="0" aria-label="분석 모형 선택 압축표">
@@ -165,8 +169,8 @@
             <tr><th scope="row">연속값·설명 중요</th><td>선형회귀·규제 회귀</td><td>잔차·비선형·공선성</td></tr>
             <tr><th scope="row">범주·확률 필요</th><td>로지스틱 회귀</td><td>임계값·불균형·보정</td></tr>
             <tr><th scope="row">규칙과 상호작용</th><td>의사결정나무</td><td>과적합·불안정성</td></tr>
-            <tr><th scope="row">고차원 경계</th><td>SVM</td><td>척도·커널·대규모 비용</td></tr>
-            <tr><th scope="row">정답 없는 구획</th><td>k-means·계층·DBSCAN</td><td>거리·척도·밀도·해석</td></tr>
+            <tr><th scope="row">고차원 경계</th><td><a href="../chapters/03-classification.html#svm">서포트 벡터 머신(SVM)</a></td><td>척도·커널·대규모 비용</td></tr>
+            <tr><th scope="row">정답 없는 구획</th><td><a href="../chapters/03-unsupervised-advanced.html#clustering">k-평균·계층·DBSCAN</a></td><td>거리·척도·밀도·해석</td></tr>
           </tbody>
         </table>
       </div>
@@ -180,8 +184,8 @@
         <ul>
           <li><a href="../chapters/04-evaluation-improvement.html#classification">혼동행렬 지표</a>: 정확도=(TP+TN)/전체, 정밀도=TP/(TP+FP), 재현율=TP/(TP+FN), 특이도=TN/(TN+FP).</li>
           <li><a href="../chapters/04-evaluation-improvement.html#classification">F1과 클래스 불균형</a>: F1은 정밀도와 재현율의 조화평균이다. 클래스 불균형에서는 정확도 하나로 판단하지 않는다.</li>
-          <li><a href="../chapters/04-evaluation-improvement.html#classification">ROC-AUC와 PR 곡선</a>: ROC-AUC는 임계값 전반의 순위 분리 능력, PR 곡선은 양성 희소 상황의 양성 예측 품질을 더 직접 보여준다.</li>
-          <li><a href="../chapters/04-evaluation-improvement.html#other-metrics">회귀 지표</a>: MAE는 절대오차 평균, MSE·RMSE는 큰 오차를 더 강하게 벌한다. RMSE는 목표와 같은 단위다.</li>
+          <li><a href="../chapters/04-evaluation-improvement.html#classification">수신자 조작 특성-곡선하면적(ROC-AUC)과 정밀도-재현율(PR) 곡선</a>: 하나는 순위 분리 능력, 다른 하나는 희귀 양성의 예측 품질을 본다.</li>
+          <li><a href="../chapters/04-evaluation-improvement.html#other-metrics">회귀 지표</a>: 평균절대오차(MAE)는 절대오차 평균, 평균제곱오차(MSE)·평균제곱근오차(RMSE)는 큰 오차를 더 강하게 벌한다.</li>
           <li><a href="../chapters/04-evaluation-improvement.html#validation">교차검증과 최종 시험</a>: 교차검증은 일반화 성능 추정·모형 선택에 쓰고 최종 시험 자료는 마지막에 한 번 사용한다.</li>
           <li><a href="../chapters/04-evaluation-improvement.html#validation">과소적합과 과대적합</a>: 학습·검증 모두 낮은 성능은 과소적합, 학습만 높고 검증이 낮으면 과적합 가능성이 크다.</li>
           <li><a href="../chapters/04-evaluation-improvement.html#validation">분류 임계값</a>은 오류 비용과 처리 용량에 맞춘다. 모형 재학습 없이도 혼동행렬이 바뀐다.</li>
@@ -194,10 +198,11 @@
         <ul>
           <li><a href="../chapters/04-interpretation-utilization.html#interpret">전역 해석과 지역 해석</a>: 전역 해석은 전체 행동, 지역 해석은 한 예측의 근거를 설명한다.</li>
           <li><a href="../chapters/04-interpretation-utilization.html#interpret">순열 중요도</a>는 한 변수를 섞을 때 평가 점수가 얼마나 떨어지는지 본다. 상관 변수는 서로 대체할 수 있다.</li>
-          <li><a href="../chapters/04-interpretation-utilization.html#interpret">PDP와 ICE</a>: PDP는 개별 예측 반응을 평균내고 ICE는 사례별 반응선을 보인다. 상관 특징에서는 비현실 조합을 조심한다.</li>
+          <li><a href="../chapters/04-interpretation-utilization.html#interpret">부분의존그림(PDP)과 개별조건부기대(ICE)</a>: PDP는 개별 예측 반응을 평균내고 ICE는 사례별 반응선을 보인다.</li>
           <li><a href="../chapters/04-interpretation-utilization.html#interpret">연관과 인과의 경계</a>: 변수 중요도·계수는 모형이 이용한 연관이지 자동 인과증거가 아니다.</li>
           <li><a href="../chapters/04-interpretation-utilization.html#monitor">데이터·개념 드리프트</a>: 데이터 드리프트는 P(X), 개념 드리프트는 P(Y|X)의 변화다.</li>
-          <li><a href="../chapters/04-interpretation-utilization.html#monitor">운영 모니터링</a>은 입력·파이프라인·예측·성과·집단별 성능과 업무 KPI를 함께 본다.</li>
+          <li><a href="../chapters/04-interpretation-utilization.html#monitor">운영 모니터링</a>은 입력·파이프라인·예측·성과·집단별 성능과 핵심성과지표(KPI)를 함께 본다.</li>
+          <li><a href="../chapters/04-interpretation-utilization.html#value">모형 전개·활용 시나리오</a>는 대상·입력 시점·임계값·행동·예외처리·롤백을 업무 흐름으로 정하고, <a href="../chapters/04-interpretation-utilization.html#monitor">리모델링</a>은 변화 원인을 확인한 뒤 문제·데이터·모형·정책을 함께 재검토한다.</li>
           <li><a href="../chapters/04-interpretation-utilization.html#value">업무 활용 가치</a>: 오프라인 점수보다 기준선 대비 순편익, 적용률, 사용자 행동과 안전 제약이 최종 가치를 결정한다.</li>
           <li><a href="../chapters/04-interpretation-utilization.html#communicate">시각화와 인포그래픽</a>: 비교·관계·공간 시각화는 질문이 다르다. 출처·기간·단위·분모·한계를 남긴다.</li>
         </ul>
@@ -235,7 +240,7 @@
           <tbody>
             <tr><th scope="row"><a href="../chapters/03-regression.html#compare">선형회귀</a></th><td><a href="../chapters/03-regression.html#compare">로지스틱 회귀</a></td><td>연속값을 직접 예측하나, 범주 확률의 로그오즈를 모델링하나?</td></tr>
             <tr><th scope="row"><a href="../chapters/03-regression.html#compare">Ridge</a></th><td><a href="../chapters/03-regression.html#compare">Lasso</a></td><td>L2 제곱 벌점인가, L1 절댓값 벌점인가?</td></tr>
-            <tr><th scope="row"><a href="../chapters/03-unsupervised-advanced.html#advanced">배깅</a></th><td><a href="../chapters/03-unsupervised-advanced.html#advanced">부스팅</a></td><td>병렬 평균으로 분산을 낮추나, 순차 오류 보완인가?</td></tr>
+            <tr><th scope="row"><a href="../chapters/03-unsupervised-advanced.html#ensemble">배깅</a></th><td><a href="../chapters/03-unsupervised-advanced.html#ensemble">부스팅</a></td><td>병렬 평균으로 분산을 낮추나, 순차 오류 보완인가?</td></tr>
             <tr><th scope="row"><a href="../chapters/04-evaluation-improvement.html#classification">정밀도</a></th><td><a href="../chapters/04-evaluation-improvement.html#classification">재현율</a></td><td>양성 예측 중 정답인가, 실제 양성 중 포착인가?</td></tr>
           </tbody>
         </table>
@@ -244,7 +249,7 @@
         <table>
           <thead><tr><th scope="col">A</th><th scope="col">B</th><th scope="col">구분 질문</th></tr></thead>
           <tbody>
-            <tr><th scope="row"><a href="../chapters/04-interpretation-utilization.html#interpret">PDP</a></th><td><a href="../chapters/04-interpretation-utilization.html#interpret">ICE</a></td><td>개별 반응의 평균인가, 사례별 반응선인가?</td></tr>
+            <tr><th scope="row"><a href="../chapters/04-interpretation-utilization.html#interpret">부분의존그림(PDP)</a></th><td><a href="../chapters/04-interpretation-utilization.html#interpret">개별조건부기대(ICE)</a></td><td>개별 반응의 평균인가, 사례별 반응선인가?</td></tr>
             <tr><th scope="row"><a href="../chapters/04-interpretation-utilization.html#interpret">연관 해석</a></th><td><a href="../chapters/04-interpretation-utilization.html#interpret">인과 해석</a></td><td>모형이 의존한 패턴인가, 개입 효과가 식별됐는가?</td></tr>
             <tr><th scope="row"><a href="../chapters/04-interpretation-utilization.html#monitor">데이터 드리프트</a></th><td><a href="../chapters/04-interpretation-utilization.html#monitor">개념 드리프트</a></td><td>P(X)가 변했나, P(Y|X)가 변했나?</td></tr>
             <tr><th scope="row"><a href="../chapters/01-collection-storage.html#storage">복제</a></th><td><a href="../chapters/01-collection-storage.html#storage">백업</a></td><td>가용성을 위한 동시 사본인가, 과거 상태 복구를 위한 독립 사본인가?</td></tr>

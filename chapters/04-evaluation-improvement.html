@@ -32,12 +32,12 @@
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 분석모형 평가 및 개선</p>
       <h2 id="scope-title">평가지표·교차검증·모형 진단·개선</h2>
-      <p>분류·회귀·군집 지표, 교차검증, 과소·과대적합 진단, 하이퍼파라미터와 임계값 조정을 다룬다.</p>
+      <p>분류·회귀·군집 지표, 교차검증, 과소·과대적합 진단, <a href="03-model-design.html#hyperparameters">하이퍼파라미터(hyperparameter)</a>와 임계값 조정을 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
         <li>혼동행렬에서 정확도·정밀도·재현율·특이도·F1을 계산한다.</li>
-        <li>ROC-AUC, PR 곡선, 확률 보정과 임계값 선택의 역할을 구분한다.</li>
-        <li>MAE·MSE·RMSE·R²와 군집 내부지표를 목적에 맞게 고른다.</li>
+        <li>수신자 조작 특성-곡선하면적(ROC-AUC), 정밀도-재현율(PR) 곡선, 확률 보정과 임계값 선택의 역할을 구분한다.</li>
+        <li>평균절대오차(MAE)·평균제곱오차(MSE)·평균제곱근오차(RMSE)·결정계수(R²)를 목적에 맞게 고른다.</li>
         <li>교차검증과 최종 시험 데이터의 역할을 분리한다.</li>
         <li>모수 유의성·적합도 검정과 예측성능 평가를 구분하고 모형융합의 누수를 막는다.</li>
         <li>학습·검증 곡선으로 과소·과대적합의 개선 방향을 제안한다.</li>
@@ -84,7 +84,13 @@
       <p class="eyebrow">핵심 2 · 분류 평가</p><h2 id="classification-title">혼동행렬은 오류를 네 칸으로 분해한다</h2>
 
       <article class="concept">
-        <h3>1. TP·TN·FP·FN</h3>
+        <h3>1. 참양성·참음성·거짓양성·거짓음성</h3>
+        <p>
+          <strong>참양성(true positive, TP)</strong>은 실제 양성을 양성으로,
+          <strong>참음성(true negative, TN)</strong>은 실제 음성을 음성으로 맞힌 경우다.
+          <strong>거짓양성(false positive, FP)</strong>은 실제 음성을 양성으로 잘못 경보하고,
+          <strong>거짓음성(false negative, FN)</strong>은 실제 양성을 놓친 경우다.
+        </p>
         <div class="table-wrap" tabindex="0" aria-label="이진 분류 혼동행렬">
           <table>
             <thead><tr><th scope="col">실제＼예측</th><th scope="col">양성 예측</th><th scope="col">음성 예측</th></tr></thead>
@@ -102,7 +108,7 @@
           <div><span>F1</span><strong>2PR/(P+R)</strong></div>
           <div><span>균형정확도</span><strong>(민감도+특이도)/2</strong></div>
         </div>
-        <p><strong>정밀도</strong>는 양성이라고 경보한 것 중 맞은 비율이라 FP에 민감하고, <strong>재현율</strong>은 실제 양성 중 찾은 비율이라 FN에 민감하다. F1은 둘의 조화평균으로 한쪽이 낮으면 함께 낮아지지만 TN을 직접 반영하지 않는다.</p>
+        <p><strong>정밀도(precision, P)</strong>는 양성이라고 경보한 것 중 맞은 비율이라 FP에 민감하고, <strong>재현율(recall, R)</strong>은 실제 양성 중 찾은 비율이라 FN에 민감하다. F1은 둘의 조화평균으로 한쪽이 낮으면 함께 낮아지지만 TN을 직접 반영하지 않는다.</p>
         <aside class="warning"><h3>분모로 구분하기</h3><ul><li>정밀도 질문: “내가 양성이라고 한 것 중?”</li><li>재현율 질문: “실제 양성 중?”</li><li>특이도 질문: “실제 음성 중?”</li><li>정확도는 불균형 자료에서 다수 클래스에 가려질 수 있다.</li></ul></aside>
       </article>
 
@@ -113,14 +119,14 @@
           <table>
             <thead><tr><th scope="col">도구</th><th scope="col">축·요약</th><th scope="col">주요 용도</th></tr></thead>
             <tbody>
-              <tr><th scope="row">ROC</th><td>FPR 대비 TPR, AUC로 순위 성능 요약</td><td>임계값 전반의 분리·순위 능력</td></tr>
-              <tr><th scope="row">PR</th><td>재현율 대비 정밀도</td><td>희귀 양성에서 양성 탐지 품질</td></tr>
+              <tr><th scope="row">수신자 조작 특성(ROC)</th><td>거짓양성률(FPR) 대비 참양성률(TPR), AUC로 순위 성능 요약</td><td>임계값 전반의 분리·순위 능력</td></tr>
+              <tr><th scope="row">정밀도-재현율(PR)</th><td>재현율 대비 정밀도</td><td>희귀 양성에서 양성 탐지 품질</td></tr>
               <tr><th scope="row">이득·향상도</th><td>상위 점수 집단의 포착률·기준 대비 배수</td><td>제한된 대상에 행동할 때</td></tr>
               <tr><th scope="row">비용곡선</th><td>임계값별 기대 비용·효용</td><td>FP·FN 비용이 명시될 때</td></tr>
             </tbody>
           </table>
         </div>
-        <p>ROC-AUC는 무작위로 고른 양성의 점수를 무작위 음성보다 높게 줄 확률로 해석할 수 있는 순위 지표다. 특정 임계값의 정밀도·재현율이나 확률의 정확성을 보장하지 않는다. 클래스가 극도로 불균형하면 낮은 FPR도 많은 FP가 될 수 있어 PR과 실제 건수를 함께 본다.</p>
+        <p><strong>수신자 조작 특성(receiver operating characteristic, ROC)</strong> 곡선은 거짓양성률(false positive rate, FPR)과 참양성률(true positive rate, TPR)의 관계를 임계값 전반에서 그린다. <strong>곡선하면적(area under the curve, AUC)</strong>은 무작위로 고른 양성의 점수를 무작위 음성보다 높게 줄 확률로 해석할 수 있는 순위 지표다. <strong>정밀도-재현율(precision-recall, PR)</strong> 곡선은 희귀 양성에서 양성 탐지 품질을 더 직접적으로 보여 준다.</p>
       </article>
 
       <article class="concept">
@@ -149,14 +155,18 @@
           <table>
             <thead><tr><th scope="col">지표</th><th scope="col">공식 요약</th><th scope="col">특징</th></tr></thead>
             <tbody>
-              <tr><th scope="row">MAE</th><td>평균 |y−ŷ|</td><td>원래 단위, 큰 오차에 선형 벌점</td></tr>
-              <tr><th scope="row">MSE</th><td>평균 (y−ŷ)²</td><td>큰 오차를 강하게 벌점, 단위 제곱</td></tr>
-              <tr><th scope="row">RMSE</th><td>√MSE</td><td>큰 오차 강조, 원래 단위</td></tr>
-              <tr><th scope="row">R²</th><td>1−SSE/SST</td><td>평균 기준 대비 설명; 시험에서 음수 가능</td></tr>
-              <tr><th scope="row">MAPE</th><td>평균 |(y−ŷ)/y|</td><td>비율 해석; y=0·작은 값에 문제</td></tr>
+              <tr><th scope="row">평균절대오차(MAE)</th><td>평균 |y−ŷ|</td><td>원래 단위, 큰 오차에 선형 벌점</td></tr>
+              <tr><th scope="row">평균제곱오차(MSE)</th><td>평균 (y−ŷ)²</td><td>큰 오차를 강하게 벌점, 단위 제곱</td></tr>
+              <tr><th scope="row">평균제곱근오차(RMSE)</th><td>√MSE</td><td>큰 오차 강조, 원래 단위</td></tr>
+              <tr><th scope="row">결정계수(R²)</th><td>1−SSE/SST</td><td>평균 기준 대비 설명; 시험에서 음수 가능</td></tr>
+              <tr><th scope="row">평균절대백분율오차(MAPE)</th><td>평균 |(y−ŷ)/y|</td><td>비율 해석; y=0·작은 값에 문제</td></tr>
             </tbody>
           </table>
         </div>
+        <p>
+          영문은 mean absolute error(MAE), mean squared error(MSE), root mean squared error(RMSE),
+          coefficient of determination(R²), mean absolute percentage error(MAPE)다. y는 관측값, ŷ는 예측값이다.
+        </p>
         <p>RMSE가 MAE보다 훨씬 크면 일부 큰 오차의 영향을 의심할 수 있다. R²=0은 평균만 예측하는 기준과 같은 수준이고, 독립 시험 자료에서는 0보다 작아 기준보다 나쁠 수 있다. 데이터셋 분산에 의존하므로 서로 다른 데이터셋의 R²를 단순 비교하지 않는다.</p>
         <p>잔차 e=y−ŷ를 예측값·시간·집단별로 그려 평균 0 주위의 구조 없는 패턴인지 확인한다. 곡선, 깔때기 모양, 시간 자기상관, 특정 집단 편향은 누락된 비선형성·이분산·시간 구조·집단 차이를 시사한다.</p>
       </article>
@@ -168,13 +178,13 @@
             <thead><tr><th scope="col">유형</th><th scope="col">지표 예</th><th scope="col">해석과 한계</th></tr></thead>
             <tbody>
               <tr><th scope="row">내부</th><td>실루엣, Davies–Bouldin</td><td>응집·분리; 거리·군집 모양 가정 영향</td></tr>
-              <tr><th scope="row">외부</th><td>ARI, NMI</td><td>외부 정답 레이블과 일치 정도</td></tr>
+              <tr><th scope="row">외부</th><td>조정 랜드 지수(ARI), 정규화 상호정보량(NMI)</td><td>외부 정답 레이블과 일치 정도</td></tr>
               <tr><th scope="row">안정성</th><td>재표집·seed 변화의 일관성</td><td>작은 변화에 군집이 무너지지 않는지</td></tr>
               <tr><th scope="row">업무</th><td>집단 크기·구분 가능성·행동 가능성</td><td>통계적 분리와 실제 활용을 연결</td></tr>
             </tbody>
           </table>
         </div>
-        <p>실루엣은 각 점의 같은 군집 내 평균거리 a와 가장 가까운 다른 군집 평균거리 b를 이용해 (b−a)/max(a,b)로 계산하며 −1에서 1 사이이다. 1에 가까울수록 응집·분리가 좋지만 비구형·밀도 기반 군집의 품질을 항상 공정하게 평가하지는 않는다.</p>
+        <p>조정 랜드 지수(adjusted Rand index, ARI)와 정규화 상호정보량(normalized mutual information, NMI)은 외부 레이블과 군집의 일치를 본다. <a href="03-unsupervised-advanced.html#clustering">실루엣 계수</a>는 각 점의 같은 군집 내 평균거리 a와 가장 가까운 다른 군집 평균거리 b를 이용해 (b−a)/max(a,b)로 계산하며 −1에서 1 사이이다.</p>
       </article>
     </section>
 
@@ -183,7 +193,7 @@
 
       <article class="concept">
         <h3>1. 교차검증은 한 번의 분할 우연을 줄인다</h3>
-        <p>k-겹 교차검증은 데이터를 k개 폴드로 나눠 하나를 검증, 나머지를 학습하는 일을 k번 반복한다. 평균 점수는 예상 성능을, 폴드 간 변동은 분할 민감도를 보여준다. k가 크면 학습 자료는 늘지만 계산비용과 폴드 간 상관이 커질 수 있다.</p>
+        <p><strong>k-겹 교차검증(k-fold cross-validation, CV)</strong>은 데이터를 k개 폴드로 나눠 하나를 검증, 나머지를 학습하는 일을 k번 반복한다. 평균 점수는 예상 성능을, 폴드 간 변동은 분할 민감도를 보여준다. k가 크면 학습 자료는 늘지만 계산비용과 폴드 간 상관이 커질 수 있다.</p>
         <ul>
           <li><strong>층화 k-fold:</strong> 분류 클래스 비율을 폴드마다 비슷하게 유지한다.</li>
           <li><strong>그룹 교차검증:</strong> 같은 사람·장비의 행을 폴드 사이에서 격리한다.</li>
@@ -200,13 +210,13 @@
             <thead><tr><th scope="col">패턴</th><th scope="col">진단</th><th scope="col">개선 후보</th></tr></thead>
             <tbody>
               <tr><th scope="row">학습·검증 모두 낮음</th><td>높은 편향, 과소적합</td><td>표현·특징·모형 복잡성 늘리기, 규제 완화</td></tr>
-              <tr><th scope="row">학습 높고 검증 낮음</th><td>높은 분산, 과대적합</td><td>규제·단순화·더 많은 대표 자료·앙상블</td></tr>
+              <tr><th scope="row">학습 높고 검증 낮음</th><td>높은 분산, 과대적합</td><td>규제·단순화·더 많은 대표 자료·<a href="03-unsupervised-advanced.html#ensemble">앙상블</a></td></tr>
               <tr><th scope="row">둘 다 높고 격차 작음</th><td>현재 분할에서 양호</td><td>하위집단·시간·운영 제약 추가 점검</td></tr>
               <tr><th scope="row">폴드 변동이 큼</th><td>표본·집단·분할 민감</td><td>분할 구조·데이터 품질·불확실성 점검</td></tr>
             </tbody>
           </table>
         </div>
-        <p><strong>학습곡선</strong>은 학습 표본 수에 따른 학습·검증 점수를 보여 데이터 추가의 효용을 진단한다. <strong>검증곡선</strong>은 한 하이퍼파라미터 값에 따른 두 점수를 보여 규제·복잡성의 적정 구간을 찾는다.</p>
+        <p><strong>학습곡선(learning curve)</strong>은 학습 표본 수에 따른 학습·검증 점수를 보여 데이터 추가의 효용을 진단한다. <strong>검증곡선(validation curve)</strong>은 한 <a href="03-model-design.html#hyperparameters">하이퍼파라미터</a> 값에 따른 두 점수를 보여 규제·복잡성의 적정 구간을 찾는다.</p>
       </article>
 
       <article class="concept">
@@ -259,7 +269,7 @@
             </tbody>
           </table>
         </div>
-        <p>같은 편향을 가진 모형을 많이 더한다고 자동으로 좋아지지 않는다. 서로 다른 가정·특징·오류를 가진 후보가 있을 때 이점이 커질 수 있다. 스태킹에서 기본모형이 자기 학습행을 예측한 값으로 메타모형을 학습하면 과도하게 낙관적인 신호가 들어가므로, 각 행은 그 행을 보지 않은 폴드 모형의 예측을 받아야 한다.</p>
+        <p><a href="03-unsupervised-advanced.html#ensemble"><strong>모형융합(model ensembling)</strong></a>은 같은 편향을 가진 모형을 많이 더한다고 자동으로 좋아지지 않는다. 서로 다른 가정·특징·오류를 가진 후보가 있을 때 이점이 커질 수 있다. 스태킹에서 기본모형이 자기 학습행을 예측한 값으로 메타모형을 학습하면 과도하게 낙관적인 신호가 들어간다. 각 행은 그 행을 보지 않은 폴드 모형의 <strong>폴드 외 예측(out-of-fold prediction)</strong>을 받아야 한다.</p>
       </article>
     </section>
 

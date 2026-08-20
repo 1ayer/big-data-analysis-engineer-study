@@ -36,11 +36,11 @@
       <p>데이터 유형과 원천, 수집 방식, 품질, 개인정보보호, 적재 파이프라인과 분산 처리를 하나의 흐름으로 다룬다.</p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
-        <li>원천과 지연시간 요구에 맞춰 배치·스트림·API·로그·크롤링을 구분한다.</li>
+        <li>원천과 지연시간 요구에 맞춰 배치·스트림·응용 프로그래밍 인터페이스(API)·로그·크롤링을 구분한다.</li>
         <li>데이터 품질을 정확성·완전성·유효성·일관성·적시성·유일성으로 진단한다.</li>
         <li>개인정보와 가명정보, 수집·이용 근거와 가명·익명처리의 차이를 구분한다.</li>
-        <li>ETL·ELT와 웨어하우스·레이크·관계형·NoSQL 저장소를 목적에 맞춰 고른다.</li>
-        <li>HDFS와 MapReduce의 역할, 장점과 한계를 설명한다.</li>
+        <li>추출·변환·적재(ETL)와 추출·적재·변환(ELT), 웨어하우스·레이크·관계형·NoSQL 저장소를 목적에 맞춰 고른다.</li>
+        <li>하둡 분산 파일 시스템(HDFS)과 MapReduce의 역할, 장점과 한계를 설명한다.</li>
       </ul>
     </section>
 
@@ -74,7 +74,7 @@
             <tbody>
               <tr><th scope="row">업무 DB</th><td>쿼리, 변경 데이터 캡처, 덤프</td><td>운영 부하·기준시점·삭제와 갱신</td></tr>
               <tr><th scope="row">애플리케이션 로그</th><td>파일 수집, 메시지 큐, 이벤트 스트림</td><td>이벤트 정의·중복·순서·시간대</td></tr>
-              <tr><th scope="row">API</th><td>인증된 요청과 응답 적재</td><td>약관·권한·페이지네이션·속도 제한·재시도</td></tr>
+              <tr><th scope="row">응용 프로그래밍 인터페이스(API)</th><td>인증된 요청과 응답 적재</td><td>약관·권한·페이지네이션·속도 제한·재시도</td></tr>
               <tr><th scope="row">웹</th><td>크롤링·파싱</td><td>robots.txt·약관·저작권·개인정보·요청 부하</td></tr>
               <tr><th scope="row">센서·장비</th><td>게이트웨이·스트림</td><td>교정·결측·노이즈·단위·장치 시각</td></tr>
               <tr><th scope="row">외부 파일</th><td>다운로드·전송·공유</td><td>라이선스·버전·갱신주기·무결성</td></tr>
@@ -102,7 +102,7 @@
 
       <article class="concept">
         <h3>3. 크롤링 가능성과 이용 정당성은 분리한다</h3>
-        <p>RFC 9309의 robots.txt는 서비스 소유자가 크롤러의 URI 접근 규칙을 게시하는 표준이다. RFC 자체도 이 규칙이 접근 권한 부여가 아니라고 명시한다. 즉 robots.txt가 허용하더라도 약관·저작권·개인정보·계약과 요청 부하를 별도로 검토해야 하고, 금지된 경로를 기술적으로 열 수 있다고 수집해서는 안 된다.</p>
+        <p><strong>응용 프로그래밍 인터페이스(application programming interface, API)</strong>는 프로그램끼리 정해진 방식으로 요청과 응답을 주고받는 접점이다. 국제 인터넷 표준 문서(Request for Comments, RFC) 9309의 robots.txt는 서비스 소유자가 크롤러의 통합 자원 식별자(Uniform Resource Identifier, URI) 접근 규칙을 게시하는 표준이다. RFC 자체도 이 규칙이 접근 권한 부여가 아니라고 명시한다. 즉 robots.txt가 허용하더라도 약관·저작권·개인정보·계약과 요청 부하를 별도로 검토해야 하고, 금지된 경로를 기술적으로 열 수 있다고 수집해서는 안 된다.</p>
         <ul>
           <li>식별 가능한 User-Agent와 연락처, 합리적인 요청 간격을 둔다.</li>
           <li>필요한 최소 필드와 기간만 수집하고 원문 재배포 권한을 확인한다.</li>
@@ -139,7 +139,7 @@
               <tr><th scope="row">기술 메타데이터</th><td>어떤 형식과 위치에 있나?</td><td>스키마, 자료형, 테이블·파일 경로</td></tr>
               <tr><th scope="row">운영 메타데이터</th><td>언제 어떤 작업이 수행됐나?</td><td>적재 시각, 행 수, 작업 상태</td></tr>
               <tr><th scope="row">데이터 계보</th><td>어디서 와서 어떤 변환을 거쳤나?</td><td>원천 열 → 정제 → 특징 → 보고서</td></tr>
-              <tr><th scope="row">체크섬</th><td>전송·보관 중 바이트가 바뀌었나?</td><td>동일 파일의 SHA-256 비교</td></tr>
+              <tr><th scope="row">체크섬</th><td>전송·보관 중 바이트가 바뀌었나?</td><td>동일 파일의 256비트 보안 해시 알고리즘(SHA-256) 비교</td></tr>
             </tbody>
           </table>
         </div>
@@ -197,7 +197,8 @@
     </section>
 
     <section id="pipeline" aria-labelledby="pipeline-title">
-      <p class="eyebrow">핵심 4 · 적재 파이프라인</p><h2 id="pipeline-title">ETL과 ELT는 변환 위치와 시점이 다르다</h2>
+      <p class="eyebrow">핵심 4 · 적재 파이프라인</p><h2 id="pipeline-title">추출·변환·적재(ETL)와 추출·적재·변환(ELT)은 변환 위치가 다르다</h2>
+      <p><strong>ETL(extract, transform, load)</strong>은 적재 전에 변환하고, <strong>ELT(extract, load, transform)</strong>는 먼저 적재한 뒤 대상 플랫폼에서 변환한다.</p>
       <div class="table-wrap" tabindex="0" aria-label="ETL과 ELT 비교">
         <table>
           <thead><tr><th scope="col">구분</th><th scope="col">ETL</th><th scope="col">ELT</th></tr></thead>
@@ -236,7 +237,7 @@
           </tbody>
         </table>
       </div>
-      <p>NoSQL은 “SQL을 절대 쓸 수 없다”는 뜻보다 관계형 모델 외의 다양한 분산 저장 모델을 묶는 실무적 범주로 이해한다. 제품명보다 질의 형태, 쓰기량, 일관성, 지연시간, 확장과 운영 역량을 먼저 본다.</p>
+      <p><strong>SQL(Structured Query Language)</strong>은 관계형 데이터를 정의·조회·변경하는 질의 언어다. <strong>NoSQL</strong>은 “SQL을 절대 쓸 수 없다”는 뜻보다 관계형 모델 외의 다양한 분산 저장 모델을 묶는 실무적 범주로 이해한다. <strong>OLAP(online analytical processing)</strong>은 여러 관점에서 집계·비교하는 분석 처리를 가리킨다. 제품명보다 질의 형태, 쓰기량, 일관성, 지연시간, 확장과 운영 역량을 먼저 본다.</p>
 
       <article class="concept">
         <h3>웨어하우스와 레이크의 경계</h3>
@@ -256,9 +257,9 @@
     </section>
 
     <section id="distributed" aria-labelledby="distributed-title">
-      <p class="eyebrow">핵심 6 · HDFS와 MapReduce</p><h2 id="distributed-title">저장은 블록으로, 계산은 데이터 가까이</h2>
+      <p class="eyebrow">핵심 6 · 분산 저장과 처리</p><h2 id="distributed-title">하둡 분산 파일 시스템(HDFS)은 블록으로 저장하고 MapReduce는 데이터 가까이 계산한다</h2>
       <article class="concept">
-        <h3>1. HDFS의 역할 분리</h3>
+        <h3>1. 하둡 분산 파일 시스템(Hadoop Distributed File System, HDFS)의 역할 분리</h3>
         <div class="table-wrap" tabindex="0" aria-label="HDFS 구성요소">
           <table>
             <thead><tr><th scope="col">구성</th><th scope="col">역할</th><th scope="col">핵심 통신</th></tr></thead>
@@ -273,7 +274,7 @@
       </article>
 
       <article class="concept">
-        <h3>2. MapReduce의 데이터 흐름</h3>
+        <h3>2. MapReduce(map과 reduce)의 데이터 흐름</h3>
         <ol class="steps">
           <li><strong>입력 분할</strong><span>입력을 여러 조각으로 나눠 병렬 작업을 만든다.</span></li>
           <li><strong>Map</strong><span>입력 키·값에서 중간 키·값을 생성한다.</span></li>

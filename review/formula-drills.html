@@ -40,7 +40,7 @@
         <div class="equation-grid">
           <div><span>표준점수</span><strong>z=(x−x̄)/s</strong></div>
           <div><span>최소-최대</span><strong>(x−min)/(max−min)</strong></div>
-          <div><span>사분위범위</span><strong>IQR=Q3−Q1</strong></div>
+          <div><span><a href="../chapters/02-preprocessing.html#quality">사분위 범위(IQR)</a></span><strong>IQR=Q3−Q1</strong></div>
           <div><span>조건부확률</span><strong>P(A|B)=P(A∩B)/P(B)</strong></div>
           <div><span>이항확률</span><strong>C(n,k)p<sup>k</sup>(1−p)<sup>n−k</sup></strong></div>
           <div><span>평균의 표준오차</span><strong>SE=s/√n</strong></div>
@@ -58,8 +58,8 @@
               <tr><th scope="row">재현율</th><td>TP/(TP+FN)</td><td>실제 양성 중 찾아낸 양성</td></tr>
               <tr><th scope="row">특이도</th><td>TN/(TN+FP)</td><td>실제 음성 중 찾아낸 음성</td></tr>
               <tr><th scope="row">F1</th><td>2PR/(P+R)</td><td>정밀도와 재현율의 조화평균</td></tr>
-              <tr><th scope="row">MAE</th><td>Σ|y−ŷ|/n</td><td>절대오차 평균</td></tr>
-              <tr><th scope="row">RMSE</th><td>√(Σ(y−ŷ)²/n)</td><td>큰 오차에 더 민감, 목표와 같은 단위</td></tr>
+              <tr><th scope="row"><a href="../chapters/04-evaluation-improvement.html#other-metrics">평균절대오차(MAE)</a></th><td>Σ|y−ŷ|/n</td><td>절대오차 평균</td></tr>
+              <tr><th scope="row"><a href="../chapters/04-evaluation-improvement.html#other-metrics">평균제곱근오차(RMSE)</a></th><td>√(Σ(y−ŷ)²/n)</td><td>큰 오차에 더 민감, 목표와 같은 단위</td></tr>
               <tr><th scope="row">향상도</th><td>P(B|A)/P(B)</td><td>A가 있을 때 B 확률이 기준보다 몇 배인가</td></tr>
               <tr><th scope="row">지니</th><td>1−Σp<sub>k</sub>²</td><td>클래스가 섞인 정도</td></tr>
               <tr><th scope="row">실루엣</th><td>(b−a)/max(a,b)</td><td>내 군집 거리 a와 이웃 군집 거리 b 비교</td></tr>

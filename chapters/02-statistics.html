@@ -38,8 +38,8 @@
         <li>조건부확률·독립·베이즈 정리를 식과 사례로 구분한다.</li>
         <li>변수와 사건 구조에 맞는 대표 확률분포를 고른다.</li>
         <li>표준오차와 신뢰구간의 의미를 계산하고 바르게 해석한다.</li>
-        <li>p값, 유의수준, 1·2종 오류와 검정력을 혼동하지 않는다.</li>
-        <li>자료 구조와 질문에 맞춰 t·ANOVA·카이제곱·비모수 검정을 연결한다.</li>
+        <li>유의확률(p-value), 유의수준, 1·2종 오류와 검정력을 혼동하지 않는다.</li>
+        <li>자료 구조와 질문에 맞춰 t 검정·분산분석(ANOVA)·카이제곱·비모수 검정을 연결한다.</li>
       </ul>
     </section>
 
@@ -135,18 +135,18 @@
 
       <article class="concept">
         <h3>2. 중심극한정리는 평균의 표본분포를 연결한다</h3>
-        <p>독립성과 유한한 분산 등 조건 아래 표본 크기가 커질수록 표본평균의 표본분포는 모집단 모양과 무관하게 정규분포에 가까워진다. 모집단 평균이 μ, 표준편차가 σ이면 표본평균의 평균은 μ, 표준오차는 σ/√n이다.</p>
+        <p><strong>중심극한정리(central limit theorem)</strong>에 따라 독립성과 유한한 분산 등 조건 아래 표본 크기가 커질수록 표본평균의 표본분포는 모집단 모양과 무관하게 정규분포에 가까워진다. 모집단 평균이 μ, <a href="02-exploration.html#univariate">표준편차</a>가 σ이면 표본평균의 평균은 μ, 표준오차는 σ/√n이다.</p>
         <div class="equation-grid" aria-label="표본평균과 표본비율 표준오차">
           <div><span>평균의 표준오차</span><strong>SE(x̄)=σ/√n ≈ s/√n</strong></div>
           <div><span>비율의 표준오차</span><strong>SE(p̂)=√[p(1−p)/n]</strong></div>
           <div><span>표본 4배</span><strong>SE는 1/2배</strong></div>
         </div>
-        <aside class="callout compact"><strong>구분 기준 · 표준편차와 표준오차:</strong> 표준편차는 개별 관측값의 퍼짐이고, 표준오차는 반복해서 표본을 뽑을 때 추정량이 얼마나 달라지는지를 나타낸다. 표본 수가 네 배가 되면 표준오차는 절반이 된다.</aside>
+        <aside class="callout compact"><strong>구분 기준 · 표준편차와 표준오차:</strong> <strong>표준오차(standard error, SE)</strong>는 반복해서 표본을 뽑을 때 추정량이 얼마나 달라지는지를 나타낸다. 표준편차는 개별 관측값의 퍼짐이다. 표본 수가 네 배가 되면 표준오차는 절반이 된다.</aside>
       </article>
 
       <article class="concept">
         <h3>3. 점추정과 구간추정</h3>
-        <p>점추정은 모수에 한 값을 제시하고, 구간추정은 불확실성을 범위로 표현한다. 좋은 추정량의 성질로 불편성(기대값이 모수), 일치성(표본 증가 시 모수에 수렴), 효율성(같은 조건에서 작은 분산)을 본다.</p>
+        <p>점추정은 모수에 한 값을 제시하고, 구간추정은 불확실성을 범위로 표현한다. <strong>신뢰구간(confidence interval)</strong>은 같은 추정 절차를 반복했을 때 정해진 비율로 참 모수를 포함하도록 만든 구간이다. 좋은 추정량의 성질로 불편성(기대값이 모수), 일치성(표본 증가 시 모수에 수렴), 효율성(같은 조건에서 작은 분산)을 본다.</p>
         <div class="formula">모평균의 t 신뢰구간: x̄ ± t<sub>1−α/2,n−1</sub> · s/√n</div>
         <p>같은 자료라면 신뢰수준이 높을수록 임계값이 커져 구간이 넓어진다. 표본 수가 커지면 √n 항 때문에 좁아지고, 표본 표준편차가 크면 넓어진다. 전제와 추출 설계가 잘못되면 좁은 구간도 정확하지 않을 수 있다.</p>
         <aside class="warning"><h3>95% 신뢰구간의 정확한 해석</h3><p>같은 절차로 표본추출과 구간 계산을 반복하면 장기적으로 약 95%의 구간이 고정된 참 모수를 포함한다. 계산을 끝낸 특정 구간에 대해 빈도주의 해석으로 “모수가 들어 있을 확률이 95%”라고 말하지 않는다.</p></aside>
@@ -159,13 +159,13 @@
       <article class="concept">
         <h3>1. 검정 절차</h3>
         <ol class="steps">
-          <li><strong>가설</strong><span>모수에 대한 H₀와 연구 질문인 H₁을 세운다.</span></li>
+          <li><strong>가설</strong><span>기준 주장인 귀무가설(null hypothesis, H₀)과 연구 질문인 대립가설(alternative hypothesis, H₁)을 세운다.</span></li>
           <li><strong>기준</strong><span>자료를 보기 전에 유의수준 α와 단측·양측을 정한다.</span></li>
           <li><strong>통계량</strong><span>가정에 맞는 검정을 선택하고 값을 계산한다.</span></li>
           <li><strong>판단</strong><span>p≤α이면 H₀를 기각, 아니면 기각하지 못한다.</span></li>
           <li><strong>해석</strong><span>효과 크기·신뢰구간·가정·실무 중요성을 함께 보고한다.</span></li>
         </ol>
-        <p>p값은 <strong>H₀가 참이라고 가정했을 때</strong> 현재 관측한 통계량과 같거나 더 극단적인 결과가 나올 확률이다. H₀가 참일 확률도, 결과가 우연일 확률도, 효과 크기도 아니다. p가 크면 H₀가 참이라고 증명한 것이 아니라 기각할 증거가 충분하지 않다는 뜻이다.</p>
+        <p><strong>유의확률(p-value)</strong>은 <strong>H₀가 참이라고 가정했을 때</strong> 현재 관측한 통계량과 같거나 더 극단적인 결과가 나올 확률이다. H₀가 참일 확률도, 결과가 우연일 확률도, 효과 크기도 아니다. p가 크면 H₀가 참이라고 증명한 것이 아니라 기각할 증거가 충분하지 않다는 뜻이다.</p>
       </article>
 
       <article class="concept">
@@ -199,14 +199,14 @@
             <tr><th scope="row">한 집단 평균 vs 기준</th><td>일표본 t</td><td>Wilcoxon 부호순위 등</td></tr>
             <tr><th scope="row">독립 두 집단 평균</th><td>독립표본 t, Welch t</td><td>Mann–Whitney U</td></tr>
             <tr><th scope="row">같은 개체 전후</th><td>대응표본 t</td><td>Wilcoxon 부호순위</td></tr>
-            <tr><th scope="row">독립 3집단 이상 평균</th><td>일원 ANOVA</td><td>Kruskal–Wallis</td></tr>
+            <tr><th scope="row">독립 3집단 이상 평균</th><td>일원 분산분석(ANOVA)</td><td>Kruskal–Wallis</td></tr>
             <tr><th scope="row">범주형 두 변수 관계</th><td>카이제곱 독립성 검정</td><td>작은 기대빈도는 Fisher 정확검정 검토</td></tr>
             <tr><th scope="row">수치형 두 변수 선형관계</th><td>피어슨 상관 검정</td><td>스피어만 순위상관</td></tr>
           </tbody>
         </table>
       </div>
       <p>모수검정은 단순히 “표본 30 이상이면 무조건” 고르는 것이 아니다. 독립성, 자료 척도, 분포와 잔차, 등분산 등 해당 검정의 가정을 진단한다. Welch t는 독립 두 집단의 등분산을 가정하지 않는 대표 선택이다.</p>
-      <p>일원 ANOVA의 H₀는 모든 집단 평균이 같다는 것이고, 기각하면 <strong>적어도 하나</strong>가 다르다는 뜻이다. 어느 집단끼리 다른지는 사후 다중비교가 필요하다. F 통계량은 집단 사이 변동을 집단 안 변동과 비교한다.</p>
+      <p><strong>분산분석(analysis of variance, ANOVA)</strong>은 집단 사이 변동을 집단 안 변동과 비교해 여러 평균을 한 번에 검정한다. 일원 ANOVA의 H₀는 모든 집단 평균이 같다는 것이고, 기각하면 <strong>적어도 하나</strong>가 다르다는 뜻이다. 어느 집단끼리 다른지는 사후 다중비교가 필요하다. F 통계량은 집단 사이 변동을 집단 안 변동과 비교한다.</p>
       <p>카이제곱 독립성 검정은 관측빈도와 H₀ 아래 기대빈도의 차이를 <span class="nowrap">χ²=Σ(O−E)²/E</span>로 합한다. 원자료의 개별 행보다 빈도표와 기대빈도 조건이 핵심이다.</p>
       <aside class="warning">
         <h3>시험과 실기의 혼동 지점</h3>
@@ -264,7 +264,7 @@
 
     <section id="practice" aria-labelledby="practice-title">
       <p class="eyebrow">7분+ · Python 연결</p><h2 id="practice-title">이항확률·표준오차·근사 신뢰구간 계산</h2>
-      <p>표준 라이브러리 예제는 이항 PMF의 합이 1인지, 표본 크기와 표준오차의 제곱근 관계, 정규근사 구간을 <code>assert</code>로 확인한다. <a href="../examples/statistics_demo.py" download>실행 파일 내려받기</a></p>
+      <p>표준 라이브러리 예제는 이항 확률질량함수(probability mass function, PMF)의 합이 1인지, 표본 크기와 표준오차의 제곱근 관계, 정규근사 구간을 <code>assert</code>로 확인한다. <a href="../examples/statistics_demo.py" download>실행 파일 내려받기</a></p>
       <pre><code>from math import comb, sqrt
 
 def binomial_pmf(k, n, p):

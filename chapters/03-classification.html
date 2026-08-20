@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="의사결정나무, 인공신경망, SVM을 비교하는 빅데이터분석기사 3과목 교재">
-  <title>03-03 의사결정나무·신경망·SVM</title>
+  <meta name="description" content="의사결정나무, 인공신경망, 서포트 벡터 머신의 원리와 용어를 비교하는 빅데이터분석기사 3과목 교재">
+  <title>03-03 의사결정나무·신경망·서포트 벡터 머신</title>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -16,10 +16,10 @@
         <a href="../index.html">학습 홈</a><span aria-hidden="true">/</span><span>3과목</span>
       </nav>
       <p class="eyebrow">03-03 · 분석기법 적용</p>
-      <h1>의사결정나무·신경망·SVM</h1>
-      <p class="lede">나무는 공간을 분할하고, 신경망은 표현을 층으로 학습하며, SVM은 결정경계의 여백을 최대화한다.</p>
+      <h1>의사결정나무·신경망·서포트 벡터 머신</h1>
+      <p class="lede">세 모형은 입력값으로 새 표본의 범주를 예측하지만, 범주를 가르는 경계를 만드는 방법이 서로 다르다.</p>
       <ul class="tags" aria-label="단원 정보">
-        <li>약 45분</li>
+        <li>약 55분</li>
         <li>회상 12개</li>
         <li>문제 12개</li>
         <li>Python 연결</li>
@@ -34,7 +34,7 @@
       <a href="#compare">핵심 비교</a>
       <a href="#tree">의사결정나무</a>
       <a href="#network">신경망</a>
-      <a href="#svm">SVM</a>
+      <a href="#svm">서포트 벡터 머신</a>
       <a href="#recall">회상</a>
       <a href="#quiz">문제</a>
       <a href="#practice">Python</a>
@@ -45,40 +45,65 @@
   <main id="main" class="page narrow stack">
     <section id="scope" class="panel objectives" aria-labelledby="scope-title">
       <p class="eyebrow">공식 범위 · 분석기법 적용</p>
-      <h2 id="scope-title">세 분류기의 원리와 선택 기준</h2>
-      <p>의사결정나무, 인공신경망, 서포트벡터머신의 구조와 주요 하이퍼파라미터, 장단점을 비교한다.</p>
+      <h2 id="scope-title">세 분류기의 용어·원리·선택 기준</h2>
+      <p>
+        <strong>분류(classification)</strong>는 입력 특징으로 미리 정한 범주를 예측하는 문제다.
+        의사결정나무(decision tree), 인공신경망(artificial neural network, ANN),
+        서포트 벡터 머신(support vector machine, SVM)이 범주를 나누는 방식을 비교한다.
+      </p>
       <h3>이 단원을 마치면</h3>
       <ul class="check-list">
+        <li>특징·클래스·결정경계를 구분하고 세 모형이 경계를 만드는 방식을 비교한다.</li>
         <li>지니 불순도와 엔트로피가 순수한 노드에서 어떻게 변하는지 말한다.</li>
         <li>나무의 깊이·가지치기와 과대적합 관계를 설명한다.</li>
         <li>신경망의 순전파·활성화·손실·역전파를 한 흐름으로 연결한다.</li>
-        <li>SVM의 마진·서포트 벡터·커널과 C·gamma를 구분한다.</li>
+        <li>SVM의 마진·서포트 벡터·커널과 C·감마(γ)를 구분한다.</li>
       </ul>
     </section>
 
     <section id="precheck" aria-labelledby="precheck-title">
       <p class="eyebrow">3분 · 사전 점검</p>
       <h2 id="precheck-title">관계부터 떠올리기</h2>
+      <p class="source-note">아직 답하지 못해도 괜찮다. 아래 질문은 이 단원을 읽은 뒤 무엇을 설명할 수 있어야 하는지 미리 보여 준다.</p>
       <ol class="questions">
         <li>한 노드의 모든 표본이 같은 클래스면 지니 불순도와 엔트로피는 얼마인가?</li>
         <li>나무를 계속 깊게 만들면 학습오차와 일반화오차는 각각 어떻게 될까?</li>
         <li>신경망에서 비선형 활성화 함수가 없으면 층을 여러 개 쌓는 이점이 왜 줄어드는가?</li>
-        <li>RBF SVM에서 C와 gamma가 커질 때 결정경계는 대체로 어떤 방향으로 복잡해지는가?</li>
+        <li>방사 기저 함수(RBF) 커널 SVM에서 C와 감마(γ)가 커질 때 결정경계는 대체로 어떤 방향으로 복잡해지는가?</li>
       </ol>
     </section>
 
     <section id="compare" aria-labelledby="compare-title">
       <p class="eyebrow">핵심 관계</p>
       <h2 id="compare-title">세 모형은 경계를 만드는 방식이 다르다</h2>
+      <article class="concept">
+        <h3>먼저 네 용어를 한 장면에 놓는다</h3>
+        <p>
+          대출 신청자마다 소득과 부채비율이 있고 결과가 승인 또는 거절이라고 하자.
+          <strong>특징(feature)</strong>은 예측에 넣는 소득·부채비율, <strong>클래스(class)</strong>는 예측할 승인·거절 범주다.
+          두 특징을 가로축과 세로축에 놓았을 때 승인 영역과 거절 영역을 가르는 선을
+          <strong>결정경계(decision boundary)</strong>라고 한다. 특징이 셋 이상이면 선 대신 면 또는 더 높은 차원의 경계가 된다.
+        </p>
+        <ol class="concept-map">
+          <li><strong>나무</strong><span>“부채비율 ≤ 40%인가?” 같은 질문으로 영역을 네모나게 나눈다.</span></li>
+          <li><strong>신경망</strong><span>특징의 가중합과 비선형 변환을 겹쳐 굽은 경계를 학습한다.</span></li>
+          <li><strong>SVM</strong><span>두 클래스에서 가장 가까운 표본 사이의 빈 공간이 넓은 경계를 찾는다.</span></li>
+        </ol>
+        <p>
+          모형이 데이터에서 배우는 가중치·분할값은 <strong>파라미터(parameter)</strong>다. 사람이 학습 전에 정하고
+          검증 데이터로 선택하는 나무 깊이·학습률·커널 설정은
+          <a href="03-model-design.html#hyperparameters"><strong>하이퍼파라미터(hyperparameter)</strong></a>다.
+        </p>
+      </article>
       <div class="table-wrap" tabindex="0" aria-label="의사결정나무 신경망 SVM 비교">
         <table>
           <thead><tr><th scope="col">구분</th><th scope="col">의사결정나무</th><th scope="col">신경망</th><th scope="col">SVM</th></tr></thead>
           <tbody>
-            <tr><th scope="row">핵심 아이디어</th><td>조건으로 공간을 재귀 분할</td><td>가중합과 비선형 변환을 층층이 결합</td><td>클래스 사이 마진이 큰 초평면 탐색</td></tr>
+            <tr><th scope="row">핵심 아이디어</th><td>조건으로 공간을 반복 분할</td><td>가중합과 비선형 변환을 층층이 결합</td><td>클래스 사이 여백이 큰 경계 탐색</td></tr>
             <tr><th scope="row">비선형성</th><td>축에 평행한 조각 경계</td><td>활성화와 층 조합</td><td>커널로 비선형 경계</td></tr>
             <tr><th scope="row">스케일 민감도</th><td>상대적으로 낮음</td><td>높음</td><td>높음</td></tr>
             <tr><th scope="row">해석성</th><td>얕으면 높음</td><td>보통 낮음</td><td>선형은 비교적 가능, 커널은 어려움</td></tr>
-            <tr><th scope="row">대표 과대적합 제어</th><td>깊이·잎 크기·가지치기</td><td>규제·조기 종료·구조 제한</td><td>C·gamma·커널 선택</td></tr>
+            <tr><th scope="row">대표 과대적합 제어</th><td>깊이·잎 크기·가지치기</td><td>규제·조기 종료·구조 제한</td><td>C·감마·커널 선택</td></tr>
           </tbody>
         </table>
       </div>
@@ -90,13 +115,14 @@
 
     <section id="tree" aria-labelledby="tree-title">
       <p class="eyebrow">기법 1</p>
-      <h2 id="tree-title">의사결정나무: 더 순수해지는 질문을 고른다</h2>
+      <h2 id="tree-title">의사결정나무(decision tree): 더 순수해지는 질문을 고른다</h2>
       <article class="concept">
         <h3>1. 뿌리에서 잎까지 if–then 규칙을 만든다</h3>
         <p>
-          각 내부 노드는 “소득 ≤ 4천만 원인가?” 같은 변수와 임계값으로 표본을 나눈다. 분할 뒤 자식
-          노드가 클래스별로 더 순수해지는 후보를 고르고, 정지 조건까지 재귀적으로 반복한다. 잎에서는
-          그 잎에 도달한 학습 표본의 다수 클래스나 클래스 비율을 사용해 예측한다.
+          나무의 시작점은 <strong>뿌리노드(root node)</strong>, 중간 질문은 <strong>내부노드(internal node)</strong>,
+          최종 예측 지점은 <strong>잎노드(leaf node)</strong>다. 각 내부노드는 “부채비율 ≤ 40%인가?” 같은
+          특징과 임계값으로 표본을 나눈다. 분할 뒤 자식노드가 클래스별로 더 순수해지는 질문을 고르고,
+          정지 조건까지 같은 과정을 반복한다. 잎에서는 그곳에 도달한 학습 표본의 다수 클래스나 클래스 비율로 예측한다.
         </p>
         <p>
           분류와 회귀에 모두 쓸 수 있다. 분류나무는 불순도, 회귀나무는 보통 제곱오차·절대오차 같은
@@ -105,19 +131,22 @@
       </article>
 
       <article class="concept">
-        <h3>2. 지니와 엔트로피는 섞임의 정도를 잰다</h3>
+        <h3>2. 지니 불순도와 엔트로피는 섞임의 정도를 잰다</h3>
         <div class="equation-grid">
           <div><span>지니 불순도</span><strong>1 − Σp<sub>k</sub><sup>2</sup></strong></div>
           <div><span>엔트로피</span><strong>−Σp<sub>k</sub> log p<sub>k</sub></strong></div>
           <div><span>좋은 분할</span><strong>가중 불순도 최소</strong></div>
         </div>
         <p>
-          이진 노드가 [1, 0]이면 두 값은 모두 0이다. 한 클래스만 있어 불확실성이 없기 때문이다.
+          <strong>지니 불순도(Gini impurity)</strong>와 <strong>엔트로피(entropy)</strong>는 노드 안에서 클래스가
+          얼마나 섞였는지 나타낸다. 식의 p<sub>k</sub>는 그 노드에서 클래스 k가 차지하는 비율이고,
+          Σ는 모든 클래스에 대해 더한다는 뜻이다. 이진 노드가 [1, 0]이면 두 값은 모두 0이다. 한 클래스만 있어 불확실성이 없기 때문이다.
           [0.5, 0.5]이면 지니는 0.5, 밑이 2인 엔트로피는 1로 가장 많이 섞여 있다. 척도의 숫자는
           다르지만 둘 다 순수할수록 작아진다.
         </p>
         <p>
-          분할 전 불순도와 자식 노드의 표본 수 가중 불순도 차이가 클수록 좋은 분할이다. 한쪽 자식만
+          분할 전 불순도에서 자식노드의 표본 수 가중 불순도를 뺀 값을 <strong>불순도 감소(impurity decrease)</strong>라고 한다.
+          이 값이 클수록 좋은 분할이다. 한쪽 자식만
           매우 순수해도 다른 쪽이 크고 많이 섞여 있으면 전체 개선은 작을 수 있으므로 가중치를 본다.
         </p>
       </article>
@@ -131,7 +160,8 @@
           가지를 제거하는 사후 가지치기도 있다.
         </p>
         <p>
-          비용-복잡도 가지치기는 잎의 오차와 잎 수에 대한 벌점을 함께 본다. 복잡도 계수 α가 커지면
+          <strong>가지치기(pruning)</strong>는 예측에 도움이 적은 가지를 잘라 복잡성을 줄이는 방법이다.
+          비용-복잡도 가지치기는 잎의 오차와 잎 수에 대한 벌점을 함께 본다. 복잡도 계수 알파(α)가 커지면
           더 큰 나무에 더 큰 비용이 붙어 단순한 부분나무가 선택되는 방향이다.
         </p>
         <aside class="warning">
@@ -148,25 +178,28 @@
 
     <section id="network" aria-labelledby="network-title">
       <p class="eyebrow">기법 2</p>
-      <h2 id="network-title">인공신경망: 표현을 층으로 학습한다</h2>
+      <h2 id="network-title">인공신경망(artificial neural network): 변환을 층으로 학습한다</h2>
       <article class="concept">
         <h3>1. 가중합 뒤 비선형 활성화를 통과한다</h3>
         <div class="formula-flow" aria-label="입력의 가중합에서 활성화를 거쳐 다음 층으로 가는 흐름">
           <span>z = W x + b</span><span aria-hidden="true">→</span><span>a = g(z)</span>
         </div>
         <p>
-          입력층은 특징을 받고, 은닉층의 뉴런은 이전 층 출력의 가중합과 편향을 계산한 뒤 활성화 함수에
-          통과시킨다. 마지막 출력층은 문제에 맞는 출력을 만든다. 이진 분류에는 시그모이드, 다중 분류에는
-          소프트맥스, 회귀에는 항등함수가 대표적이다.
+          x는 입력값, W는 입력마다 곱하는 <strong>가중치(weight)</strong>, b는 기준점을 옮기는
+          <strong>편향(bias)</strong>이다. z는 가중합, g는 <strong>활성화함수(activation function)</strong>,
+          a는 뉴런의 출력이다. 입력층은 특징을 받고, 은닉층의 뉴런은 이전 층 출력의 가중합을 비선형
+          활성화함수에 통과시킨다. 마지막 출력층은 문제에 맞는 출력을 만든다. 이진 분류에는
+          <a href="03-regression.html#logistic-regression">시그모이드(sigmoid)</a>,
+          다중 분류에는 소프트맥스(softmax), 회귀에는 항등함수(identity function)가 대표적이다.
         </p>
         <div class="table-wrap" tabindex="0" aria-label="대표 활성화 함수 비교">
           <table>
             <thead><tr><th scope="col">함수</th><th scope="col">형태·범위</th><th scope="col">주요 쓰임과 주의</th></tr></thead>
             <tbody>
-              <tr><th scope="row">시그모이드</th><td>1/(1+e<sup>−z</sup>), (0,1)</td><td>이진 출력 확률, 큰 |z|에서 기울기 작음</td></tr>
-              <tr><th scope="row">tanh</th><td>(e<sup>z</sup>−e<sup>−z</sup>)/(e<sup>z</sup>+e<sup>−z</sup>), (−1,1)</td><td>0 중심이지만 포화 가능</td></tr>
-              <tr><th scope="row">ReLU</th><td>max(0,z), [0,∞)</td><td>은닉층에서 단순·효율적, 음수 구간 출력 0</td></tr>
-              <tr><th scope="row">Softmax</th><td>e<sup>zᵢ</sup>/Σe<sup>zⱼ</sup></td><td>상호배타적 다중 클래스 확률 합 1</td></tr>
+              <tr><th scope="row">시그모이드(sigmoid)</th><td>1/(1+e<sup>−z</sup>), (0,1)</td><td>이진 출력 확률, 큰 |z|에서 기울기 작음</td></tr>
+              <tr><th scope="row">쌍곡탄젠트(tanh)</th><td>(e<sup>z</sup>−e<sup>−z</sup>)/(e<sup>z</sup>+e<sup>−z</sup>), (−1,1)</td><td>0 중심이지만 포화 가능</td></tr>
+              <tr><th scope="row">정류 선형 유닛(ReLU)</th><td>max(0,z), [0,∞)</td><td>은닉층에서 단순·효율적, 음수 구간 출력 0</td></tr>
+              <tr><th scope="row">소프트맥스(softmax)</th><td>e<sup>zᵢ</sup>/Σe<sup>zⱼ</sup></td><td>상호배타적 다중 클래스 확률 합 1</td></tr>
             </tbody>
           </table>
         </div>
@@ -179,16 +212,18 @@
       <article class="concept">
         <h3>2. 순전파로 손실을 구하고 역전파로 기울기를 보낸다</h3>
         <ol class="steps">
-          <li><strong>순전파</strong><span>입력에서 출력까지 현재 가중치로 예측한다.</span></li>
-          <li><strong>손실</strong><span>예측과 정답의 차이를 손실함수로 수치화한다.</span></li>
-          <li><strong>역전파</strong><span>연쇄법칙으로 각 가중치가 손실에 미친 기울기를 계산한다.</span></li>
+          <li><strong>순전파(forward propagation)</strong><span>입력에서 출력까지 현재 가중치로 예측한다.</span></li>
+          <li><strong>손실(loss)</strong><span>예측과 정답의 차이를 손실함수로 수치화한다.</span></li>
+          <li><strong>역전파(backpropagation)</strong><span>연쇄법칙으로 각 가중치가 손실에 미친 기울기를 계산한다.</span></li>
           <li><strong>갱신</strong><span>학습률을 곱한 기울기의 반대 방향으로 가중치를 바꾼다.</span></li>
         </ol>
         <p class="formula" aria-label="새 가중치는 이전 가중치에서 학습률 곱하기 손실의 기울기를 뺀 값">
           W<sup>new</sup> = W<sup>old</sup> − η∇<sub>W</sub>Loss
         </p>
         <p>
-          학습률 η가 지나치게 크면 최솟값을 건너뛰며 불안정할 수 있고, 지나치게 작으면 학습이 매우
+          ∇<sub>W</sub>Loss는 가중치가 조금 변할 때 손실이 어느 방향으로 얼마나 변하는지를 나타내는
+          <strong>기울기(gradient)</strong>다. 에타(η)는 한 번에 움직이는 크기를 정하는 <strong>학습률(learning rate)</strong>이다.
+          학습률이 지나치게 크면 최솟값을 건너뛰며 불안정할 수 있고, 지나치게 작으면 학습이 매우
           느릴 수 있다. 은닉층·뉴런 수, 학습률, 배치 크기, 반복 수, 규제 강도는 학습 전에 정하는
           하이퍼파라미터다. 가중치와 편향은 데이터에서 배우는 파라미터다.
         </p>
@@ -197,7 +232,8 @@
       <article class="concept">
         <h3>3. 표현력만큼 튜닝과 재현성 부담이 생긴다</h3>
         <p>
-          다층 퍼셉트론은 비선형 함수를 학습할 수 있지만 손실이 비볼록이어서 초기값에 따라 다른 해에
+          <strong>다층 퍼셉트론(multilayer perceptron, MLP)</strong>은 완전히 연결된 층을 하나 이상 둔 신경망이다.
+          비선형 함수를 학습할 수 있지만 손실이 비볼록이어서 초기값에 따라 다른 해에
           도달할 수 있다. 층·뉴런·반복 수 등 조정 항목이 많고 특성 스케일에도 민감하다. 표준화,
           가중치 규제, 조기 종료, 검증 데이터 관찰로 과대적합과 불안정성을 줄인다.
         </p>
@@ -212,16 +248,18 @@
 
     <section id="svm" aria-labelledby="svm-title">
       <p class="eyebrow">기법 3</p>
-      <h2 id="svm-title">SVM: 가장 가까운 점과의 여백을 넓힌다</h2>
+      <h2 id="svm-title">서포트 벡터 머신(SVM): 가장 가까운 점과의 여백을 넓힌다</h2>
       <article class="concept">
         <h3>1. 결정경계 근처의 점이 경계를 결정한다</h3>
         <p>
-          선형 SVM은 두 클래스를 나누는 초평면 중 가장 가까운 학습점과의 거리, 즉 마진이 큰 경계를
-          찾는다. 마진 경계에 있거나 그 안쪽에 들어온 관측치가 서포트 벡터이며, 결정함수는 이 표본들에
-          크게 의존한다.
+          <strong>서포트 벡터 머신(support vector machine, SVM)</strong>은 두 클래스를 나누는 경계와 가장
+          가까운 학습점 사이의 여백을 크게 만드는 분류기다. 특징이 둘이면 경계는 선, 셋이면 평면이며,
+          이를 일반화해 <strong>초평면(hyperplane)</strong>이라고 한다. 경계와 가장 가까운 점까지의 거리가
+          <strong>마진(margin)</strong>, 경계를 직접 결정하는 가까운 학습점이 <strong>서포트 벡터(support vector)</strong>다.
         </p>
         <p>
-          완벽히 분리되지 않는 데이터에서는 일부 위반을 허용하는 소프트 마진을 사용한다. 목적함수는
+          완벽히 분리되지 않는 데이터에서는 일부 오분류나 마진 위반을 허용하는
+          <strong>소프트 마진(soft margin)</strong>을 사용한다. 목적함수는
           넓은 마진을 선호하는 항과 오분류·마진 위반 벌점을 절충한다. C가 이 벌점의 크기를 조절한다.
         </p>
       </article>
@@ -234,19 +272,21 @@
             <tbody>
               <tr><th scope="row">선형</th><td>〈x, x′〉</td><td>원래 공간의 직선·초평면 경계</td></tr>
               <tr><th scope="row">다항</th><td>(γ〈x,x′〉+r)<sup>d</sup></td><td>특징 간 다항 상호작용</td></tr>
-              <tr><th scope="row">RBF</th><td>exp(−γ||x−x′||<sup>2</sup>)</td><td>가까운 점의 국소 유사도</td></tr>
+              <tr><th scope="row">방사 기저 함수(RBF)</th><td>exp(−γ||x−x′||<sup>2</sup>)</td><td>가까운 점의 국소 유사도</td></tr>
               <tr><th scope="row">시그모이드</th><td>tanh(γ〈x,x′〉+r)</td><td>시그모이드형 유사도</td></tr>
             </tbody>
           </table>
         </div>
         <p>
-          커널 트릭은 고차원 특징을 명시적으로 모두 만들지 않고 두 표본의 내적에 해당하는 값을 계산한다.
-          RBF 커널에서 두 점이 같으면 커널값은 1이고, 거리가 멀어질수록 0에 가까워진다.
+          <strong>커널(kernel)</strong>은 두 표본의 유사도를 계산하는 함수다. <strong>커널 트릭(kernel trick)</strong>은
+          고차원 특징을 명시적으로 모두 만들지 않고 그 공간의 내적에 해당하는 값을 계산한다.
+          방사 기저 함수(radial basis function, RBF) 커널에서 두 점이 같으면 커널값은 1이고,
+          거리가 멀어질수록 0에 가까워진다.
         </p>
       </article>
 
       <article class="concept">
-        <h3>3. C는 위반 벌점, gamma는 한 점의 영향 범위다</h3>
+        <h3>3. C는 위반 벌점, 감마(γ)는 한 점의 영향 범위다</h3>
         <div class="two-columns">
           <div class="panel">
             <h3>C</h3>
@@ -254,13 +294,14 @@
             <p><strong>큼:</strong> 학습 표본을 맞히는 벌점이 커져 복잡한 경계가 될 수 있다.</p>
           </div>
           <div class="panel">
-            <h3>gamma · RBF</h3>
+            <h3>감마(γ) · RBF</h3>
             <p><strong>작음:</strong> 한 표본의 영향이 넓게 퍼진다.</p>
             <p><strong>큼:</strong> 영향이 가까운 주변에 국한돼 경계가 굴곡질 수 있다.</p>
           </div>
         </div>
         <p>
-          C와 gamma가 모두 크면 학습 데이터의 세부 모양을 따라 과대적합할 위험이 커진다. 반대로 모두
+          C는 마진 위반에 매기는 벌점의 강도이고, 감마(γ)는 RBF 식에서 거리가 유사도를 얼마나 빠르게
+          줄이는지 정한다. C와 감마가 모두 크면 학습 데이터의 세부 모양을 따라 과대적합할 위험이 커진다. 반대로 모두
           지나치게 작으면 경계가 너무 단순해 과소적합할 수 있다. SVM은 변수 스케일에 민감하므로 학습
           데이터에서 적합한 스케일러를 같은 파이프라인으로 적용하는 것이 중요하다.
         </p>
@@ -268,7 +309,7 @@
           <h3>SVM의 혼동 지점</h3>
           <ul>
             <li><strong>C가 작을수록 규제가 강한 방향:</strong> 마진 위반을 더 허용하고 단순성을 택한다.</li>
-            <li><strong>gamma가 클수록 영향 반경은 좁다:</strong> 숫자와 반경의 방향이 반대다.</li>
+            <li><strong>감마가 클수록 영향 반경은 좁다:</strong> 숫자와 반경의 방향이 반대다.</li>
             <li><strong>커널은 거리 그 자체가 아니다:</strong> 두 표본 사이 유사도에 해당하는 내적을 계산한다.</li>
             <li><strong>SVM 확률은 기본 산출물이 아니다:</strong> 결정점수와 확률 추정 절차를 구분한다.</li>
           </ul>
@@ -291,7 +332,7 @@
         <details><summary>9. SVM이 최대화하려는 마진은?</summary><p>결정 초평면과 가장 가까운 학습점 사이의 거리다.</p></details>
         <details><summary>10. 서포트 벡터란?</summary><p>마진 경계에 있거나 마진 안쪽에 있어 결정경계에 직접 영향을 주는 학습 표본이다.</p></details>
         <details><summary>11. RBF SVM에서 C를 크게 하면?</summary><p>마진 위반 벌점이 커져 학습 표본을 더 맞히려 하고 경계가 복잡해질 수 있다.</p></details>
-        <details><summary>12. RBF SVM에서 gamma를 크게 하면?</summary><p>각 학습점의 영향 범위가 가까운 주변으로 좁아져 국소적이고 굴곡진 경계가 될 수 있다.</p></details>
+        <details><summary>12. RBF SVM에서 감마(γ)를 크게 하면?</summary><p>각 학습점의 영향 범위가 가까운 주변으로 좁아져 국소적이고 굴곡진 경계가 될 수 있다.</p></details>
       </div>
     </section>
 
@@ -345,13 +386,13 @@
           <details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 거리가 0이므로 exp(0)=1이다. γ 값과 관계없이 동일점의 값은 1이다.</p></details>
         </li>
         <li>
-          <p>RBF SVM에서 다른 조건이 같을 때 gamma를 크게 하면?</p>
+          <p>방사 기저 함수(RBF) 커널 서포트 벡터 머신(SVM)에서 다른 조건이 같을 때 감마(γ)를 크게 하면?</p>
           <ol class="choices" type="A"><li>한 표본의 영향 범위가 넓어진다.</li><li>한 표본의 영향 범위가 좁아진다.</li><li>항상 선형 경계가 된다.</li><li>규제가 완전히 사라진다.</li></ol>
-          <details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 거리 제곱에 큰 gamma가 곱해져 유사도가 빨리 감소한다. A는 반대이며 C·D는 성립하지 않는다.</p></details>
+          <details><summary>정답과 선택지 해설</summary><p><strong>B.</strong> 거리 제곱에 큰 감마(γ)가 곱해져 유사도가 빨리 감소한다. A는 반대이며 C·D는 성립하지 않는다.</p></details>
         </li>
         <li>
           <p>SVM의 C를 작게 했을 때의 일반적인 방향은?</p>
-          <ol class="choices" type="A"><li>마진 위반을 더 허용한다.</li><li>모든 학습점을 반드시 맞힌다.</li><li>gamma가 자동 증가한다.</li><li>서포트 벡터가 항상 0개가 된다.</li></ol>
+          <ol class="choices" type="A"><li>마진 위반을 더 허용한다.</li><li>모든 학습점을 반드시 맞힌다.</li><li>감마(γ)가 자동 증가한다.</li><li>서포트 벡터가 항상 0개가 된다.</li></ol>
           <details><summary>정답과 선택지 해설</summary><p><strong>A.</strong> 위반 벌점이 줄어 단순하고 매끈한 경계를 선호한다. B는 큰 C 방향이고 C·D는 자동 결과가 아니다.</p></details>
         </li>
         <li>
